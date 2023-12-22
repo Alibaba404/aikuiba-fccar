@@ -1,12 +1,12 @@
 package cn.aikuiba;
 
-import cn.aikuiba.pojo.properties.DriverProperties;
-import cn.aikuiba.pojo.properties.MinappProperties;
+import cn.aikuiba.pojo.properties.MiniProgramProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
  *
  * @description
  */
-@EnableConfigurationProperties({MinappProperties.class, DriverProperties.class})  //开启注解读取
+@EnableFeignClients
+@EnableConfigurationProperties({MiniProgramProperties.class})  //开启注解读取,可以在获取配置的Properties中使用@Component替代
 @MapperScan("cn.aikuiba.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication

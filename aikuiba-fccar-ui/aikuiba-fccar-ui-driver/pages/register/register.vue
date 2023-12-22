@@ -93,12 +93,17 @@
 			};
 		},
 		onLoad() {
+			this.initQQMapSDK()
 			this.getLocation();
-			qqMapSDK = new QQMapWX({
-				key: this.Consts.QQMAP_KEY // 腾讯小程序KEY
-			});
+
 		},
 		methods: {
+			// 初始化腾讯地图SDK对象
+			initQQMapSDK() {
+				qqMapSDK = new QQMapWX({
+					key: this.Consts.QQMAP_KEY // 腾讯小程序KEY
+				});
+			},
 			//腾讯地图，地址解析
 			reverseGeocoder(location) {
 				let _this = this;

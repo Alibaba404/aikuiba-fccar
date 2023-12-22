@@ -4,7 +4,7 @@ import cn.aikuiba.constants.ErrorCode;
 import cn.aikuiba.pojo.app.dto.MinappDriverRegisterDTO;
 import cn.aikuiba.pojo.domain.Driver;
 import cn.aikuiba.mapper.DriverMapper;
-import cn.aikuiba.pojo.properties.MinappProperties;
+import cn.aikuiba.pojo.properties.MiniProgramProperties;
 import cn.aikuiba.pojo.result.MinappOpenIdResult;
 import cn.aikuiba.service.IDriverService;
 import cn.aikuiba.service.IDriverSettingService;
@@ -37,7 +37,7 @@ import java.util.Date;
 public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> implements IDriverService {
 
     @Autowired
-    private MinappProperties minappProperties;
+    private MiniProgramProperties minappProperties;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -65,7 +65,8 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
      *      3.2 已注册 --报错
      *  4.保存司机接单配置
      *  5.保存司机钱包配置
-     *  6.保存结算配置
+     *  6.保存司机结算配置
+     *  7.保存司机登录信息
      * </pre>
      *
      * @param minappDriverRegisterDTO 注册对象
@@ -78,6 +79,7 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
 
         // 使用RestTemplate发送请求换取OPENID
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(urlOpenid, String.class);
+        // 判断是否成功获取到OPENID
         AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.MINAPP_RESULT_OPENID_EMPTY);
         // 判断是否获取OPENID成功
         log.info("小程序-司机端 -Result -{}", responseEntity);
@@ -89,6 +91,7 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
             "errmsg":"xxxxx"
         }*/
         MinappOpenIdResult openidResult = JSON.parseObject(responseEntity.getBody(), MinappOpenIdResult.class);
+        // 如果想链式调用就必须在后面泛型加Driver
         LambdaQueryWrapper<Driver> query = new LambdaQueryWrapper<Driver>().eq(Driver::getOpenId, openidResult.getOpenid());
         Driver driverInDb = super.getOne(query);
         //判断是否openid已注册
@@ -100,7 +103,7 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
     /**
      * 保存司机相关数据
      *
-     * @param driverId 司机唯一ID
+     * @param openId 司机唯一ID
      */
     private void addDriverAbout(String openId) {
         //获取唯一ID
