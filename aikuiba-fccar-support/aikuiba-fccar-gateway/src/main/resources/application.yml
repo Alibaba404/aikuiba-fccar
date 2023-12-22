@@ -1,0 +1,103 @@
+#server:
+#  port: 10000
+#spring:
+#  application:
+#    name: aikuiba-fccar-gateway #服务名
+#  cloud:
+#    nacos:
+#      # nacos 注册中心
+#      discovery:
+#        server-addr: 47.109.72.16:8848
+#        namespace: fccar-dev
+#    gateway:
+#      httpclient:
+#        connect-timeout: 10000
+#        response-timeout: 10000 # 超时时间
+#      discovery:
+#        locator:
+#          enabled: false #不用服务注册与发现的功能，自动通过微服务名进行路由，已经手动路由，就不需要自动
+#          lower-case-service-id: true #服务名小写
+#      routes: #路由配置
+#        - id: it-fccar-bigdata #指定服务名
+#          uri: lb://aikuiba-fccar-service-bigdata
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/bigdata/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#        - id: aikuiba-fccar-common #指定服务名
+#          uri: lb://aikuiba-fccar-service-common
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/common/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#        - id: aikuiba-fccar-order #指定服务名
+#          uri: lb://aikuiba-fccar-service-order
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/order/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#        - id: aikuiba-fccar-coustomer #指定服务名
+#          uri: lb://aikuiba-fccar-service-customer
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/customer/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#        - id: aikuiba-fccar-uaa #指定服务名
+#          uri: lb://aikuiba-fccar-service-uaa
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/uaa/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#        - id: aikuiba-fccar-driver #指定服务名
+#          uri: lb://aikuiba-fccar-service-driver
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/driver/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#        - id: aikuiba-fccar-pay #指定服务名
+#          uri: lb://aikuiba-fccar-service-pay
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/pay/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#        - id: aikuiba-fccar-system #指定服务名
+#          uri: lb://aikuiba-fccar-service-system
+#          #去注册中心找这个服务名
+#          predicates: #断言，匹配访问的路径
+#            - Path=/drive/system/**    #服务访问路径
+#          filters:
+#            - StripPrefix=2
+#      globalcors: #跨域配置
+#        cors-configurations:
+#          '[/**]':
+#            allowedOriginPatterns: "*"
+#            allow-credentials: true
+#            allowed-headers: "*"
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - DELETE
+#              - PUT
+#              - PATCH
+#              - OPTIONS
+#              - HEAD
+#              - CONNECT
+#              - TRACE
+#knife4j:
+#  gateway:
+#    # ① 第一个配置，开启gateway聚合组件
+#    enabled: true
+#    # ② 第二行配置，设置聚合模式采用discover服务发现的模式
+#    strategy: discover
+#    discover:
+#      # ③ 第三行配置，开启discover模式
+#      enabled: true
+#      # ④ 第四行配置，聚合子服务全部为Swagger2规范的文档
+#      version: OpenAPI3

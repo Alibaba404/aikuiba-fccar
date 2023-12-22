@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      config:
+        server-addr: @nacos.server.address@
+        namespace: @nacos.namespace@
+        name: @artifactId@
+        file-extension: yaml
+        shared-configs:
+          - data-id: aikuiba-fccar-common.yaml
