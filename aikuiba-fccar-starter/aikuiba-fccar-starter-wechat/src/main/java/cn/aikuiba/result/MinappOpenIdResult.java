@@ -1,4 +1,4 @@
-package cn.aikuiba.pojo.result;
+package cn.aikuiba.result;
 
 import lombok.Data;
 

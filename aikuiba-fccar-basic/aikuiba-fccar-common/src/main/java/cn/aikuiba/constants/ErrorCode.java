@@ -16,8 +16,8 @@ public enum ErrorCode {
     PARAM_STRING_EMPTY(1003, "字符串为空"),
     /*系统相关:2000~2999*/
     /*小程序相关:3000~3999*/
-    MINAPP_RESULT_OPENID_EMPTY(3000, "OPENID获取失败")
-    /*用户相关*/;
+    MINIPROGRAM_RESULT_OPENID_EMPTY(3000, "OPENID获取失败"),
+    DRIVER_LOGIN_ERROR(3001, "司机登录信息保存失败");
     //错误码
     private int code;
     //错误信息

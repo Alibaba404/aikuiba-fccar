@@ -12,9 +12,9 @@ public class Constants {
 
     //司机服务
     public class Driver {
-
-        public static final int TYPE_DRIVER = 0;
-        public static final int TYPE_CUSTOMER = 1;
+        public static final int TYPE_DRIVER = 0;    //司机
+        public static final int TYPE_CUSTOMER = 1; // 乘客
+        public static final int TYPE_ADMIN = 2;     //平台管理
     }
 
     //远程调用

@@ -1,6 +1,6 @@
 package cn.aikuiba.service;
 
-import cn.aikuiba.pojo.app.dto.MinappDriverRegisterDTO;
+import cn.aikuiba.pojo.app.dto.MiniProgramDriverRegisterDTO;
 import cn.aikuiba.pojo.domain.Driver;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,5 +19,5 @@ public interface IDriverService extends IService<Driver> {
      *
      * @param minappDriverRegisterDTO 注册对象
      */
-    void register(MinappDriverRegisterDTO minappDriverRegisterDTO);
+    void register(MiniProgramDriverRegisterDTO minappDriverRegisterDTO);
 }

@@ -71,3 +71,6 @@
 #    enable: true
 #    username: fccar
 #    password: fccar
+#feign:
+#  sentinel:
+#    enabled: true #开启服务降级

@@ -1,5 +1,9 @@
 package cn.aikuiba.feign;
 
+import cn.aikuiba.constants.ErrorCode;
+import cn.aikuiba.pojo.app.dto.MiniProgramLoginDTO;
+import cn.aikuiba.result.JSONResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +12,7 @@ import org.springframework.stereotype.Component;
  *
  * @description
  */
+@Slf4j
 @Component
 public class UaaFallback implements FallbackFactory<UaaFeignClientAPI> {
     /**
@@ -18,6 +23,13 @@ public class UaaFallback implements FallbackFactory<UaaFeignClientAPI> {
      */
     @Override
     public UaaFeignClientAPI create(Throwable cause) {
-        return null;
+        return new UaaFeignClientAPI() {
+            @Override
+            public JSONResult create(MiniProgramLoginDTO dto) {
+                cause.printStackTrace();
+                log.info("哦豁,触发降级了! - DTO {}", dto);
+                return JSONResult.error(ErrorCode.SERVICE_REQUEST_ERROR);
+            }
+        };
     }
 }

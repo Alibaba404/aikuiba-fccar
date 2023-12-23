@@ -1,4 +1,4 @@
-package cn.aikuiba.pojo.properties;
+package cn.aikuiba.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

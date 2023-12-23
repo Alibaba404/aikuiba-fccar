@@ -1,26 +1,26 @@
 package cn.aikuiba.service.impl;
 
+import cn.aikuiba.constants.Constants;
 import cn.aikuiba.constants.ErrorCode;
-import cn.aikuiba.pojo.app.dto.MinappDriverRegisterDTO;
-import cn.aikuiba.pojo.domain.Driver;
+import cn.aikuiba.feign.UaaFeignClientAPI;
 import cn.aikuiba.mapper.DriverMapper;
-import cn.aikuiba.pojo.properties.MiniProgramProperties;
-import cn.aikuiba.pojo.result.MinappOpenIdResult;
+import cn.aikuiba.pojo.app.dto.MiniProgramDriverRegisterDTO;
+import cn.aikuiba.pojo.app.dto.MiniProgramLoginDTO;
+import cn.aikuiba.pojo.domain.Driver;
+import cn.aikuiba.result.JSONResult;
+import cn.aikuiba.result.MinappOpenIdResult;
 import cn.aikuiba.service.IDriverService;
 import cn.aikuiba.service.IDriverSettingService;
 import cn.aikuiba.service.IDriverSummaryService;
 import cn.aikuiba.service.IDriverWalletService;
+import cn.aikuiba.template.WeChatTemplate;
 import cn.aikuiba.utils.AssertUtil;
 import cn.hutool.core.util.IdUtil;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 
@@ -35,21 +35,17 @@ import java.util.Date;
 @Slf4j
 @Service
 public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> implements IDriverService {
-
-    @Autowired
-    private MiniProgramProperties minappProperties;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
     @Autowired
     private IDriverSettingService driverSettingService;
-
     @Autowired
     private IDriverWalletService driverWalletService;
-
     @Autowired
     private IDriverSummaryService driverSummaryService;
+    @Autowired
+    private UaaFeignClientAPI uaaFeignClientAPI;
+
+    @Autowired
+    private WeChatTemplate weChatTemplate;
 
 
     /**
@@ -69,35 +65,45 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
      *  7.保存司机登录信息
      * </pre>
      *
-     * @param minappDriverRegisterDTO 注册对象
+     * @param dto 注册对象
      */
     @Override
-    public void register(MinappDriverRegisterDTO minappDriverRegisterDTO) {
-        String urlOpenid = minappProperties.getUrlOpenid();
-        // https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code
-        urlOpenid = String.format(urlOpenid, minappProperties.getAppId(), minappProperties.getAppSecret(), minappDriverRegisterDTO.getCode());
-
-        // 使用RestTemplate发送请求换取OPENID
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(urlOpenid, String.class);
-        // 判断是否成功获取到OPENID
-        AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.MINAPP_RESULT_OPENID_EMPTY);
-        // 判断是否获取OPENID成功
-        log.info("小程序-司机端 -Result -{}", responseEntity);
-        /*{
-            "openid":"xxxxxx",
-            "session_key":"xxxxx",
-            "unionid":"xxxxx",
-            "errcode":0,
-            "errmsg":"xxxxx"
-        }*/
-        MinappOpenIdResult openidResult = JSON.parseObject(responseEntity.getBody(), MinappOpenIdResult.class);
+    public void register(MiniProgramDriverRegisterDTO dto) {
+//        String urlOpenid = miniProgramProperties.getUrlOpenid();
+//        // https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code
+//        urlOpenid = String.format(urlOpenid, miniProgramProperties.getAppId(), miniProgramProperties.getAppSecret(), dto.getCode());
+//
+//        // 使用RestTemplate发送请求换取OPENID
+//        ResponseEntity<String> responseEntity = restTemplate.getForEntity(urlOpenid, String.class);
+//        // 判断是否成功获取到OPENID
+//        AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.MINIPROGRAM_RESULT_OPENID_EMPTY);
+//        // 判断是否获取OPENID成功
+//        log.info("小程序-司机端 -Result -{}", responseEntity);
+//        /*{
+//            "openid":"xxxxxx",
+//            "session_key":"xxxxx",
+//            "unionid":"xxxxx",
+//            "errcode":0,
+//            "errmsg":"xxxxx"
+//        }*/
+//        MinappOpenIdResult openidResult = JSON.parseObject(responseEntity.getBody(), MinappOpenIdResult.class);
+        // 使用自封装的微信工具
+        MinappOpenIdResult openidResult = weChatTemplate.getOpenid(dto.getCode());
         // 如果想链式调用就必须在后面泛型加Driver
         LambdaQueryWrapper<Driver> query = new LambdaQueryWrapper<Driver>().eq(Driver::getOpenId, openidResult.getOpenid());
         Driver driverInDb = super.getOne(query);
         //判断是否openid已注册
         AssertUtil.isNull(driverInDb, ErrorCode.PARAM_PHONE_EXIST);
         // 保存司机及司机相关数据
-        addDriverAbout(openidResult.getOpenid());
+        Long driverId = addDriverAbout(openidResult.getOpenid());
+
+        //7.保存司机登录信息
+        MiniProgramLoginDTO loginDTO = new MiniProgramLoginDTO();
+        loginDTO.setId(driverId);
+        loginDTO.setOpenId(openidResult.getOpenid());
+        loginDTO.setType(Constants.Driver.TYPE_DRIVER);
+        JSONResult loginResult = uaaFeignClientAPI.create(loginDTO);
+        AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.DRIVER_LOGIN_ERROR);
     }
 
     /**
@@ -105,7 +111,7 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
      *
      * @param openId 司机唯一ID
      */
-    private void addDriverAbout(String openId) {
+    private Long addDriverAbout(String openId) {
         //获取唯一ID
         long driverId = IdUtil.createSnowflake(1, 1).nextId();
         Driver driver = new Driver();
@@ -120,5 +126,6 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         driverWalletService.addWallet(driverId);
         // 6.保存结算配置
         driverSummaryService.addSummary(driverId);
+        return driverId;
     }
 }

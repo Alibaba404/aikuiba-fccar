@@ -1,6 +1,7 @@
 package cn.aikuiba.service;
 
 import cn.aikuiba.pojo.domain.Login;
+import cn.aikuiba.pojo.app.dto.MiniProgramLoginDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ILoginService extends IService<Login> {
 
+    Boolean create(MiniProgramLoginDTO dto);
 }

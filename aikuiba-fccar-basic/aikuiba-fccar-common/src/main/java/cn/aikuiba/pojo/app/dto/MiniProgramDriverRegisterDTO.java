@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MinappDriverRegisterDTO {
+public class MiniProgramDriverRegisterDTO {
     @NotBlank(message = "授权码不能为空")
     private String code;
 }

@@ -1,6 +1,6 @@
 package cn.aikuiba.controller.app;
 
-import cn.aikuiba.pojo.app.dto.MinappDriverRegisterDTO;
+import cn.aikuiba.pojo.app.dto.MiniProgramDriverRegisterDTO;
 import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.service.IDriverService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ public class MiniappDriverController {
     @Operation(summary = "司机注册", description = "基础对象保存接口")
     @Parameter(name = "minappDriverRegisterDTO", description = "司机注册请求对象", required = true)
     @PostMapping("/register")
-    public JSONResult<Boolean> register(@RequestBody @Valid MinappDriverRegisterDTO minappDriverRegisterDTO) {
+    public JSONResult<Boolean> register(@RequestBody @Valid MiniProgramDriverRegisterDTO minappDriverRegisterDTO) {
         log.info("CODE:" + minappDriverRegisterDTO.getCode());
         driverService.register(minappDriverRegisterDTO);
         return JSONResult.success();
