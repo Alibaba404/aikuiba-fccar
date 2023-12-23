@@ -17,7 +17,8 @@ public enum ErrorCode {
     /*系统相关:2000~2999*/
     /*小程序相关:3000~3999*/
     MINIPROGRAM_RESULT_OPENID_EMPTY(3000, "OPENID获取失败"),
-    DRIVER_LOGIN_ERROR(3001, "司机登录信息保存失败");
+    DRIVER_LOGIN_ERROR(3001, "司机登录信息保存失败"),
+    LOGIN_SAVE_ERROR(3002, "登录信息保存失败");
     //错误码
     private int code;
     //错误信息

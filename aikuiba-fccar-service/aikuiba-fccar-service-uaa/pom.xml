@@ -23,6 +23,13 @@
             <artifactId>aikuiba-fccar-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!--引入api-uaa模块-->
+        <dependency>
+            <groupId>cn.aikuiba</groupId>
+            <artifactId>aikuiba-fccar-api-uaa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

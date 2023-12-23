@@ -12,7 +12,7 @@
 #    username: root
 #    password: blt2021!@
 #    url: jdbc:mysql://47.109.72.16:3306/aikuiba-fccar-uaa?serverTimezone=Asia/Shanghai&characterEncoding=utf8
-#    driver-class-name: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Login
 #    type: com.alibaba.druid.pool.DruidDataSource # 配置阿里的连接池
 #    druid: # Druid 【监控】相关的全局配置
 #      # 配置初始化大小、最小、最大

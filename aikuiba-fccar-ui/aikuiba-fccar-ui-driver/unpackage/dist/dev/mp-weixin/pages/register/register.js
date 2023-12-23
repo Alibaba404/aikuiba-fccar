@@ -313,12 +313,22 @@ var _default = {
       wx.login({
         success: function success(res) {
           if (res.code) {
-            console.log('code', res.code);
             var param = {
               code: res.code
             };
             _this.post(_this.Consts.API.DRIVER_REGISTER, param, function (res) {
               console.log('===>', res);
+              var _res$data = res.data,
+                data = _res$data.data,
+                message = _res$data.message,
+                code = _res$data.code,
+                success = _res$data.success;
+              if (success) {
+                uni.showToast({
+                  icon: "success",
+                  title: "注册成功"
+                });
+              }
             });
           }
         }

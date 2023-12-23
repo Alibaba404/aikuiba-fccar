@@ -1,11 +1,11 @@
 package cn.aikuiba.service.impl;
 
+import cn.aikuiba.api.remote.api.LoginFeignAPI;
+import cn.aikuiba.api.remote.pojo.dto.LoginDto;
 import cn.aikuiba.constants.Constants;
 import cn.aikuiba.constants.ErrorCode;
-import cn.aikuiba.feign.UaaFeignClientAPI;
 import cn.aikuiba.mapper.DriverMapper;
 import cn.aikuiba.pojo.app.dto.MiniProgramDriverRegisterDTO;
-import cn.aikuiba.pojo.app.dto.MiniProgramLoginDTO;
 import cn.aikuiba.pojo.domain.Driver;
 import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.result.MinappOpenIdResult;
@@ -41,11 +41,12 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
     private IDriverWalletService driverWalletService;
     @Autowired
     private IDriverSummaryService driverSummaryService;
-    @Autowired
-    private UaaFeignClientAPI uaaFeignClientAPI;
 
     @Autowired
     private WeChatTemplate weChatTemplate;
+
+    @Autowired
+    private LoginFeignAPI loginFeignAPI;
 
 
     /**
@@ -98,11 +99,11 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         Long driverId = addDriverAbout(openidResult.getOpenid());
 
         //7.保存司机登录信息
-        MiniProgramLoginDTO loginDTO = new MiniProgramLoginDTO();
-        loginDTO.setId(driverId);
-        loginDTO.setOpenId(openidResult.getOpenid());
-        loginDTO.setType(Constants.Driver.TYPE_DRIVER);
-        JSONResult loginResult = uaaFeignClientAPI.create(loginDTO);
+        LoginDto loginDto = new LoginDto();
+        loginDto.setId(driverId);
+        loginDto.setType(Constants.Login.TYPE_DRIVER);
+        loginDto.setOpenId(openidResult.getOpenid());
+        JSONResult loginResult = loginFeignAPI.create(loginDto);
         AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.DRIVER_LOGIN_ERROR);
     }
 

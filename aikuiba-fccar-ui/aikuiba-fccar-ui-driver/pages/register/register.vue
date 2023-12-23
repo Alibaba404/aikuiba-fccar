@@ -149,12 +149,23 @@
 				wx.login({
 					success: (res) => {
 						if (res.code) {
-							console.log('code', res.code);
 							let param = {
 								code: res.code
 							}
 							_this.post(_this.Consts.API.DRIVER_REGISTER, param, (res) => {
 								console.log('===>', res);
+								let {
+									data,
+									message,
+									code,
+									success
+								} = res.data;
+								if (success) {
+									uni.showToast({
+										icon: "success",
+										title: "注册成功"
+									})
+								}
 							})
 						}
 					}
