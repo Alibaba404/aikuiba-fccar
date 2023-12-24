@@ -66,17 +66,15 @@
 				</view>
 			</view>
 		</view>
-		<!-- <button class="btn" @tap="wxLogin" >司机注册</button> -->
-		<button class="btn" open-type="getPhoneNumber" @getphonenumber="getPhone">微信注册</button>
+		<button class="btn" @tap="wxRegister">乘客注册</button>
+		<!-- <button class="btn" open-type="getPhoneNumber" @getphonenumber="getPhone">微信注册</button> -->
 		<u-toast ref="uToast" />
 	</view>
 </template>
 
 <script>
 	var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
-	var qqmapsdk = new QQMapWX({
-		key: 'SLPBZ-A2BAU-VUIVA-GLJCL-7ERSE-ZGB4C' // 必填
-	});
+	var qqMapSDK
 	export default {
 		data() {
 			return {
@@ -84,14 +82,21 @@
 				cityName: "-未知-"
 			};
 		},
-		created() {
-			this.getCityName();
+		onLoad() {
+			this.initQQMapSDK()
+			this.getLocation();
 		},
 		methods: {
+			// 初始化腾讯地图SDK对象
+			initQQMapSDK() {
+				qqMapSDK = new QQMapWX({
+					key: this.Consts.QQMAP_KEY // 腾讯小程序KEY
+				});
+			},
 			//腾讯地图，地址解析
 			reverseGeocoder(location) {
 				let _this = this;
-				qqmapsdk.reverseGeocoder({
+				qqMapSDK.reverseGeocoder({
 					location: location,
 					success: function(res) {
 						let city = res.result.address_component.city;
@@ -99,28 +104,61 @@
 					}
 				});
 			},
-			getCityName() {
-				var _this = this;
+			//获取坐标位子
+			getLocation() {
+				let _this = this;
 				uni.getLocation({
 					type: 'wgs84',
 					success: function(res) {
 						console.log('当前位置的经度：' + res.longitude);
 						console.log('当前位置的纬度：' + res.latitude);
 						let location = {
-							longitude: res.longitude,
-							latitude: res.latitude
+							latitude: res.latitude,
+							longitude: res.longitude
 						}
-						//转换地理位置
-						_this.reverseGeocoder(location)
+						_this.reverseGeocoder(location);
+					},
+					fail: function(error) {
+						uni.showToast({
+							icon: "error",
+							title: "定位失败"
+						})
 					}
 				});
+
 			},
+			//获取手机号
 			getPhone(res) {
-				let _this = this;
+				console.log('===>', res);
 			},
-			//使用微信注册
-			wxRegister(phone) {
+			//司机注册
+			wxRegister() {
 				let _this = this;
+				// 获取WX code
+				wx.login({
+					success: (res) => {
+						if (res.code) {
+							let param = {
+								code: res.code
+							}
+							_this.post(_this.Consts.API.CUSTOMER_REGISTER, param, (res) => {
+								console.log('===>', res);
+								let {
+									data,
+									message,
+									code,
+									success
+								} = res.data;
+								if (success) {
+									uni.showToast({
+										icon: "success",
+										title: "注册成功"
+									})
+								}
+							})
+						}
+					}
+				})
 			},
 		}
 	};

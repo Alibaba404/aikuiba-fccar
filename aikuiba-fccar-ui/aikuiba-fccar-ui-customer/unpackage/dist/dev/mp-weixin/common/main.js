@@ -29,7 +29,11 @@ var app = new _vue.default(_objectSpread({}, _App.default));
 _vue.default.use(_uviewUi.default);
 createApp(app).$mount();
 _vue.default.prototype.Consts = {
-  QQMAP_KEY: "DVFBZ-5TK37-MBOXB-HFUXD-UTYC3-DMBED" //腾讯地图的秘钥
+  QQMAP_KEY: "SLPBZ-A2BAU-VUIVA-GLJCL-7ERSE-ZGB4C",
+  //腾讯地图的秘钥
+  API: {
+    CUSTOMER_REGISTER: "/customer/app/customer/register" //乘客注册接口
+  }
 };
 
 var baseUrl = "http://127.0.0.1:10010/drive";

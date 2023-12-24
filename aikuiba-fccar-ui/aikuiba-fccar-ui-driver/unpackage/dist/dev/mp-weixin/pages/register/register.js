@@ -255,7 +255,7 @@ var _default = {
   data: function data() {
     return {
       code: null,
-      cityName: "未知"
+      cityName: "-未知-"
     };
   },
   onLoad: function onLoad() {

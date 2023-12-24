@@ -19,7 +19,7 @@ public class Generator {
 
     public static void main(String[] args) {
         //读取配置文件
-        ResourceBundle rb = ResourceBundle.getBundle("config-driver");
+        ResourceBundle rb = ResourceBundle.getBundle("config-customer");
         //业务代码输出路径
         String outputDir = rb.getString("OutputDir");
         //sql映射文件输出路径
@@ -68,12 +68,12 @@ public class Generator {
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
 
         strategy.setInclude(new String[]{
-                "t_login",
-                "t_login_role",
-                "t_menu",
-                "t_permission",
-                "t_role",
-                "t_role_permission"
+                "t_customer",
+                "t_customer_car",
+                "t_customer_fine",
+                "t_customer_summary",
+                "t_customer_wallet",
+                "t_customer_wallet_flow"
         }); // 需要生成的表
 
         //使用lombok

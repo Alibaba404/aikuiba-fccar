@@ -14479,7 +14479,7 @@ module.exports = _construct, module.exports.__esModule = true, module.exports["d
     }(), o;
   }();
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/module.js */ 85)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/module.js */ 86)(module)))
 
 /***/ }),
 
@@ -14498,6 +14498,333 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 module.exports = _setPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 167:
+/*!******************************************************************************************************************************************!*\
+  !*** /Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-customer/node_modules/dayjs/dayjs.min.js ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
+!function (t, e) {
+  "object" == ( false ? undefined : _typeof(exports)) && "undefined" != typeof module ? module.exports = e() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (e),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
+}(this, function () {
+  "use strict";
+
+  var t = 1e3,
+    e = 6e4,
+    n = 36e5,
+    r = "millisecond",
+    i = "second",
+    s = "minute",
+    u = "hour",
+    a = "day",
+    o = "week",
+    f = "month",
+    h = "quarter",
+    c = "year",
+    d = "date",
+    l = "Invalid Date",
+    $ = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,
+    y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,
+    M = {
+      name: "en",
+      weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
+      months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
+      ordinal: function ordinal(t) {
+        var e = ["th", "st", "nd", "rd"],
+          n = t % 100;
+        return "[" + t + (e[(n - 20) % 10] || e[n] || e[0]) + "]";
+      }
+    },
+    m = function m(t, e, n) {
+      var r = String(t);
+      return !r || r.length >= e ? t : "" + Array(e + 1 - r.length).join(n) + t;
+    },
+    v = {
+      s: m,
+      z: function z(t) {
+        var e = -t.utcOffset(),
+          n = Math.abs(e),
+          r = Math.floor(n / 60),
+          i = n % 60;
+        return (e <= 0 ? "+" : "-") + m(r, 2, "0") + ":" + m(i, 2, "0");
+      },
+      m: function t(e, n) {
+        if (e.date() < n.date()) return -t(n, e);
+        var r = 12 * (n.year() - e.year()) + (n.month() - e.month()),
+          i = e.clone().add(r, f),
+          s = n - i < 0,
+          u = e.clone().add(r + (s ? -1 : 1), f);
+        return +(-(r + (n - i) / (s ? i - u : u - i)) || 0);
+      },
+      a: function a(t) {
+        return t < 0 ? Math.ceil(t) || 0 : Math.floor(t);
+      },
+      p: function p(t) {
+        return {
+          M: f,
+          y: c,
+          w: o,
+          d: a,
+          D: d,
+          h: u,
+          m: s,
+          s: i,
+          ms: r,
+          Q: h
+        }[t] || String(t || "").toLowerCase().replace(/s$/, "");
+      },
+      u: function u(t) {
+        return void 0 === t;
+      }
+    },
+    g = "en",
+    D = {};
+  D[g] = M;
+  var p = function p(t) {
+      return t instanceof _;
+    },
+    S = function t(e, n, r) {
+      var i;
+      if (!e) return g;
+      if ("string" == typeof e) {
+        var s = e.toLowerCase();
+        D[s] && (i = s), n && (D[s] = n, i = s);
+        var u = e.split("-");
+        if (!i && u.length > 1) return t(u[0]);
+      } else {
+        var a = e.name;
+        D[a] = e, i = a;
+      }
+      return !r && i && (g = i), i || !r && g;
+    },
+    w = function w(t, e) {
+      if (p(t)) return t.clone();
+      var n = "object" == _typeof(e) ? e : {};
+      return n.date = t, n.args = arguments, new _(n);
+    },
+    O = v;
+  O.l = S, O.i = p, O.w = function (t, e) {
+    return w(t, {
+      locale: e.$L,
+      utc: e.$u,
+      x: e.$x,
+      $offset: e.$offset
+    });
+  };
+  var _ = function () {
+      function M(t) {
+        this.$L = S(t.locale, null, !0), this.parse(t);
+      }
+      var m = M.prototype;
+      return m.parse = function (t) {
+        this.$d = function (t) {
+          var e = t.date,
+            n = t.utc;
+          if (null === e) return new Date(NaN);
+          if (O.u(e)) return new Date();
+          if (e instanceof Date) return new Date(e);
+          if ("string" == typeof e && !/Z$/i.test(e)) {
+            var r = e.match($);
+            if (r) {
+              var i = r[2] - 1 || 0,
+                s = (r[7] || "0").substring(0, 3);
+              return n ? new Date(Date.UTC(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s)) : new Date(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s);
+            }
+          }
+          return new Date(e);
+        }(t), this.$x = t.x || {}, this.init();
+      }, m.init = function () {
+        var t = this.$d;
+        this.$y = t.getFullYear(), this.$M = t.getMonth(), this.$D = t.getDate(), this.$W = t.getDay(), this.$H = t.getHours(), this.$m = t.getMinutes(), this.$s = t.getSeconds(), this.$ms = t.getMilliseconds();
+      }, m.$utils = function () {
+        return O;
+      }, m.isValid = function () {
+        return !(this.$d.toString() === l);
+      }, m.isSame = function (t, e) {
+        var n = w(t);
+        return this.startOf(e) <= n && n <= this.endOf(e);
+      }, m.isAfter = function (t, e) {
+        return w(t) < this.startOf(e);
+      }, m.isBefore = function (t, e) {
+        return this.endOf(e) < w(t);
+      }, m.$g = function (t, e, n) {
+        return O.u(t) ? this[e] : this.set(n, t);
+      }, m.unix = function () {
+        return Math.floor(this.valueOf() / 1e3);
+      }, m.valueOf = function () {
+        return this.$d.getTime();
+      }, m.startOf = function (t, e) {
+        var n = this,
+          r = !!O.u(e) || e,
+          h = O.p(t),
+          l = function l(t, e) {
+            var i = O.w(n.$u ? Date.UTC(n.$y, e, t) : new Date(n.$y, e, t), n);
+            return r ? i : i.endOf(a);
+          },
+          $ = function $(t, e) {
+            return O.w(n.toDate()[t].apply(n.toDate("s"), (r ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)), n);
+          },
+          y = this.$W,
+          M = this.$M,
+          m = this.$D,
+          v = "set" + (this.$u ? "UTC" : "");
+        switch (h) {
+          case c:
+            return r ? l(1, 0) : l(31, 11);
+          case f:
+            return r ? l(1, M) : l(0, M + 1);
+          case o:
+            var g = this.$locale().weekStart || 0,
+              D = (y < g ? y + 7 : y) - g;
+            return l(r ? m - D : m + (6 - D), M);
+          case a:
+          case d:
+            return $(v + "Hours", 0);
+          case u:
+            return $(v + "Minutes", 1);
+          case s:
+            return $(v + "Seconds", 2);
+          case i:
+            return $(v + "Milliseconds", 3);
+          default:
+            return this.clone();
+        }
+      }, m.endOf = function (t) {
+        return this.startOf(t, !1);
+      }, m.$set = function (t, e) {
+        var n,
+          o = O.p(t),
+          h = "set" + (this.$u ? "UTC" : ""),
+          l = (n = {}, n[a] = h + "Date", n[d] = h + "Date", n[f] = h + "Month", n[c] = h + "FullYear", n[u] = h + "Hours", n[s] = h + "Minutes", n[i] = h + "Seconds", n[r] = h + "Milliseconds", n)[o],
+          $ = o === a ? this.$D + (e - this.$W) : e;
+        if (o === f || o === c) {
+          var y = this.clone().set(d, 1);
+          y.$d[l]($), y.init(), this.$d = y.set(d, Math.min(this.$D, y.daysInMonth())).$d;
+        } else l && this.$d[l]($);
+        return this.init(), this;
+      }, m.set = function (t, e) {
+        return this.clone().$set(t, e);
+      }, m.get = function (t) {
+        return this[O.p(t)]();
+      }, m.add = function (r, h) {
+        var d,
+          l = this;
+        r = Number(r);
+        var $ = O.p(h),
+          y = function y(t) {
+            var e = w(l);
+            return O.w(e.date(e.date() + Math.round(t * r)), l);
+          };
+        if ($ === f) return this.set(f, this.$M + r);
+        if ($ === c) return this.set(c, this.$y + r);
+        if ($ === a) return y(1);
+        if ($ === o) return y(7);
+        var M = (d = {}, d[s] = e, d[u] = n, d[i] = t, d)[$] || 1,
+          m = this.$d.getTime() + r * M;
+        return O.w(m, this);
+      }, m.subtract = function (t, e) {
+        return this.add(-1 * t, e);
+      }, m.format = function (t) {
+        var e = this,
+          n = this.$locale();
+        if (!this.isValid()) return n.invalidDate || l;
+        var r = t || "YYYY-MM-DDTHH:mm:ssZ",
+          i = O.z(this),
+          s = this.$H,
+          u = this.$m,
+          a = this.$M,
+          o = n.weekdays,
+          f = n.months,
+          h = function h(t, n, i, s) {
+            return t && (t[n] || t(e, r)) || i[n].slice(0, s);
+          },
+          c = function c(t) {
+            return O.s(s % 12 || 12, t, "0");
+          },
+          d = n.meridiem || function (t, e, n) {
+            var r = t < 12 ? "AM" : "PM";
+            return n ? r.toLowerCase() : r;
+          },
+          $ = {
+            YY: String(this.$y).slice(-2),
+            YYYY: this.$y,
+            M: a + 1,
+            MM: O.s(a + 1, 2, "0"),
+            MMM: h(n.monthsShort, a, f, 3),
+            MMMM: h(f, a),
+            D: this.$D,
+            DD: O.s(this.$D, 2, "0"),
+            d: String(this.$W),
+            dd: h(n.weekdaysMin, this.$W, o, 2),
+            ddd: h(n.weekdaysShort, this.$W, o, 3),
+            dddd: o[this.$W],
+            H: String(s),
+            HH: O.s(s, 2, "0"),
+            h: c(1),
+            hh: c(2),
+            a: d(s, u, !0),
+            A: d(s, u, !1),
+            m: String(u),
+            mm: O.s(u, 2, "0"),
+            s: String(this.$s),
+            ss: O.s(this.$s, 2, "0"),
+            SSS: O.s(this.$ms, 3, "0"),
+            Z: i
+          };
+        return r.replace(y, function (t, e) {
+          return e || $[t] || i.replace(":", "");
+        });
+      }, m.utcOffset = function () {
+        return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
+      }, m.diff = function (r, d, l) {
+        var $,
+          y = O.p(d),
+          M = w(r),
+          m = (M.utcOffset() - this.utcOffset()) * e,
+          v = this - M,
+          g = O.m(this, M);
+        return g = ($ = {}, $[c] = g / 12, $[f] = g, $[h] = g / 3, $[o] = (v - m) / 6048e5, $[a] = (v - m) / 864e5, $[u] = v / n, $[s] = v / e, $[i] = v / t, $)[y] || v, l ? g : O.a(g);
+      }, m.daysInMonth = function () {
+        return this.endOf(f).$D;
+      }, m.$locale = function () {
+        return D[this.$L];
+      }, m.locale = function (t, e) {
+        if (!t) return this.$L;
+        var n = this.clone(),
+          r = S(t, e, !0);
+        return r && (n.$L = r), n;
+      }, m.clone = function () {
+        return O.w(this.$d, this);
+      }, m.toDate = function () {
+        return new Date(this.valueOf());
+      }, m.toJSON = function () {
+        return this.isValid() ? this.toISOString() : null;
+      }, m.toISOString = function () {
+        return this.$d.toISOString();
+      }, m.toString = function () {
+        return this.$d.toUTCString();
+      }, M;
+    }(),
+    T = _.prototype;
+  return w.prototype = T, [["$ms", r], ["$s", i], ["$m", s], ["$H", u], ["$W", a], ["$M", f], ["$y", c], ["$D", d]].forEach(function (t) {
+    T[t[1]] = function (e) {
+      return this.$g(e, t[0], t[1]);
+    };
+  }), w.extend = function (t, e) {
+    return t.$i || (t(e, _, w), t.$i = !0), w;
+  }, w.locale = S, w.isDayjs = p, w.unix = function (t) {
+    return w(1e3 * t);
+  }, w.en = D[g], w.Ls = D, w.p = {}, w;
+});
 
 /***/ }),
 
@@ -23667,7 +23994,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 290:
+/***/ 291:
 /*!****************************************************************************************************************************************!*\
   !*** /Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-customer/uview-ui/libs/util/emitter.js ***!
   \****************************************************************************************************************************************/
@@ -24031,333 +24358,6 @@ var _default = {
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 333:
-/*!******************************************************************************************************************************************!*\
-  !*** /Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-customer/node_modules/dayjs/dayjs.min.js ***!
-  \******************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
-!function (t, e) {
-  "object" == ( false ? undefined : _typeof(exports)) && "undefined" != typeof module ? module.exports = e() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (e),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
-}(this, function () {
-  "use strict";
-
-  var t = 1e3,
-    e = 6e4,
-    n = 36e5,
-    r = "millisecond",
-    i = "second",
-    s = "minute",
-    u = "hour",
-    a = "day",
-    o = "week",
-    f = "month",
-    h = "quarter",
-    c = "year",
-    d = "date",
-    l = "Invalid Date",
-    $ = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,
-    y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,
-    M = {
-      name: "en",
-      weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
-      months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
-      ordinal: function ordinal(t) {
-        var e = ["th", "st", "nd", "rd"],
-          n = t % 100;
-        return "[" + t + (e[(n - 20) % 10] || e[n] || e[0]) + "]";
-      }
-    },
-    m = function m(t, e, n) {
-      var r = String(t);
-      return !r || r.length >= e ? t : "" + Array(e + 1 - r.length).join(n) + t;
-    },
-    v = {
-      s: m,
-      z: function z(t) {
-        var e = -t.utcOffset(),
-          n = Math.abs(e),
-          r = Math.floor(n / 60),
-          i = n % 60;
-        return (e <= 0 ? "+" : "-") + m(r, 2, "0") + ":" + m(i, 2, "0");
-      },
-      m: function t(e, n) {
-        if (e.date() < n.date()) return -t(n, e);
-        var r = 12 * (n.year() - e.year()) + (n.month() - e.month()),
-          i = e.clone().add(r, f),
-          s = n - i < 0,
-          u = e.clone().add(r + (s ? -1 : 1), f);
-        return +(-(r + (n - i) / (s ? i - u : u - i)) || 0);
-      },
-      a: function a(t) {
-        return t < 0 ? Math.ceil(t) || 0 : Math.floor(t);
-      },
-      p: function p(t) {
-        return {
-          M: f,
-          y: c,
-          w: o,
-          d: a,
-          D: d,
-          h: u,
-          m: s,
-          s: i,
-          ms: r,
-          Q: h
-        }[t] || String(t || "").toLowerCase().replace(/s$/, "");
-      },
-      u: function u(t) {
-        return void 0 === t;
-      }
-    },
-    g = "en",
-    D = {};
-  D[g] = M;
-  var p = function p(t) {
-      return t instanceof _;
-    },
-    S = function t(e, n, r) {
-      var i;
-      if (!e) return g;
-      if ("string" == typeof e) {
-        var s = e.toLowerCase();
-        D[s] && (i = s), n && (D[s] = n, i = s);
-        var u = e.split("-");
-        if (!i && u.length > 1) return t(u[0]);
-      } else {
-        var a = e.name;
-        D[a] = e, i = a;
-      }
-      return !r && i && (g = i), i || !r && g;
-    },
-    w = function w(t, e) {
-      if (p(t)) return t.clone();
-      var n = "object" == _typeof(e) ? e : {};
-      return n.date = t, n.args = arguments, new _(n);
-    },
-    O = v;
-  O.l = S, O.i = p, O.w = function (t, e) {
-    return w(t, {
-      locale: e.$L,
-      utc: e.$u,
-      x: e.$x,
-      $offset: e.$offset
-    });
-  };
-  var _ = function () {
-      function M(t) {
-        this.$L = S(t.locale, null, !0), this.parse(t);
-      }
-      var m = M.prototype;
-      return m.parse = function (t) {
-        this.$d = function (t) {
-          var e = t.date,
-            n = t.utc;
-          if (null === e) return new Date(NaN);
-          if (O.u(e)) return new Date();
-          if (e instanceof Date) return new Date(e);
-          if ("string" == typeof e && !/Z$/i.test(e)) {
-            var r = e.match($);
-            if (r) {
-              var i = r[2] - 1 || 0,
-                s = (r[7] || "0").substring(0, 3);
-              return n ? new Date(Date.UTC(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s)) : new Date(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s);
-            }
-          }
-          return new Date(e);
-        }(t), this.$x = t.x || {}, this.init();
-      }, m.init = function () {
-        var t = this.$d;
-        this.$y = t.getFullYear(), this.$M = t.getMonth(), this.$D = t.getDate(), this.$W = t.getDay(), this.$H = t.getHours(), this.$m = t.getMinutes(), this.$s = t.getSeconds(), this.$ms = t.getMilliseconds();
-      }, m.$utils = function () {
-        return O;
-      }, m.isValid = function () {
-        return !(this.$d.toString() === l);
-      }, m.isSame = function (t, e) {
-        var n = w(t);
-        return this.startOf(e) <= n && n <= this.endOf(e);
-      }, m.isAfter = function (t, e) {
-        return w(t) < this.startOf(e);
-      }, m.isBefore = function (t, e) {
-        return this.endOf(e) < w(t);
-      }, m.$g = function (t, e, n) {
-        return O.u(t) ? this[e] : this.set(n, t);
-      }, m.unix = function () {
-        return Math.floor(this.valueOf() / 1e3);
-      }, m.valueOf = function () {
-        return this.$d.getTime();
-      }, m.startOf = function (t, e) {
-        var n = this,
-          r = !!O.u(e) || e,
-          h = O.p(t),
-          l = function l(t, e) {
-            var i = O.w(n.$u ? Date.UTC(n.$y, e, t) : new Date(n.$y, e, t), n);
-            return r ? i : i.endOf(a);
-          },
-          $ = function $(t, e) {
-            return O.w(n.toDate()[t].apply(n.toDate("s"), (r ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)), n);
-          },
-          y = this.$W,
-          M = this.$M,
-          m = this.$D,
-          v = "set" + (this.$u ? "UTC" : "");
-        switch (h) {
-          case c:
-            return r ? l(1, 0) : l(31, 11);
-          case f:
-            return r ? l(1, M) : l(0, M + 1);
-          case o:
-            var g = this.$locale().weekStart || 0,
-              D = (y < g ? y + 7 : y) - g;
-            return l(r ? m - D : m + (6 - D), M);
-          case a:
-          case d:
-            return $(v + "Hours", 0);
-          case u:
-            return $(v + "Minutes", 1);
-          case s:
-            return $(v + "Seconds", 2);
-          case i:
-            return $(v + "Milliseconds", 3);
-          default:
-            return this.clone();
-        }
-      }, m.endOf = function (t) {
-        return this.startOf(t, !1);
-      }, m.$set = function (t, e) {
-        var n,
-          o = O.p(t),
-          h = "set" + (this.$u ? "UTC" : ""),
-          l = (n = {}, n[a] = h + "Date", n[d] = h + "Date", n[f] = h + "Month", n[c] = h + "FullYear", n[u] = h + "Hours", n[s] = h + "Minutes", n[i] = h + "Seconds", n[r] = h + "Milliseconds", n)[o],
-          $ = o === a ? this.$D + (e - this.$W) : e;
-        if (o === f || o === c) {
-          var y = this.clone().set(d, 1);
-          y.$d[l]($), y.init(), this.$d = y.set(d, Math.min(this.$D, y.daysInMonth())).$d;
-        } else l && this.$d[l]($);
-        return this.init(), this;
-      }, m.set = function (t, e) {
-        return this.clone().$set(t, e);
-      }, m.get = function (t) {
-        return this[O.p(t)]();
-      }, m.add = function (r, h) {
-        var d,
-          l = this;
-        r = Number(r);
-        var $ = O.p(h),
-          y = function y(t) {
-            var e = w(l);
-            return O.w(e.date(e.date() + Math.round(t * r)), l);
-          };
-        if ($ === f) return this.set(f, this.$M + r);
-        if ($ === c) return this.set(c, this.$y + r);
-        if ($ === a) return y(1);
-        if ($ === o) return y(7);
-        var M = (d = {}, d[s] = e, d[u] = n, d[i] = t, d)[$] || 1,
-          m = this.$d.getTime() + r * M;
-        return O.w(m, this);
-      }, m.subtract = function (t, e) {
-        return this.add(-1 * t, e);
-      }, m.format = function (t) {
-        var e = this,
-          n = this.$locale();
-        if (!this.isValid()) return n.invalidDate || l;
-        var r = t || "YYYY-MM-DDTHH:mm:ssZ",
-          i = O.z(this),
-          s = this.$H,
-          u = this.$m,
-          a = this.$M,
-          o = n.weekdays,
-          f = n.months,
-          h = function h(t, n, i, s) {
-            return t && (t[n] || t(e, r)) || i[n].slice(0, s);
-          },
-          c = function c(t) {
-            return O.s(s % 12 || 12, t, "0");
-          },
-          d = n.meridiem || function (t, e, n) {
-            var r = t < 12 ? "AM" : "PM";
-            return n ? r.toLowerCase() : r;
-          },
-          $ = {
-            YY: String(this.$y).slice(-2),
-            YYYY: this.$y,
-            M: a + 1,
-            MM: O.s(a + 1, 2, "0"),
-            MMM: h(n.monthsShort, a, f, 3),
-            MMMM: h(f, a),
-            D: this.$D,
-            DD: O.s(this.$D, 2, "0"),
-            d: String(this.$W),
-            dd: h(n.weekdaysMin, this.$W, o, 2),
-            ddd: h(n.weekdaysShort, this.$W, o, 3),
-            dddd: o[this.$W],
-            H: String(s),
-            HH: O.s(s, 2, "0"),
-            h: c(1),
-            hh: c(2),
-            a: d(s, u, !0),
-            A: d(s, u, !1),
-            m: String(u),
-            mm: O.s(u, 2, "0"),
-            s: String(this.$s),
-            ss: O.s(this.$s, 2, "0"),
-            SSS: O.s(this.$ms, 3, "0"),
-            Z: i
-          };
-        return r.replace(y, function (t, e) {
-          return e || $[t] || i.replace(":", "");
-        });
-      }, m.utcOffset = function () {
-        return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-      }, m.diff = function (r, d, l) {
-        var $,
-          y = O.p(d),
-          M = w(r),
-          m = (M.utcOffset() - this.utcOffset()) * e,
-          v = this - M,
-          g = O.m(this, M);
-        return g = ($ = {}, $[c] = g / 12, $[f] = g, $[h] = g / 3, $[o] = (v - m) / 6048e5, $[a] = (v - m) / 864e5, $[u] = v / n, $[s] = v / e, $[i] = v / t, $)[y] || v, l ? g : O.a(g);
-      }, m.daysInMonth = function () {
-        return this.endOf(f).$D;
-      }, m.$locale = function () {
-        return D[this.$L];
-      }, m.locale = function (t, e) {
-        if (!t) return this.$L;
-        var n = this.clone(),
-          r = S(t, e, !0);
-        return r && (n.$L = r), n;
-      }, m.clone = function () {
-        return O.w(this.$d, this);
-      }, m.toDate = function () {
-        return new Date(this.valueOf());
-      }, m.toJSON = function () {
-        return this.isValid() ? this.toISOString() : null;
-      }, m.toISOString = function () {
-        return this.$d.toISOString();
-      }, m.toString = function () {
-        return this.$d.toUTCString();
-      }, M;
-    }(),
-    T = _.prototype;
-  return w.prototype = T, [["$ms", r], ["$s", i], ["$m", s], ["$H", u], ["$W", a], ["$M", f], ["$y", c], ["$D", d]].forEach(function (t) {
-    T[t[1]] = function (e) {
-      return this.$g(e, t[0], t[1]);
-    };
-  }), w.extend = function (t, e) {
-    return t.$i || (t(e, _, w), t.$i = !0), w;
-  }, w.locale = S, w.isDayjs = p, w.unix = function (t) {
-    return w(1e3 * t);
-  }, w.en = D[g], w.Ls = D, w.p = {}, w;
-});
 
 /***/ }),
 
@@ -26616,6 +26616,920 @@ module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module
 
 /***/ }),
 
+/***/ 76:
+/*!************************************************************************************************************************************!*\
+  !*** /Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-customer/lib/qqmap-wx-jssdk.min.js ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(wx) {var _classCallCheck = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23);
+var _createClass = __webpack_require__(/*! @babel/runtime/helpers/createClass */ 24);
+var ERROR_CONF = {
+  KEY_ERR: 311,
+  KEY_ERR_MSG: 'key格式错误',
+  PARAM_ERR: 310,
+  PARAM_ERR_MSG: '请求参数信息有误',
+  SYSTEM_ERR: 600,
+  SYSTEM_ERR_MSG: '系统错误',
+  WX_ERR_CODE: 1000,
+  WX_OK_CODE: 200
+};
+var BASE_URL = 'https://apis.map.qq.com/ws/';
+var URL_SEARCH = BASE_URL + 'place/v1/search';
+var URL_SUGGESTION = BASE_URL + 'place/v1/suggestion';
+var URL_GET_GEOCODER = BASE_URL + 'geocoder/v1/';
+var URL_CITY_LIST = BASE_URL + 'district/v1/list';
+var URL_AREA_LIST = BASE_URL + 'district/v1/getchildren';
+var URL_DISTANCE = BASE_URL + 'distance/v1/';
+var URL_DIRECTION = BASE_URL + 'direction/v1/';
+var MODE = {
+  driving: 'driving',
+  transit: 'transit'
+};
+var EARTH_RADIUS = 6378136.49;
+var Utils = {
+  safeAdd: function safeAdd(x, y) {
+    var lsw = (x & 0xffff) + (y & 0xffff);
+    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+    return msw << 16 | lsw & 0xffff;
+  },
+  bitRotateLeft: function bitRotateLeft(num, cnt) {
+    return num << cnt | num >>> 32 - cnt;
+  },
+  md5cmn: function md5cmn(q, a, b, x, s, t) {
+    return this.safeAdd(this.bitRotateLeft(this.safeAdd(this.safeAdd(a, q), this.safeAdd(x, t)), s), b);
+  },
+  md5ff: function md5ff(a, b, c, d, x, s, t) {
+    return this.md5cmn(b & c | ~b & d, a, b, x, s, t);
+  },
+  md5gg: function md5gg(a, b, c, d, x, s, t) {
+    return this.md5cmn(b & d | c & ~d, a, b, x, s, t);
+  },
+  md5hh: function md5hh(a, b, c, d, x, s, t) {
+    return this.md5cmn(b ^ c ^ d, a, b, x, s, t);
+  },
+  md5ii: function md5ii(a, b, c, d, x, s, t) {
+    return this.md5cmn(c ^ (b | ~d), a, b, x, s, t);
+  },
+  binlMD5: function binlMD5(x, len) {
+    x[len >> 5] |= 0x80 << len % 32;
+    x[(len + 64 >>> 9 << 4) + 14] = len;
+    var i;
+    var olda;
+    var oldb;
+    var oldc;
+    var oldd;
+    var a = 1732584193;
+    var b = -271733879;
+    var c = -1732584194;
+    var d = 271733878;
+    for (i = 0; i < x.length; i += 16) {
+      olda = a;
+      oldb = b;
+      oldc = c;
+      oldd = d;
+      a = this.md5ff(a, b, c, d, x[i], 7, -680876936);
+      d = this.md5ff(d, a, b, c, x[i + 1], 12, -389564586);
+      c = this.md5ff(c, d, a, b, x[i + 2], 17, 606105819);
+      b = this.md5ff(b, c, d, a, x[i + 3], 22, -1044525330);
+      a = this.md5ff(a, b, c, d, x[i + 4], 7, -176418897);
+      d = this.md5ff(d, a, b, c, x[i + 5], 12, 1200080426);
+      c = this.md5ff(c, d, a, b, x[i + 6], 17, -1473231341);
+      b = this.md5ff(b, c, d, a, x[i + 7], 22, -45705983);
+      a = this.md5ff(a, b, c, d, x[i + 8], 7, 1770035416);
+      d = this.md5ff(d, a, b, c, x[i + 9], 12, -1958414417);
+      c = this.md5ff(c, d, a, b, x[i + 10], 17, -42063);
+      b = this.md5ff(b, c, d, a, x[i + 11], 22, -1990404162);
+      a = this.md5ff(a, b, c, d, x[i + 12], 7, 1804603682);
+      d = this.md5ff(d, a, b, c, x[i + 13], 12, -40341101);
+      c = this.md5ff(c, d, a, b, x[i + 14], 17, -1502002290);
+      b = this.md5ff(b, c, d, a, x[i + 15], 22, 1236535329);
+      a = this.md5gg(a, b, c, d, x[i + 1], 5, -165796510);
+      d = this.md5gg(d, a, b, c, x[i + 6], 9, -1069501632);
+      c = this.md5gg(c, d, a, b, x[i + 11], 14, 643717713);
+      b = this.md5gg(b, c, d, a, x[i], 20, -373897302);
+      a = this.md5gg(a, b, c, d, x[i + 5], 5, -701558691);
+      d = this.md5gg(d, a, b, c, x[i + 10], 9, 38016083);
+      c = this.md5gg(c, d, a, b, x[i + 15], 14, -660478335);
+      b = this.md5gg(b, c, d, a, x[i + 4], 20, -405537848);
+      a = this.md5gg(a, b, c, d, x[i + 9], 5, 568446438);
+      d = this.md5gg(d, a, b, c, x[i + 14], 9, -1019803690);
+      c = this.md5gg(c, d, a, b, x[i + 3], 14, -187363961);
+      b = this.md5gg(b, c, d, a, x[i + 8], 20, 1163531501);
+      a = this.md5gg(a, b, c, d, x[i + 13], 5, -1444681467);
+      d = this.md5gg(d, a, b, c, x[i + 2], 9, -51403784);
+      c = this.md5gg(c, d, a, b, x[i + 7], 14, 1735328473);
+      b = this.md5gg(b, c, d, a, x[i + 12], 20, -1926607734);
+      a = this.md5hh(a, b, c, d, x[i + 5], 4, -378558);
+      d = this.md5hh(d, a, b, c, x[i + 8], 11, -2022574463);
+      c = this.md5hh(c, d, a, b, x[i + 11], 16, 1839030562);
+      b = this.md5hh(b, c, d, a, x[i + 14], 23, -35309556);
+      a = this.md5hh(a, b, c, d, x[i + 1], 4, -1530992060);
+      d = this.md5hh(d, a, b, c, x[i + 4], 11, 1272893353);
+      c = this.md5hh(c, d, a, b, x[i + 7], 16, -155497632);
+      b = this.md5hh(b, c, d, a, x[i + 10], 23, -1094730640);
+      a = this.md5hh(a, b, c, d, x[i + 13], 4, 681279174);
+      d = this.md5hh(d, a, b, c, x[i], 11, -358537222);
+      c = this.md5hh(c, d, a, b, x[i + 3], 16, -722521979);
+      b = this.md5hh(b, c, d, a, x[i + 6], 23, 76029189);
+      a = this.md5hh(a, b, c, d, x[i + 9], 4, -640364487);
+      d = this.md5hh(d, a, b, c, x[i + 12], 11, -421815835);
+      c = this.md5hh(c, d, a, b, x[i + 15], 16, 530742520);
+      b = this.md5hh(b, c, d, a, x[i + 2], 23, -995338651);
+      a = this.md5ii(a, b, c, d, x[i], 6, -198630844);
+      d = this.md5ii(d, a, b, c, x[i + 7], 10, 1126891415);
+      c = this.md5ii(c, d, a, b, x[i + 14], 15, -1416354905);
+      b = this.md5ii(b, c, d, a, x[i + 5], 21, -57434055);
+      a = this.md5ii(a, b, c, d, x[i + 12], 6, 1700485571);
+      d = this.md5ii(d, a, b, c, x[i + 3], 10, -1894986606);
+      c = this.md5ii(c, d, a, b, x[i + 10], 15, -1051523);
+      b = this.md5ii(b, c, d, a, x[i + 1], 21, -2054922799);
+      a = this.md5ii(a, b, c, d, x[i + 8], 6, 1873313359);
+      d = this.md5ii(d, a, b, c, x[i + 15], 10, -30611744);
+      c = this.md5ii(c, d, a, b, x[i + 6], 15, -1560198380);
+      b = this.md5ii(b, c, d, a, x[i + 13], 21, 1309151649);
+      a = this.md5ii(a, b, c, d, x[i + 4], 6, -145523070);
+      d = this.md5ii(d, a, b, c, x[i + 11], 10, -1120210379);
+      c = this.md5ii(c, d, a, b, x[i + 2], 15, 718787259);
+      b = this.md5ii(b, c, d, a, x[i + 9], 21, -343485551);
+      a = this.safeAdd(a, olda);
+      b = this.safeAdd(b, oldb);
+      c = this.safeAdd(c, oldc);
+      d = this.safeAdd(d, oldd);
+    }
+    return [a, b, c, d];
+  },
+  binl2rstr: function binl2rstr(input) {
+    var i;
+    var output = '';
+    var length32 = input.length * 32;
+    for (i = 0; i < length32; i += 8) {
+      output += String.fromCharCode(input[i >> 5] >>> i % 32 & 0xff);
+    }
+    return output;
+  },
+  rstr2binl: function rstr2binl(input) {
+    var i;
+    var output = [];
+    output[(input.length >> 2) - 1] = undefined;
+    for (i = 0; i < output.length; i += 1) {
+      output[i] = 0;
+    }
+    var length8 = input.length * 8;
+    for (i = 0; i < length8; i += 8) {
+      output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << i % 32;
+    }
+    return output;
+  },
+  rstrMD5: function rstrMD5(s) {
+    return this.binl2rstr(this.binlMD5(this.rstr2binl(s), s.length * 8));
+  },
+  rstrHMACMD5: function rstrHMACMD5(key, data) {
+    var i;
+    var bkey = this.rstr2binl(key);
+    var ipad = [];
+    var opad = [];
+    var hash;
+    ipad[15] = opad[15] = undefined;
+    if (bkey.length > 16) {
+      bkey = this.binlMD5(bkey, key.length * 8);
+    }
+    for (i = 0; i < 16; i += 1) {
+      ipad[i] = bkey[i] ^ 0x36363636;
+      opad[i] = bkey[i] ^ 0x5c5c5c5c;
+    }
+    hash = this.binlMD5(ipad.concat(this.rstr2binl(data)), 512 + data.length * 8);
+    return this.binl2rstr(this.binlMD5(opad.concat(hash), 512 + 128));
+  },
+  rstr2hex: function rstr2hex(input) {
+    var hexTab = '0123456789abcdef';
+    var output = '';
+    var x;
+    var i;
+    for (i = 0; i < input.length; i += 1) {
+      x = input.charCodeAt(i);
+      output += hexTab.charAt(x >>> 4 & 0x0f) + hexTab.charAt(x & 0x0f);
+    }
+    return output;
+  },
+  str2rstrUTF8: function str2rstrUTF8(input) {
+    return unescape(encodeURIComponent(input));
+  },
+  rawMD5: function rawMD5(s) {
+    return this.rstrMD5(this.str2rstrUTF8(s));
+  },
+  hexMD5: function hexMD5(s) {
+    return this.rstr2hex(this.rawMD5(s));
+  },
+  rawHMACMD5: function rawHMACMD5(k, d) {
+    return this.rstrHMACMD5(this.str2rstrUTF8(k), str2rstrUTF8(d));
+  },
+  hexHMACMD5: function hexHMACMD5(k, d) {
+    return this.rstr2hex(this.rawHMACMD5(k, d));
+  },
+  md5: function md5(string, key, raw) {
+    if (!key) {
+      if (!raw) {
+        return this.hexMD5(string);
+      }
+      return this.rawMD5(string);
+    }
+    if (!raw) {
+      return this.hexHMACMD5(key, string);
+    }
+    return this.rawHMACMD5(key, string);
+  },
+  getSig: function getSig(requestParam, sk, feature, mode) {
+    var sig = null;
+    var requestArr = [];
+    Object.keys(requestParam).sort().forEach(function (key) {
+      requestArr.push(key + '=' + requestParam[key]);
+    });
+    if (feature == 'search') {
+      sig = '/ws/place/v1/search?' + requestArr.join('&') + sk;
+    }
+    if (feature == 'suggest') {
+      sig = '/ws/place/v1/suggestion?' + requestArr.join('&') + sk;
+    }
+    if (feature == 'reverseGeocoder') {
+      sig = '/ws/geocoder/v1/?' + requestArr.join('&') + sk;
+    }
+    if (feature == 'geocoder') {
+      sig = '/ws/geocoder/v1/?' + requestArr.join('&') + sk;
+    }
+    if (feature == 'getCityList') {
+      sig = '/ws/district/v1/list?' + requestArr.join('&') + sk;
+    }
+    if (feature == 'getDistrictByCityId') {
+      sig = '/ws/district/v1/getchildren?' + requestArr.join('&') + sk;
+    }
+    if (feature == 'calculateDistance') {
+      sig = '/ws/distance/v1/?' + requestArr.join('&') + sk;
+    }
+    if (feature == 'direction') {
+      sig = '/ws/direction/v1/' + mode + '?' + requestArr.join('&') + sk;
+    }
+    sig = this.md5(sig);
+    return sig;
+  },
+  location2query: function location2query(data) {
+    if (typeof data == 'string') {
+      return data;
+    }
+    var query = '';
+    for (var i = 0; i < data.length; i++) {
+      var d = data[i];
+      if (!!query) {
+        query += ';';
+      }
+      if (d.location) {
+        query = query + d.location.lat + ',' + d.location.lng;
+      }
+      if (d.latitude && d.longitude) {
+        query = query + d.latitude + ',' + d.longitude;
+      }
+    }
+    return query;
+  },
+  rad: function rad(d) {
+    return d * Math.PI / 180.0;
+  },
+  getEndLocation: function getEndLocation(location) {
+    var to = location.split(';');
+    var endLocation = [];
+    for (var i = 0; i < to.length; i++) {
+      endLocation.push({
+        lat: parseFloat(to[i].split(',')[0]),
+        lng: parseFloat(to[i].split(',')[1])
+      });
+    }
+    return endLocation;
+  },
+  getDistance: function getDistance(latFrom, lngFrom, latTo, lngTo) {
+    var radLatFrom = this.rad(latFrom);
+    var radLatTo = this.rad(latTo);
+    var a = radLatFrom - radLatTo;
+    var b = this.rad(lngFrom) - this.rad(lngTo);
+    var distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLatFrom) * Math.cos(radLatTo) * Math.pow(Math.sin(b / 2), 2)));
+    distance = distance * EARTH_RADIUS;
+    distance = Math.round(distance * 10000) / 10000;
+    return parseFloat(distance.toFixed(0));
+  },
+  getWXLocation: function getWXLocation(success, fail, complete) {
+    wx.getLocation({
+      type: 'gcj02',
+      success: success,
+      fail: fail,
+      complete: complete
+    });
+  },
+  getLocationParam: function getLocationParam(location) {
+    if (typeof location == 'string') {
+      var locationArr = location.split(',');
+      if (locationArr.length === 2) {
+        location = {
+          latitude: location.split(',')[0],
+          longitude: location.split(',')[1]
+        };
+      } else {
+        location = {};
+      }
+    }
+    return location;
+  },
+  polyfillParam: function polyfillParam(param) {
+    param.success = param.success || function () {};
+    param.fail = param.fail || function () {};
+    param.complete = param.complete || function () {};
+  },
+  checkParamKeyEmpty: function checkParamKeyEmpty(param, key) {
+    if (!param[key]) {
+      var errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + key + '参数格式有误');
+      param.fail(errconf);
+      param.complete(errconf);
+      return true;
+    }
+    return false;
+  },
+  checkKeyword: function checkKeyword(param) {
+    return !this.checkParamKeyEmpty(param, 'keyword');
+  },
+  checkLocation: function checkLocation(param) {
+    var location = this.getLocationParam(param.location);
+    if (!location || !location.latitude || !location.longitude) {
+      var errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + ' location参数格式有误');
+      param.fail(errconf);
+      param.complete(errconf);
+      return false;
+    }
+    return true;
+  },
+  buildErrorConfig: function buildErrorConfig(errCode, errMsg) {
+    return {
+      status: errCode,
+      message: errMsg
+    };
+  },
+  handleData: function handleData(param, data, feature) {
+    if (feature == 'search') {
+      var searchResult = data.data;
+      var searchSimplify = [];
+      for (var i = 0; i < searchResult.length; i++) {
+        searchSimplify.push({
+          id: searchResult[i].id || null,
+          title: searchResult[i].title || null,
+          latitude: searchResult[i].location && searchResult[i].location.lat || null,
+          longitude: searchResult[i].location && searchResult[i].location.lng || null,
+          address: searchResult[i].address || null,
+          category: searchResult[i].category || null,
+          tel: searchResult[i].tel || null,
+          adcode: searchResult[i].ad_info && searchResult[i].ad_info.adcode || null,
+          city: searchResult[i].ad_info && searchResult[i].ad_info.city || null,
+          district: searchResult[i].ad_info && searchResult[i].ad_info.district || null,
+          province: searchResult[i].ad_info && searchResult[i].ad_info.province || null
+        });
+      }
+      param.success(data, {
+        searchResult: searchResult,
+        searchSimplify: searchSimplify
+      });
+    } else if (feature == 'suggest') {
+      var suggestResult = data.data;
+      var suggestSimplify = [];
+      for (var i = 0; i < suggestResult.length; i++) {
+        suggestSimplify.push({
+          adcode: suggestResult[i].adcode || null,
+          address: suggestResult[i].address || null,
+          category: suggestResult[i].category || null,
+          city: suggestResult[i].city || null,
+          district: suggestResult[i].district || null,
+          id: suggestResult[i].id || null,
+          latitude: suggestResult[i].location && suggestResult[i].location.lat || null,
+          longitude: suggestResult[i].location && suggestResult[i].location.lng || null,
+          province: suggestResult[i].province || null,
+          title: suggestResult[i].title || null,
+          type: suggestResult[i].type || null
+        });
+      }
+      param.success(data, {
+        suggestResult: suggestResult,
+        suggestSimplify: suggestSimplify
+      });
+    } else if (feature == 'reverseGeocoder') {
+      var reverseGeocoderResult = data.result;
+      var reverseGeocoderSimplify = {
+        address: reverseGeocoderResult.address || null,
+        latitude: reverseGeocoderResult.location && reverseGeocoderResult.location.lat || null,
+        longitude: reverseGeocoderResult.location && reverseGeocoderResult.location.lng || null,
+        adcode: reverseGeocoderResult.ad_info && reverseGeocoderResult.ad_info.adcode || null,
+        city: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.city || null,
+        district: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.district || null,
+        nation: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.nation || null,
+        province: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.province || null,
+        street: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.street || null,
+        street_number: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.street_number || null,
+        recommend: reverseGeocoderResult.formatted_addresses && reverseGeocoderResult.formatted_addresses.recommend || null,
+        rough: reverseGeocoderResult.formatted_addresses && reverseGeocoderResult.formatted_addresses.rough || null
+      };
+      if (reverseGeocoderResult.pois) {
+        var pois = reverseGeocoderResult.pois;
+        var poisSimplify = [];
+        for (var i = 0; i < pois.length; i++) {
+          poisSimplify.push({
+            id: pois[i].id || null,
+            title: pois[i].title || null,
+            latitude: pois[i].location && pois[i].location.lat || null,
+            longitude: pois[i].location && pois[i].location.lng || null,
+            address: pois[i].address || null,
+            category: pois[i].category || null,
+            adcode: pois[i].ad_info && pois[i].ad_info.adcode || null,
+            city: pois[i].ad_info && pois[i].ad_info.city || null,
+            district: pois[i].ad_info && pois[i].ad_info.district || null,
+            province: pois[i].ad_info && pois[i].ad_info.province || null
+          });
+        }
+        param.success(data, {
+          reverseGeocoderResult: reverseGeocoderResult,
+          reverseGeocoderSimplify: reverseGeocoderSimplify,
+          pois: pois,
+          poisSimplify: poisSimplify
+        });
+      } else {
+        param.success(data, {
+          reverseGeocoderResult: reverseGeocoderResult,
+          reverseGeocoderSimplify: reverseGeocoderSimplify
+        });
+      }
+    } else if (feature == 'geocoder') {
+      var geocoderResult = data.result;
+      var geocoderSimplify = {
+        title: geocoderResult.title || null,
+        latitude: geocoderResult.location && geocoderResult.location.lat || null,
+        longitude: geocoderResult.location && geocoderResult.location.lng || null,
+        adcode: geocoderResult.ad_info && geocoderResult.ad_info.adcode || null,
+        province: geocoderResult.address_components && geocoderResult.address_components.province || null,
+        city: geocoderResult.address_components && geocoderResult.address_components.city || null,
+        district: geocoderResult.address_components && geocoderResult.address_components.district || null,
+        street: geocoderResult.address_components && geocoderResult.address_components.street || null,
+        street_number: geocoderResult.address_components && geocoderResult.address_components.street_number || null,
+        level: geocoderResult.level || null
+      };
+      param.success(data, {
+        geocoderResult: geocoderResult,
+        geocoderSimplify: geocoderSimplify
+      });
+    } else if (feature == 'getCityList') {
+      var provinceResult = data.result[0];
+      var cityResult = data.result[1];
+      var districtResult = data.result[2];
+      param.success(data, {
+        provinceResult: provinceResult,
+        cityResult: cityResult,
+        districtResult: districtResult
+      });
+    } else if (feature == 'getDistrictByCityId') {
+      var districtByCity = data.result[0];
+      param.success(data, districtByCity);
+    } else if (feature == 'calculateDistance') {
+      var calculateDistanceResult = data.result.elements;
+      var distance = [];
+      for (var i = 0; i < calculateDistanceResult.length; i++) {
+        distance.push(calculateDistanceResult[i].distance);
+      }
+      param.success(data, {
+        calculateDistanceResult: calculateDistanceResult,
+        distance: distance
+      });
+    } else if (feature == 'direction') {
+      var direction = data.result.routes;
+      param.success(data, direction);
+    } else {
+      param.success(data);
+    }
+  },
+  buildWxRequestConfig: function buildWxRequestConfig(param, options, feature) {
+    var that = this;
+    options.header = {
+      "content-type": "application/json"
+    };
+    options.method = 'GET';
+    options.success = function (res) {
+      var data = res.data;
+      if (data.status === 0) {
+        that.handleData(param, data, feature);
+      } else {
+        param.fail(data);
+      }
+    };
+    options.fail = function (res) {
+      res.statusCode = ERROR_CONF.WX_ERR_CODE;
+      param.fail(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
+    };
+    options.complete = function (res) {
+      var statusCode = +res.statusCode;
+      switch (statusCode) {
+        case ERROR_CONF.WX_ERR_CODE:
+          {
+            param.complete(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
+            break;
+          }
+        case ERROR_CONF.WX_OK_CODE:
+          {
+            var data = res.data;
+            if (data.status === 0) {
+              param.complete(data);
+            } else {
+              param.complete(that.buildErrorConfig(data.status, data.message));
+            }
+            break;
+          }
+        default:
+          {
+            param.complete(that.buildErrorConfig(ERROR_CONF.SYSTEM_ERR, ERROR_CONF.SYSTEM_ERR_MSG));
+          }
+      }
+    };
+    return options;
+  },
+  locationProcess: function locationProcess(param, locationsuccess, locationfail, locationcomplete) {
+    var that = this;
+    locationfail = locationfail || function (res) {
+      res.statusCode = ERROR_CONF.WX_ERR_CODE;
+      param.fail(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
+    };
+    locationcomplete = locationcomplete || function (res) {
+      if (res.statusCode == ERROR_CONF.WX_ERR_CODE) {
+        param.complete(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
+      }
+    };
+    if (!param.location) {
+      that.getWXLocation(locationsuccess, locationfail, locationcomplete);
+    } else if (that.checkLocation(param)) {
+      var location = Utils.getLocationParam(param.location);
+      locationsuccess(location);
+    }
+  }
+};
+var QQMapWX = /*#__PURE__*/function () {
+  "use strict";
+
+  function QQMapWX(options) {
+    _classCallCheck(this, QQMapWX);
+    if (!options.key) {
+      throw Error('key值不能为空');
+    }
+    this.key = options.key;
+  }
+  _createClass(QQMapWX, [{
+    key: "search",
+    value: function search(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      if (!Utils.checkKeyword(options)) {
+        return;
+      }
+      var requestParam = {
+        keyword: options.keyword,
+        orderby: options.orderby || '_distance',
+        page_size: options.page_size || 10,
+        page_index: options.page_index || 1,
+        output: 'json',
+        key: that.key
+      };
+      if (options.address_format) {
+        requestParam.address_format = options.address_format;
+      }
+      if (options.filter) {
+        requestParam.filter = options.filter;
+      }
+      var distance = options.distance || "1000";
+      var auto_extend = options.auto_extend || 1;
+      var region = null;
+      var rectangle = null;
+      if (options.region) {
+        region = options.region;
+      }
+      if (options.rectangle) {
+        rectangle = options.rectangle;
+      }
+      var locationsuccess = function locationsuccess(result) {
+        if (region && !rectangle) {
+          requestParam.boundary = "region(" + region + "," + auto_extend + "," + result.latitude + "," + result.longitude + ")";
+          if (options.sig) {
+            requestParam.sig = Utils.getSig(requestParam, options.sig, 'search');
+          }
+        } else if (rectangle && !region) {
+          requestParam.boundary = "rectangle(" + rectangle + ")";
+          if (options.sig) {
+            requestParam.sig = Utils.getSig(requestParam, options.sig, 'search');
+          }
+        } else {
+          requestParam.boundary = "nearby(" + result.latitude + "," + result.longitude + "," + distance + "," + auto_extend + ")";
+          if (options.sig) {
+            requestParam.sig = Utils.getSig(requestParam, options.sig, 'search');
+          }
+        }
+        wx.request(Utils.buildWxRequestConfig(options, {
+          url: URL_SEARCH,
+          data: requestParam
+        }, 'search'));
+      };
+      Utils.locationProcess(options, locationsuccess);
+    }
+  }, {
+    key: "getSuggestion",
+    value: function getSuggestion(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      if (!Utils.checkKeyword(options)) {
+        return;
+      }
+      var requestParam = {
+        keyword: options.keyword,
+        region: options.region || '全国',
+        region_fix: options.region_fix || 0,
+        policy: options.policy || 0,
+        page_size: options.page_size || 10,
+        page_index: options.page_index || 1,
+        get_subpois: options.get_subpois || 0,
+        output: 'json',
+        key: that.key
+      };
+      if (options.address_format) {
+        requestParam.address_format = options.address_format;
+      }
+      if (options.filter) {
+        requestParam.filter = options.filter;
+      }
+      if (options.location) {
+        var locationsuccess = function locationsuccess(result) {
+          requestParam.location = result.latitude + ',' + result.longitude;
+          if (options.sig) {
+            requestParam.sig = Utils.getSig(requestParam, options.sig, 'suggest');
+          }
+          wx.request(Utils.buildWxRequestConfig(options, {
+            url: URL_SUGGESTION,
+            data: requestParam
+          }, "suggest"));
+        };
+        Utils.locationProcess(options, locationsuccess);
+      } else {
+        if (options.sig) {
+          requestParam.sig = Utils.getSig(requestParam, options.sig, 'suggest');
+        }
+        wx.request(Utils.buildWxRequestConfig(options, {
+          url: URL_SUGGESTION,
+          data: requestParam
+        }, "suggest"));
+      }
+    }
+  }, {
+    key: "reverseGeocoder",
+    value: function reverseGeocoder(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      var requestParam = {
+        coord_type: options.coord_type || 5,
+        get_poi: options.get_poi || 0,
+        output: 'json',
+        key: that.key
+      };
+      if (options.poi_options) {
+        requestParam.poi_options = options.poi_options;
+      }
+      var locationsuccess = function locationsuccess(result) {
+        requestParam.location = result.latitude + ',' + result.longitude;
+        if (options.sig) {
+          requestParam.sig = Utils.getSig(requestParam, options.sig, 'reverseGeocoder');
+        }
+        wx.request(Utils.buildWxRequestConfig(options, {
+          url: URL_GET_GEOCODER,
+          data: requestParam
+        }, 'reverseGeocoder'));
+      };
+      Utils.locationProcess(options, locationsuccess);
+    }
+  }, {
+    key: "geocoder",
+    value: function geocoder(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      if (Utils.checkParamKeyEmpty(options, 'address')) {
+        return;
+      }
+      var requestParam = {
+        address: options.address,
+        output: 'json',
+        key: that.key
+      };
+      if (options.region) {
+        requestParam.region = options.region;
+      }
+      if (options.sig) {
+        requestParam.sig = Utils.getSig(requestParam, options.sig, 'geocoder');
+      }
+      wx.request(Utils.buildWxRequestConfig(options, {
+        url: URL_GET_GEOCODER,
+        data: requestParam
+      }, 'geocoder'));
+    }
+  }, {
+    key: "getCityList",
+    value: function getCityList(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      var requestParam = {
+        output: 'json',
+        key: that.key
+      };
+      if (options.sig) {
+        requestParam.sig = Utils.getSig(requestParam, options.sig, 'getCityList');
+      }
+      wx.request(Utils.buildWxRequestConfig(options, {
+        url: URL_CITY_LIST,
+        data: requestParam
+      }, 'getCityList'));
+    }
+  }, {
+    key: "getDistrictByCityId",
+    value: function getDistrictByCityId(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      if (Utils.checkParamKeyEmpty(options, 'id')) {
+        return;
+      }
+      var requestParam = {
+        id: options.id || '',
+        output: 'json',
+        key: that.key
+      };
+      if (options.sig) {
+        requestParam.sig = Utils.getSig(requestParam, options.sig, 'getDistrictByCityId');
+      }
+      wx.request(Utils.buildWxRequestConfig(options, {
+        url: URL_AREA_LIST,
+        data: requestParam
+      }, 'getDistrictByCityId'));
+    }
+  }, {
+    key: "calculateDistance",
+    value: function calculateDistance(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      if (Utils.checkParamKeyEmpty(options, 'to')) {
+        return;
+      }
+      var requestParam = {
+        mode: options.mode || 'walking',
+        to: Utils.location2query(options.to),
+        output: 'json',
+        key: that.key
+      };
+      if (options.from) {
+        options.location = options.from;
+      }
+      if (requestParam.mode == 'straight') {
+        var locationsuccess = function locationsuccess(result) {
+          var locationTo = Utils.getEndLocation(requestParam.to);
+          var data = {
+            message: "query ok",
+            result: {
+              elements: []
+            },
+            status: 0
+          };
+          for (var i = 0; i < locationTo.length; i++) {
+            data.result.elements.push({
+              distance: Utils.getDistance(result.latitude, result.longitude, locationTo[i].lat, locationTo[i].lng),
+              duration: 0,
+              from: {
+                lat: result.latitude,
+                lng: result.longitude
+              },
+              to: {
+                lat: locationTo[i].lat,
+                lng: locationTo[i].lng
+              }
+            });
+          }
+          var calculateResult = data.result.elements;
+          var distanceResult = [];
+          for (var i = 0; i < calculateResult.length; i++) {
+            distanceResult.push(calculateResult[i].distance);
+          }
+          return options.success(data, {
+            calculateResult: calculateResult,
+            distanceResult: distanceResult
+          });
+        };
+        Utils.locationProcess(options, locationsuccess);
+      } else {
+        var locationsuccess = function locationsuccess(result) {
+          requestParam.from = result.latitude + ',' + result.longitude;
+          if (options.sig) {
+            requestParam.sig = Utils.getSig(requestParam, options.sig, 'calculateDistance');
+          }
+          wx.request(Utils.buildWxRequestConfig(options, {
+            url: URL_DISTANCE,
+            data: requestParam
+          }, 'calculateDistance'));
+        };
+        Utils.locationProcess(options, locationsuccess);
+      }
+    }
+  }, {
+    key: "direction",
+    value: function direction(options) {
+      var that = this;
+      options = options || {};
+      Utils.polyfillParam(options);
+      if (Utils.checkParamKeyEmpty(options, 'to')) {
+        return;
+      }
+      var requestParam = {
+        output: 'json',
+        key: that.key
+      };
+      if (typeof options.to == 'string') {
+        requestParam.to = options.to;
+      } else {
+        requestParam.to = options.to.latitude + ',' + options.to.longitude;
+      }
+      var SET_URL_DIRECTION = null;
+      options.mode = options.mode || MODE.driving;
+      SET_URL_DIRECTION = URL_DIRECTION + options.mode;
+      if (options.from) {
+        options.location = options.from;
+      }
+      if (options.mode == MODE.driving) {
+        if (options.from_poi) {
+          requestParam.from_poi = options.from_poi;
+        }
+        if (options.heading) {
+          requestParam.heading = options.heading;
+        }
+        if (options.speed) {
+          requestParam.speed = options.speed;
+        }
+        if (options.accuracy) {
+          requestParam.accuracy = options.accuracy;
+        }
+        if (options.road_type) {
+          requestParam.road_type = options.road_type;
+        }
+        if (options.to_poi) {
+          requestParam.to_poi = options.to_poi;
+        }
+        if (options.from_track) {
+          requestParam.from_track = options.from_track;
+        }
+        if (options.waypoints) {
+          requestParam.waypoints = options.waypoints;
+        }
+        if (options.policy) {
+          requestParam.policy = options.policy;
+        }
+        if (options.plate_number) {
+          requestParam.plate_number = options.plate_number;
+        }
+      }
+      if (options.mode == MODE.transit) {
+        if (options.departure_time) {
+          requestParam.departure_time = options.departure_time;
+        }
+        if (options.policy) {
+          requestParam.policy = options.policy;
+        }
+      }
+      var locationsuccess = function locationsuccess(result) {
+        requestParam.from = result.latitude + ',' + result.longitude;
+        if (options.sig) {
+          requestParam.sig = Utils.getSig(requestParam, options.sig, 'direction', options.mode);
+        }
+        wx.request(Utils.buildWxRequestConfig(options, {
+          url: SET_URL_DIRECTION,
+          data: requestParam
+        }, 'direction'));
+      };
+      Utils.locationProcess(options, locationsuccess);
+    }
+  }]);
+  return QQMapWX;
+}();
+;
+module.exports = QQMapWX;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 8:
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
@@ -26636,17 +27550,17 @@ module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, 
 
 /***/ }),
 
-/***/ 84:
+/***/ 85:
 /*!****************************************************************************************************************************!*\
   !*** /Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-customer/lib/gtpush-min.js ***!
   \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni, wx, module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _get = __webpack_require__(/*! @babel/runtime/helpers/get */ 86);
-var _inherits = __webpack_require__(/*! @babel/runtime/helpers/inherits */ 89);
-var _possibleConstructorReturn = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ 90);
-var _getPrototypeOf = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ 88);
+/* WEBPACK VAR INJECTION */(function(uni, wx, module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _get = __webpack_require__(/*! @babel/runtime/helpers/get */ 87);
+var _inherits = __webpack_require__(/*! @babel/runtime/helpers/inherits */ 90);
+var _possibleConstructorReturn = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ 91);
+var _getPrototypeOf = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ 89);
 var _classCallCheck = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23);
 var _createClass = __webpack_require__(/*! @babel/runtime/helpers/createClass */ 24);
 var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
@@ -36409,11 +37323,11 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
     return i;
   }();
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/module.js */ 85)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/module.js */ 86)(module)))
 
 /***/ }),
 
-/***/ 85:
+/***/ 86:
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -36446,14 +37360,14 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ 86:
+/***/ 87:
 /*!****************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/get.js ***!
   \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var superPropBase = __webpack_require__(/*! ./superPropBase.js */ 87);
+var superPropBase = __webpack_require__(/*! ./superPropBase.js */ 88);
 function _get() {
   if (typeof Reflect !== "undefined" && Reflect.get) {
     module.exports = _get = Reflect.get.bind(), module.exports.__esModule = true, module.exports["default"] = module.exports;
@@ -36474,14 +37388,14 @@ module.exports = _get, module.exports.__esModule = true, module.exports["default
 
 /***/ }),
 
-/***/ 87:
+/***/ 88:
 /*!**************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/superPropBase.js ***!
   \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getPrototypeOf = __webpack_require__(/*! ./getPrototypeOf.js */ 88);
+var getPrototypeOf = __webpack_require__(/*! ./getPrototypeOf.js */ 89);
 function _superPropBase(object, property) {
   while (!Object.prototype.hasOwnProperty.call(object, property)) {
     object = getPrototypeOf(object);
@@ -36493,7 +37407,7 @@ module.exports = _superPropBase, module.exports.__esModule = true, module.export
 
 /***/ }),
 
-/***/ 88:
+/***/ 89:
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/getPrototypeOf.js ***!
   \***************************************************************/
@@ -36510,7 +37424,25 @@ module.exports = _getPrototypeOf, module.exports.__esModule = true, module.expor
 
 /***/ }),
 
-/***/ 89:
+/***/ 9:
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 90:
 /*!*********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/inherits.js ***!
   \*********************************************************/
@@ -36538,25 +37470,7 @@ module.exports = _inherits, module.exports.__esModule = true, module.exports["de
 
 /***/ }),
 
-/***/ 9:
-/*!*****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-  return arr2;
-}
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 90:
+/***/ 91:
 /*!**************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js ***!
   \**************************************************************************/
@@ -36564,7 +37478,7 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
-var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized.js */ 91);
+var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized.js */ 92);
 function _possibleConstructorReturn(self, call) {
   if (call && (_typeof(call) === "object" || typeof call === "function")) {
     return call;
@@ -36577,7 +37491,7 @@ module.exports = _possibleConstructorReturn, module.exports.__esModule = true, m
 
 /***/ }),
 
-/***/ 91:
+/***/ 92:
 /*!**********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/assertThisInitialized.js ***!
   \**********************************************************************/
@@ -36591,920 +37505,6 @@ function _assertThisInitialized(self) {
   return self;
 }
 module.exports = _assertThisInitialized, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 92:
-/*!************************************************************************************************************************************!*\
-  !*** /Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-customer/lib/qqmap-wx-jssdk.min.js ***!
-  \************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(wx) {var _classCallCheck = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23);
-var _createClass = __webpack_require__(/*! @babel/runtime/helpers/createClass */ 24);
-var ERROR_CONF = {
-  KEY_ERR: 311,
-  KEY_ERR_MSG: 'key格式错误',
-  PARAM_ERR: 310,
-  PARAM_ERR_MSG: '请求参数信息有误',
-  SYSTEM_ERR: 600,
-  SYSTEM_ERR_MSG: '系统错误',
-  WX_ERR_CODE: 1000,
-  WX_OK_CODE: 200
-};
-var BASE_URL = 'https://apis.map.qq.com/ws/';
-var URL_SEARCH = BASE_URL + 'place/v1/search';
-var URL_SUGGESTION = BASE_URL + 'place/v1/suggestion';
-var URL_GET_GEOCODER = BASE_URL + 'geocoder/v1/';
-var URL_CITY_LIST = BASE_URL + 'district/v1/list';
-var URL_AREA_LIST = BASE_URL + 'district/v1/getchildren';
-var URL_DISTANCE = BASE_URL + 'distance/v1/';
-var URL_DIRECTION = BASE_URL + 'direction/v1/';
-var MODE = {
-  driving: 'driving',
-  transit: 'transit'
-};
-var EARTH_RADIUS = 6378136.49;
-var Utils = {
-  safeAdd: function safeAdd(x, y) {
-    var lsw = (x & 0xffff) + (y & 0xffff);
-    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
-    return msw << 16 | lsw & 0xffff;
-  },
-  bitRotateLeft: function bitRotateLeft(num, cnt) {
-    return num << cnt | num >>> 32 - cnt;
-  },
-  md5cmn: function md5cmn(q, a, b, x, s, t) {
-    return this.safeAdd(this.bitRotateLeft(this.safeAdd(this.safeAdd(a, q), this.safeAdd(x, t)), s), b);
-  },
-  md5ff: function md5ff(a, b, c, d, x, s, t) {
-    return this.md5cmn(b & c | ~b & d, a, b, x, s, t);
-  },
-  md5gg: function md5gg(a, b, c, d, x, s, t) {
-    return this.md5cmn(b & d | c & ~d, a, b, x, s, t);
-  },
-  md5hh: function md5hh(a, b, c, d, x, s, t) {
-    return this.md5cmn(b ^ c ^ d, a, b, x, s, t);
-  },
-  md5ii: function md5ii(a, b, c, d, x, s, t) {
-    return this.md5cmn(c ^ (b | ~d), a, b, x, s, t);
-  },
-  binlMD5: function binlMD5(x, len) {
-    x[len >> 5] |= 0x80 << len % 32;
-    x[(len + 64 >>> 9 << 4) + 14] = len;
-    var i;
-    var olda;
-    var oldb;
-    var oldc;
-    var oldd;
-    var a = 1732584193;
-    var b = -271733879;
-    var c = -1732584194;
-    var d = 271733878;
-    for (i = 0; i < x.length; i += 16) {
-      olda = a;
-      oldb = b;
-      oldc = c;
-      oldd = d;
-      a = this.md5ff(a, b, c, d, x[i], 7, -680876936);
-      d = this.md5ff(d, a, b, c, x[i + 1], 12, -389564586);
-      c = this.md5ff(c, d, a, b, x[i + 2], 17, 606105819);
-      b = this.md5ff(b, c, d, a, x[i + 3], 22, -1044525330);
-      a = this.md5ff(a, b, c, d, x[i + 4], 7, -176418897);
-      d = this.md5ff(d, a, b, c, x[i + 5], 12, 1200080426);
-      c = this.md5ff(c, d, a, b, x[i + 6], 17, -1473231341);
-      b = this.md5ff(b, c, d, a, x[i + 7], 22, -45705983);
-      a = this.md5ff(a, b, c, d, x[i + 8], 7, 1770035416);
-      d = this.md5ff(d, a, b, c, x[i + 9], 12, -1958414417);
-      c = this.md5ff(c, d, a, b, x[i + 10], 17, -42063);
-      b = this.md5ff(b, c, d, a, x[i + 11], 22, -1990404162);
-      a = this.md5ff(a, b, c, d, x[i + 12], 7, 1804603682);
-      d = this.md5ff(d, a, b, c, x[i + 13], 12, -40341101);
-      c = this.md5ff(c, d, a, b, x[i + 14], 17, -1502002290);
-      b = this.md5ff(b, c, d, a, x[i + 15], 22, 1236535329);
-      a = this.md5gg(a, b, c, d, x[i + 1], 5, -165796510);
-      d = this.md5gg(d, a, b, c, x[i + 6], 9, -1069501632);
-      c = this.md5gg(c, d, a, b, x[i + 11], 14, 643717713);
-      b = this.md5gg(b, c, d, a, x[i], 20, -373897302);
-      a = this.md5gg(a, b, c, d, x[i + 5], 5, -701558691);
-      d = this.md5gg(d, a, b, c, x[i + 10], 9, 38016083);
-      c = this.md5gg(c, d, a, b, x[i + 15], 14, -660478335);
-      b = this.md5gg(b, c, d, a, x[i + 4], 20, -405537848);
-      a = this.md5gg(a, b, c, d, x[i + 9], 5, 568446438);
-      d = this.md5gg(d, a, b, c, x[i + 14], 9, -1019803690);
-      c = this.md5gg(c, d, a, b, x[i + 3], 14, -187363961);
-      b = this.md5gg(b, c, d, a, x[i + 8], 20, 1163531501);
-      a = this.md5gg(a, b, c, d, x[i + 13], 5, -1444681467);
-      d = this.md5gg(d, a, b, c, x[i + 2], 9, -51403784);
-      c = this.md5gg(c, d, a, b, x[i + 7], 14, 1735328473);
-      b = this.md5gg(b, c, d, a, x[i + 12], 20, -1926607734);
-      a = this.md5hh(a, b, c, d, x[i + 5], 4, -378558);
-      d = this.md5hh(d, a, b, c, x[i + 8], 11, -2022574463);
-      c = this.md5hh(c, d, a, b, x[i + 11], 16, 1839030562);
-      b = this.md5hh(b, c, d, a, x[i + 14], 23, -35309556);
-      a = this.md5hh(a, b, c, d, x[i + 1], 4, -1530992060);
-      d = this.md5hh(d, a, b, c, x[i + 4], 11, 1272893353);
-      c = this.md5hh(c, d, a, b, x[i + 7], 16, -155497632);
-      b = this.md5hh(b, c, d, a, x[i + 10], 23, -1094730640);
-      a = this.md5hh(a, b, c, d, x[i + 13], 4, 681279174);
-      d = this.md5hh(d, a, b, c, x[i], 11, -358537222);
-      c = this.md5hh(c, d, a, b, x[i + 3], 16, -722521979);
-      b = this.md5hh(b, c, d, a, x[i + 6], 23, 76029189);
-      a = this.md5hh(a, b, c, d, x[i + 9], 4, -640364487);
-      d = this.md5hh(d, a, b, c, x[i + 12], 11, -421815835);
-      c = this.md5hh(c, d, a, b, x[i + 15], 16, 530742520);
-      b = this.md5hh(b, c, d, a, x[i + 2], 23, -995338651);
-      a = this.md5ii(a, b, c, d, x[i], 6, -198630844);
-      d = this.md5ii(d, a, b, c, x[i + 7], 10, 1126891415);
-      c = this.md5ii(c, d, a, b, x[i + 14], 15, -1416354905);
-      b = this.md5ii(b, c, d, a, x[i + 5], 21, -57434055);
-      a = this.md5ii(a, b, c, d, x[i + 12], 6, 1700485571);
-      d = this.md5ii(d, a, b, c, x[i + 3], 10, -1894986606);
-      c = this.md5ii(c, d, a, b, x[i + 10], 15, -1051523);
-      b = this.md5ii(b, c, d, a, x[i + 1], 21, -2054922799);
-      a = this.md5ii(a, b, c, d, x[i + 8], 6, 1873313359);
-      d = this.md5ii(d, a, b, c, x[i + 15], 10, -30611744);
-      c = this.md5ii(c, d, a, b, x[i + 6], 15, -1560198380);
-      b = this.md5ii(b, c, d, a, x[i + 13], 21, 1309151649);
-      a = this.md5ii(a, b, c, d, x[i + 4], 6, -145523070);
-      d = this.md5ii(d, a, b, c, x[i + 11], 10, -1120210379);
-      c = this.md5ii(c, d, a, b, x[i + 2], 15, 718787259);
-      b = this.md5ii(b, c, d, a, x[i + 9], 21, -343485551);
-      a = this.safeAdd(a, olda);
-      b = this.safeAdd(b, oldb);
-      c = this.safeAdd(c, oldc);
-      d = this.safeAdd(d, oldd);
-    }
-    return [a, b, c, d];
-  },
-  binl2rstr: function binl2rstr(input) {
-    var i;
-    var output = '';
-    var length32 = input.length * 32;
-    for (i = 0; i < length32; i += 8) {
-      output += String.fromCharCode(input[i >> 5] >>> i % 32 & 0xff);
-    }
-    return output;
-  },
-  rstr2binl: function rstr2binl(input) {
-    var i;
-    var output = [];
-    output[(input.length >> 2) - 1] = undefined;
-    for (i = 0; i < output.length; i += 1) {
-      output[i] = 0;
-    }
-    var length8 = input.length * 8;
-    for (i = 0; i < length8; i += 8) {
-      output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << i % 32;
-    }
-    return output;
-  },
-  rstrMD5: function rstrMD5(s) {
-    return this.binl2rstr(this.binlMD5(this.rstr2binl(s), s.length * 8));
-  },
-  rstrHMACMD5: function rstrHMACMD5(key, data) {
-    var i;
-    var bkey = this.rstr2binl(key);
-    var ipad = [];
-    var opad = [];
-    var hash;
-    ipad[15] = opad[15] = undefined;
-    if (bkey.length > 16) {
-      bkey = this.binlMD5(bkey, key.length * 8);
-    }
-    for (i = 0; i < 16; i += 1) {
-      ipad[i] = bkey[i] ^ 0x36363636;
-      opad[i] = bkey[i] ^ 0x5c5c5c5c;
-    }
-    hash = this.binlMD5(ipad.concat(this.rstr2binl(data)), 512 + data.length * 8);
-    return this.binl2rstr(this.binlMD5(opad.concat(hash), 512 + 128));
-  },
-  rstr2hex: function rstr2hex(input) {
-    var hexTab = '0123456789abcdef';
-    var output = '';
-    var x;
-    var i;
-    for (i = 0; i < input.length; i += 1) {
-      x = input.charCodeAt(i);
-      output += hexTab.charAt(x >>> 4 & 0x0f) + hexTab.charAt(x & 0x0f);
-    }
-    return output;
-  },
-  str2rstrUTF8: function str2rstrUTF8(input) {
-    return unescape(encodeURIComponent(input));
-  },
-  rawMD5: function rawMD5(s) {
-    return this.rstrMD5(this.str2rstrUTF8(s));
-  },
-  hexMD5: function hexMD5(s) {
-    return this.rstr2hex(this.rawMD5(s));
-  },
-  rawHMACMD5: function rawHMACMD5(k, d) {
-    return this.rstrHMACMD5(this.str2rstrUTF8(k), str2rstrUTF8(d));
-  },
-  hexHMACMD5: function hexHMACMD5(k, d) {
-    return this.rstr2hex(this.rawHMACMD5(k, d));
-  },
-  md5: function md5(string, key, raw) {
-    if (!key) {
-      if (!raw) {
-        return this.hexMD5(string);
-      }
-      return this.rawMD5(string);
-    }
-    if (!raw) {
-      return this.hexHMACMD5(key, string);
-    }
-    return this.rawHMACMD5(key, string);
-  },
-  getSig: function getSig(requestParam, sk, feature, mode) {
-    var sig = null;
-    var requestArr = [];
-    Object.keys(requestParam).sort().forEach(function (key) {
-      requestArr.push(key + '=' + requestParam[key]);
-    });
-    if (feature == 'search') {
-      sig = '/ws/place/v1/search?' + requestArr.join('&') + sk;
-    }
-    if (feature == 'suggest') {
-      sig = '/ws/place/v1/suggestion?' + requestArr.join('&') + sk;
-    }
-    if (feature == 'reverseGeocoder') {
-      sig = '/ws/geocoder/v1/?' + requestArr.join('&') + sk;
-    }
-    if (feature == 'geocoder') {
-      sig = '/ws/geocoder/v1/?' + requestArr.join('&') + sk;
-    }
-    if (feature == 'getCityList') {
-      sig = '/ws/district/v1/list?' + requestArr.join('&') + sk;
-    }
-    if (feature == 'getDistrictByCityId') {
-      sig = '/ws/district/v1/getchildren?' + requestArr.join('&') + sk;
-    }
-    if (feature == 'calculateDistance') {
-      sig = '/ws/distance/v1/?' + requestArr.join('&') + sk;
-    }
-    if (feature == 'direction') {
-      sig = '/ws/direction/v1/' + mode + '?' + requestArr.join('&') + sk;
-    }
-    sig = this.md5(sig);
-    return sig;
-  },
-  location2query: function location2query(data) {
-    if (typeof data == 'string') {
-      return data;
-    }
-    var query = '';
-    for (var i = 0; i < data.length; i++) {
-      var d = data[i];
-      if (!!query) {
-        query += ';';
-      }
-      if (d.location) {
-        query = query + d.location.lat + ',' + d.location.lng;
-      }
-      if (d.latitude && d.longitude) {
-        query = query + d.latitude + ',' + d.longitude;
-      }
-    }
-    return query;
-  },
-  rad: function rad(d) {
-    return d * Math.PI / 180.0;
-  },
-  getEndLocation: function getEndLocation(location) {
-    var to = location.split(';');
-    var endLocation = [];
-    for (var i = 0; i < to.length; i++) {
-      endLocation.push({
-        lat: parseFloat(to[i].split(',')[0]),
-        lng: parseFloat(to[i].split(',')[1])
-      });
-    }
-    return endLocation;
-  },
-  getDistance: function getDistance(latFrom, lngFrom, latTo, lngTo) {
-    var radLatFrom = this.rad(latFrom);
-    var radLatTo = this.rad(latTo);
-    var a = radLatFrom - radLatTo;
-    var b = this.rad(lngFrom) - this.rad(lngTo);
-    var distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLatFrom) * Math.cos(radLatTo) * Math.pow(Math.sin(b / 2), 2)));
-    distance = distance * EARTH_RADIUS;
-    distance = Math.round(distance * 10000) / 10000;
-    return parseFloat(distance.toFixed(0));
-  },
-  getWXLocation: function getWXLocation(success, fail, complete) {
-    wx.getLocation({
-      type: 'gcj02',
-      success: success,
-      fail: fail,
-      complete: complete
-    });
-  },
-  getLocationParam: function getLocationParam(location) {
-    if (typeof location == 'string') {
-      var locationArr = location.split(',');
-      if (locationArr.length === 2) {
-        location = {
-          latitude: location.split(',')[0],
-          longitude: location.split(',')[1]
-        };
-      } else {
-        location = {};
-      }
-    }
-    return location;
-  },
-  polyfillParam: function polyfillParam(param) {
-    param.success = param.success || function () {};
-    param.fail = param.fail || function () {};
-    param.complete = param.complete || function () {};
-  },
-  checkParamKeyEmpty: function checkParamKeyEmpty(param, key) {
-    if (!param[key]) {
-      var errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + key + '参数格式有误');
-      param.fail(errconf);
-      param.complete(errconf);
-      return true;
-    }
-    return false;
-  },
-  checkKeyword: function checkKeyword(param) {
-    return !this.checkParamKeyEmpty(param, 'keyword');
-  },
-  checkLocation: function checkLocation(param) {
-    var location = this.getLocationParam(param.location);
-    if (!location || !location.latitude || !location.longitude) {
-      var errconf = this.buildErrorConfig(ERROR_CONF.PARAM_ERR, ERROR_CONF.PARAM_ERR_MSG + ' location参数格式有误');
-      param.fail(errconf);
-      param.complete(errconf);
-      return false;
-    }
-    return true;
-  },
-  buildErrorConfig: function buildErrorConfig(errCode, errMsg) {
-    return {
-      status: errCode,
-      message: errMsg
-    };
-  },
-  handleData: function handleData(param, data, feature) {
-    if (feature == 'search') {
-      var searchResult = data.data;
-      var searchSimplify = [];
-      for (var i = 0; i < searchResult.length; i++) {
-        searchSimplify.push({
-          id: searchResult[i].id || null,
-          title: searchResult[i].title || null,
-          latitude: searchResult[i].location && searchResult[i].location.lat || null,
-          longitude: searchResult[i].location && searchResult[i].location.lng || null,
-          address: searchResult[i].address || null,
-          category: searchResult[i].category || null,
-          tel: searchResult[i].tel || null,
-          adcode: searchResult[i].ad_info && searchResult[i].ad_info.adcode || null,
-          city: searchResult[i].ad_info && searchResult[i].ad_info.city || null,
-          district: searchResult[i].ad_info && searchResult[i].ad_info.district || null,
-          province: searchResult[i].ad_info && searchResult[i].ad_info.province || null
-        });
-      }
-      param.success(data, {
-        searchResult: searchResult,
-        searchSimplify: searchSimplify
-      });
-    } else if (feature == 'suggest') {
-      var suggestResult = data.data;
-      var suggestSimplify = [];
-      for (var i = 0; i < suggestResult.length; i++) {
-        suggestSimplify.push({
-          adcode: suggestResult[i].adcode || null,
-          address: suggestResult[i].address || null,
-          category: suggestResult[i].category || null,
-          city: suggestResult[i].city || null,
-          district: suggestResult[i].district || null,
-          id: suggestResult[i].id || null,
-          latitude: suggestResult[i].location && suggestResult[i].location.lat || null,
-          longitude: suggestResult[i].location && suggestResult[i].location.lng || null,
-          province: suggestResult[i].province || null,
-          title: suggestResult[i].title || null,
-          type: suggestResult[i].type || null
-        });
-      }
-      param.success(data, {
-        suggestResult: suggestResult,
-        suggestSimplify: suggestSimplify
-      });
-    } else if (feature == 'reverseGeocoder') {
-      var reverseGeocoderResult = data.result;
-      var reverseGeocoderSimplify = {
-        address: reverseGeocoderResult.address || null,
-        latitude: reverseGeocoderResult.location && reverseGeocoderResult.location.lat || null,
-        longitude: reverseGeocoderResult.location && reverseGeocoderResult.location.lng || null,
-        adcode: reverseGeocoderResult.ad_info && reverseGeocoderResult.ad_info.adcode || null,
-        city: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.city || null,
-        district: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.district || null,
-        nation: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.nation || null,
-        province: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.province || null,
-        street: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.street || null,
-        street_number: reverseGeocoderResult.address_component && reverseGeocoderResult.address_component.street_number || null,
-        recommend: reverseGeocoderResult.formatted_addresses && reverseGeocoderResult.formatted_addresses.recommend || null,
-        rough: reverseGeocoderResult.formatted_addresses && reverseGeocoderResult.formatted_addresses.rough || null
-      };
-      if (reverseGeocoderResult.pois) {
-        var pois = reverseGeocoderResult.pois;
-        var poisSimplify = [];
-        for (var i = 0; i < pois.length; i++) {
-          poisSimplify.push({
-            id: pois[i].id || null,
-            title: pois[i].title || null,
-            latitude: pois[i].location && pois[i].location.lat || null,
-            longitude: pois[i].location && pois[i].location.lng || null,
-            address: pois[i].address || null,
-            category: pois[i].category || null,
-            adcode: pois[i].ad_info && pois[i].ad_info.adcode || null,
-            city: pois[i].ad_info && pois[i].ad_info.city || null,
-            district: pois[i].ad_info && pois[i].ad_info.district || null,
-            province: pois[i].ad_info && pois[i].ad_info.province || null
-          });
-        }
-        param.success(data, {
-          reverseGeocoderResult: reverseGeocoderResult,
-          reverseGeocoderSimplify: reverseGeocoderSimplify,
-          pois: pois,
-          poisSimplify: poisSimplify
-        });
-      } else {
-        param.success(data, {
-          reverseGeocoderResult: reverseGeocoderResult,
-          reverseGeocoderSimplify: reverseGeocoderSimplify
-        });
-      }
-    } else if (feature == 'geocoder') {
-      var geocoderResult = data.result;
-      var geocoderSimplify = {
-        title: geocoderResult.title || null,
-        latitude: geocoderResult.location && geocoderResult.location.lat || null,
-        longitude: geocoderResult.location && geocoderResult.location.lng || null,
-        adcode: geocoderResult.ad_info && geocoderResult.ad_info.adcode || null,
-        province: geocoderResult.address_components && geocoderResult.address_components.province || null,
-        city: geocoderResult.address_components && geocoderResult.address_components.city || null,
-        district: geocoderResult.address_components && geocoderResult.address_components.district || null,
-        street: geocoderResult.address_components && geocoderResult.address_components.street || null,
-        street_number: geocoderResult.address_components && geocoderResult.address_components.street_number || null,
-        level: geocoderResult.level || null
-      };
-      param.success(data, {
-        geocoderResult: geocoderResult,
-        geocoderSimplify: geocoderSimplify
-      });
-    } else if (feature == 'getCityList') {
-      var provinceResult = data.result[0];
-      var cityResult = data.result[1];
-      var districtResult = data.result[2];
-      param.success(data, {
-        provinceResult: provinceResult,
-        cityResult: cityResult,
-        districtResult: districtResult
-      });
-    } else if (feature == 'getDistrictByCityId') {
-      var districtByCity = data.result[0];
-      param.success(data, districtByCity);
-    } else if (feature == 'calculateDistance') {
-      var calculateDistanceResult = data.result.elements;
-      var distance = [];
-      for (var i = 0; i < calculateDistanceResult.length; i++) {
-        distance.push(calculateDistanceResult[i].distance);
-      }
-      param.success(data, {
-        calculateDistanceResult: calculateDistanceResult,
-        distance: distance
-      });
-    } else if (feature == 'direction') {
-      var direction = data.result.routes;
-      param.success(data, direction);
-    } else {
-      param.success(data);
-    }
-  },
-  buildWxRequestConfig: function buildWxRequestConfig(param, options, feature) {
-    var that = this;
-    options.header = {
-      "content-type": "application/json"
-    };
-    options.method = 'GET';
-    options.success = function (res) {
-      var data = res.data;
-      if (data.status === 0) {
-        that.handleData(param, data, feature);
-      } else {
-        param.fail(data);
-      }
-    };
-    options.fail = function (res) {
-      res.statusCode = ERROR_CONF.WX_ERR_CODE;
-      param.fail(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
-    };
-    options.complete = function (res) {
-      var statusCode = +res.statusCode;
-      switch (statusCode) {
-        case ERROR_CONF.WX_ERR_CODE:
-          {
-            param.complete(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
-            break;
-          }
-        case ERROR_CONF.WX_OK_CODE:
-          {
-            var data = res.data;
-            if (data.status === 0) {
-              param.complete(data);
-            } else {
-              param.complete(that.buildErrorConfig(data.status, data.message));
-            }
-            break;
-          }
-        default:
-          {
-            param.complete(that.buildErrorConfig(ERROR_CONF.SYSTEM_ERR, ERROR_CONF.SYSTEM_ERR_MSG));
-          }
-      }
-    };
-    return options;
-  },
-  locationProcess: function locationProcess(param, locationsuccess, locationfail, locationcomplete) {
-    var that = this;
-    locationfail = locationfail || function (res) {
-      res.statusCode = ERROR_CONF.WX_ERR_CODE;
-      param.fail(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
-    };
-    locationcomplete = locationcomplete || function (res) {
-      if (res.statusCode == ERROR_CONF.WX_ERR_CODE) {
-        param.complete(that.buildErrorConfig(ERROR_CONF.WX_ERR_CODE, res.errMsg));
-      }
-    };
-    if (!param.location) {
-      that.getWXLocation(locationsuccess, locationfail, locationcomplete);
-    } else if (that.checkLocation(param)) {
-      var location = Utils.getLocationParam(param.location);
-      locationsuccess(location);
-    }
-  }
-};
-var QQMapWX = /*#__PURE__*/function () {
-  "use strict";
-
-  function QQMapWX(options) {
-    _classCallCheck(this, QQMapWX);
-    if (!options.key) {
-      throw Error('key值不能为空');
-    }
-    this.key = options.key;
-  }
-  _createClass(QQMapWX, [{
-    key: "search",
-    value: function search(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      if (!Utils.checkKeyword(options)) {
-        return;
-      }
-      var requestParam = {
-        keyword: options.keyword,
-        orderby: options.orderby || '_distance',
-        page_size: options.page_size || 10,
-        page_index: options.page_index || 1,
-        output: 'json',
-        key: that.key
-      };
-      if (options.address_format) {
-        requestParam.address_format = options.address_format;
-      }
-      if (options.filter) {
-        requestParam.filter = options.filter;
-      }
-      var distance = options.distance || "1000";
-      var auto_extend = options.auto_extend || 1;
-      var region = null;
-      var rectangle = null;
-      if (options.region) {
-        region = options.region;
-      }
-      if (options.rectangle) {
-        rectangle = options.rectangle;
-      }
-      var locationsuccess = function locationsuccess(result) {
-        if (region && !rectangle) {
-          requestParam.boundary = "region(" + region + "," + auto_extend + "," + result.latitude + "," + result.longitude + ")";
-          if (options.sig) {
-            requestParam.sig = Utils.getSig(requestParam, options.sig, 'search');
-          }
-        } else if (rectangle && !region) {
-          requestParam.boundary = "rectangle(" + rectangle + ")";
-          if (options.sig) {
-            requestParam.sig = Utils.getSig(requestParam, options.sig, 'search');
-          }
-        } else {
-          requestParam.boundary = "nearby(" + result.latitude + "," + result.longitude + "," + distance + "," + auto_extend + ")";
-          if (options.sig) {
-            requestParam.sig = Utils.getSig(requestParam, options.sig, 'search');
-          }
-        }
-        wx.request(Utils.buildWxRequestConfig(options, {
-          url: URL_SEARCH,
-          data: requestParam
-        }, 'search'));
-      };
-      Utils.locationProcess(options, locationsuccess);
-    }
-  }, {
-    key: "getSuggestion",
-    value: function getSuggestion(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      if (!Utils.checkKeyword(options)) {
-        return;
-      }
-      var requestParam = {
-        keyword: options.keyword,
-        region: options.region || '全国',
-        region_fix: options.region_fix || 0,
-        policy: options.policy || 0,
-        page_size: options.page_size || 10,
-        page_index: options.page_index || 1,
-        get_subpois: options.get_subpois || 0,
-        output: 'json',
-        key: that.key
-      };
-      if (options.address_format) {
-        requestParam.address_format = options.address_format;
-      }
-      if (options.filter) {
-        requestParam.filter = options.filter;
-      }
-      if (options.location) {
-        var locationsuccess = function locationsuccess(result) {
-          requestParam.location = result.latitude + ',' + result.longitude;
-          if (options.sig) {
-            requestParam.sig = Utils.getSig(requestParam, options.sig, 'suggest');
-          }
-          wx.request(Utils.buildWxRequestConfig(options, {
-            url: URL_SUGGESTION,
-            data: requestParam
-          }, "suggest"));
-        };
-        Utils.locationProcess(options, locationsuccess);
-      } else {
-        if (options.sig) {
-          requestParam.sig = Utils.getSig(requestParam, options.sig, 'suggest');
-        }
-        wx.request(Utils.buildWxRequestConfig(options, {
-          url: URL_SUGGESTION,
-          data: requestParam
-        }, "suggest"));
-      }
-    }
-  }, {
-    key: "reverseGeocoder",
-    value: function reverseGeocoder(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      var requestParam = {
-        coord_type: options.coord_type || 5,
-        get_poi: options.get_poi || 0,
-        output: 'json',
-        key: that.key
-      };
-      if (options.poi_options) {
-        requestParam.poi_options = options.poi_options;
-      }
-      var locationsuccess = function locationsuccess(result) {
-        requestParam.location = result.latitude + ',' + result.longitude;
-        if (options.sig) {
-          requestParam.sig = Utils.getSig(requestParam, options.sig, 'reverseGeocoder');
-        }
-        wx.request(Utils.buildWxRequestConfig(options, {
-          url: URL_GET_GEOCODER,
-          data: requestParam
-        }, 'reverseGeocoder'));
-      };
-      Utils.locationProcess(options, locationsuccess);
-    }
-  }, {
-    key: "geocoder",
-    value: function geocoder(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      if (Utils.checkParamKeyEmpty(options, 'address')) {
-        return;
-      }
-      var requestParam = {
-        address: options.address,
-        output: 'json',
-        key: that.key
-      };
-      if (options.region) {
-        requestParam.region = options.region;
-      }
-      if (options.sig) {
-        requestParam.sig = Utils.getSig(requestParam, options.sig, 'geocoder');
-      }
-      wx.request(Utils.buildWxRequestConfig(options, {
-        url: URL_GET_GEOCODER,
-        data: requestParam
-      }, 'geocoder'));
-    }
-  }, {
-    key: "getCityList",
-    value: function getCityList(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      var requestParam = {
-        output: 'json',
-        key: that.key
-      };
-      if (options.sig) {
-        requestParam.sig = Utils.getSig(requestParam, options.sig, 'getCityList');
-      }
-      wx.request(Utils.buildWxRequestConfig(options, {
-        url: URL_CITY_LIST,
-        data: requestParam
-      }, 'getCityList'));
-    }
-  }, {
-    key: "getDistrictByCityId",
-    value: function getDistrictByCityId(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      if (Utils.checkParamKeyEmpty(options, 'id')) {
-        return;
-      }
-      var requestParam = {
-        id: options.id || '',
-        output: 'json',
-        key: that.key
-      };
-      if (options.sig) {
-        requestParam.sig = Utils.getSig(requestParam, options.sig, 'getDistrictByCityId');
-      }
-      wx.request(Utils.buildWxRequestConfig(options, {
-        url: URL_AREA_LIST,
-        data: requestParam
-      }, 'getDistrictByCityId'));
-    }
-  }, {
-    key: "calculateDistance",
-    value: function calculateDistance(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      if (Utils.checkParamKeyEmpty(options, 'to')) {
-        return;
-      }
-      var requestParam = {
-        mode: options.mode || 'walking',
-        to: Utils.location2query(options.to),
-        output: 'json',
-        key: that.key
-      };
-      if (options.from) {
-        options.location = options.from;
-      }
-      if (requestParam.mode == 'straight') {
-        var locationsuccess = function locationsuccess(result) {
-          var locationTo = Utils.getEndLocation(requestParam.to);
-          var data = {
-            message: "query ok",
-            result: {
-              elements: []
-            },
-            status: 0
-          };
-          for (var i = 0; i < locationTo.length; i++) {
-            data.result.elements.push({
-              distance: Utils.getDistance(result.latitude, result.longitude, locationTo[i].lat, locationTo[i].lng),
-              duration: 0,
-              from: {
-                lat: result.latitude,
-                lng: result.longitude
-              },
-              to: {
-                lat: locationTo[i].lat,
-                lng: locationTo[i].lng
-              }
-            });
-          }
-          var calculateResult = data.result.elements;
-          var distanceResult = [];
-          for (var i = 0; i < calculateResult.length; i++) {
-            distanceResult.push(calculateResult[i].distance);
-          }
-          return options.success(data, {
-            calculateResult: calculateResult,
-            distanceResult: distanceResult
-          });
-        };
-        Utils.locationProcess(options, locationsuccess);
-      } else {
-        var locationsuccess = function locationsuccess(result) {
-          requestParam.from = result.latitude + ',' + result.longitude;
-          if (options.sig) {
-            requestParam.sig = Utils.getSig(requestParam, options.sig, 'calculateDistance');
-          }
-          wx.request(Utils.buildWxRequestConfig(options, {
-            url: URL_DISTANCE,
-            data: requestParam
-          }, 'calculateDistance'));
-        };
-        Utils.locationProcess(options, locationsuccess);
-      }
-    }
-  }, {
-    key: "direction",
-    value: function direction(options) {
-      var that = this;
-      options = options || {};
-      Utils.polyfillParam(options);
-      if (Utils.checkParamKeyEmpty(options, 'to')) {
-        return;
-      }
-      var requestParam = {
-        output: 'json',
-        key: that.key
-      };
-      if (typeof options.to == 'string') {
-        requestParam.to = options.to;
-      } else {
-        requestParam.to = options.to.latitude + ',' + options.to.longitude;
-      }
-      var SET_URL_DIRECTION = null;
-      options.mode = options.mode || MODE.driving;
-      SET_URL_DIRECTION = URL_DIRECTION + options.mode;
-      if (options.from) {
-        options.location = options.from;
-      }
-      if (options.mode == MODE.driving) {
-        if (options.from_poi) {
-          requestParam.from_poi = options.from_poi;
-        }
-        if (options.heading) {
-          requestParam.heading = options.heading;
-        }
-        if (options.speed) {
-          requestParam.speed = options.speed;
-        }
-        if (options.accuracy) {
-          requestParam.accuracy = options.accuracy;
-        }
-        if (options.road_type) {
-          requestParam.road_type = options.road_type;
-        }
-        if (options.to_poi) {
-          requestParam.to_poi = options.to_poi;
-        }
-        if (options.from_track) {
-          requestParam.from_track = options.from_track;
-        }
-        if (options.waypoints) {
-          requestParam.waypoints = options.waypoints;
-        }
-        if (options.policy) {
-          requestParam.policy = options.policy;
-        }
-        if (options.plate_number) {
-          requestParam.plate_number = options.plate_number;
-        }
-      }
-      if (options.mode == MODE.transit) {
-        if (options.departure_time) {
-          requestParam.departure_time = options.departure_time;
-        }
-        if (options.policy) {
-          requestParam.policy = options.policy;
-        }
-      }
-      var locationsuccess = function locationsuccess(result) {
-        requestParam.from = result.latitude + ',' + result.longitude;
-        if (options.sig) {
-          requestParam.sig = Utils.getSig(requestParam, options.sig, 'direction', options.mode);
-        }
-        wx.request(Utils.buildWxRequestConfig(options, {
-          url: SET_URL_DIRECTION,
-          data: requestParam
-        }, 'direction'));
-      };
-      Utils.locationProcess(options, locationsuccess);
-    }
-  }]);
-  return QQMapWX;
-}();
-;
-module.exports = QQMapWX;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ })
 

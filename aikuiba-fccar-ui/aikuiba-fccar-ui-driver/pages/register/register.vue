@@ -89,7 +89,7 @@
 		data() {
 			return {
 				code: null,
-				cityName: "未知"
+				cityName: "-未知-"
 			};
 		},
 		onLoad() {

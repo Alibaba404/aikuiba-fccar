@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      config:
+        namespace: @nacos.namespace@ #命名空间
+        name: @artifactId@        #配置文件名称(DataId不要后缀)
+        file-extension: yaml      #配置文件后缀
+        server-addr: @nacos.server.address@   #配置中心地址
+        shared-configs: #共享配置
+          - data-id: aikuiba-fccar-common.yaml
