@@ -19,7 +19,9 @@ public enum ErrorCode {
     MINIPROGRAM_RESULT_OPENID_EMPTY(3000, "OPENID获取失败"),
     DRIVER_LOGIN_ERROR(3001, "司机登录信息保存失败"),
     LOGIN_SAVE_ERROR(3002, "登录信息保存失败"),
-    CUSTOMER_LOGIN_ERROR(3003, "乘客登录信息保存失败");
+    CUSTOMER_LOGIN_ERROR(3003, "乘客登录信息保存失败"),
+    APP_ACCESSTOKEN_ERROR(3004, "微信ACCESS—TOKEN获取失败"),
+    APP_GET_PHONE_ERROR(3005, "获取微信手机号失败");
     //错误码
     private int code;
     //错误信息

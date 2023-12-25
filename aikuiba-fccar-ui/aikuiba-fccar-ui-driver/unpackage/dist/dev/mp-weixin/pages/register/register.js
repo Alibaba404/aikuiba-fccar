@@ -303,18 +303,26 @@ var _default = {
       });
     },
     //获取手机号
-    getPhone: function getPhone(res) {
-      console.log('===>', res);
+    phoneRegister: function phoneRegister(res) {
+      var _this = this;
+      console.log('res', res);
+      if (res.detail.code) {
+        _this.wxRegister(res.detail.code);
+      }
+
+      // 测试
+      _this.wxRegister(res.detail.code);
     },
     //司机注册
-    wxRegister: function wxRegister() {
+    wxRegister: function wxRegister(phoneCode) {
       var _this = this;
       // 获取WX code
       wx.login({
         success: function success(res) {
           if (res.code) {
             var param = {
-              code: res.code
+              code: res.code,
+              phoneCode: phoneCode
             };
             _this.post(_this.Consts.API.DRIVER_REGISTER, param, function (res) {
               console.log('===>', res);

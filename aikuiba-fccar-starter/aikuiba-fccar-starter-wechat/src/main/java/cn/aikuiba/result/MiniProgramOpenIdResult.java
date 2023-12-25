@@ -8,7 +8,7 @@ import lombok.Data;
  * @description 换取OPENID返回对象
  */
 @Data
-public class MinappOpenIdResult {
+public class MiniProgramOpenIdResult {
     private String openid;
     private String session_key;
     private String unionid;

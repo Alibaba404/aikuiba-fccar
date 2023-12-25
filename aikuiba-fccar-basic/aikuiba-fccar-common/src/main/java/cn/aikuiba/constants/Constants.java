@@ -23,7 +23,6 @@ public class Constants {
     public class Remote {
         //服务名
         public static final String SERVICE_UAA = "aikuiba-fccar-service-uaa";
-
         public static final String PREFIX_LOGIN_REMOTE = "/login/remote";
     }
 }

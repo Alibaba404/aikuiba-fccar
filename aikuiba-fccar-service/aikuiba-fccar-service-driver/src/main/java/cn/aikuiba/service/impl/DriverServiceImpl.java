@@ -5,10 +5,11 @@ import cn.aikuiba.api.remote.pojo.dto.LoginDto;
 import cn.aikuiba.constants.Constants;
 import cn.aikuiba.constants.ErrorCode;
 import cn.aikuiba.mapper.DriverMapper;
-import cn.aikuiba.pojo.app.dto.MiniProgramDriverRegisterDTO;
+import cn.aikuiba.pojo.app.dto.MiniProgramRegisterDTO;
 import cn.aikuiba.pojo.domain.Driver;
+import cn.aikuiba.pojo.result.PhoneNumberResult;
 import cn.aikuiba.result.JSONResult;
-import cn.aikuiba.result.MinappOpenIdResult;
+import cn.aikuiba.result.MiniProgramOpenIdResult;
 import cn.aikuiba.service.IDriverService;
 import cn.aikuiba.service.IDriverSettingService;
 import cn.aikuiba.service.IDriverSummaryService;
@@ -69,40 +70,25 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
      * @param dto 注册对象
      */
     @Override
-    public void register(MiniProgramDriverRegisterDTO dto) {
-//        String urlOpenid = miniProgramProperties.getUrlOpenid();
-//        // https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code
-//        urlOpenid = String.format(urlOpenid, miniProgramProperties.getAppId(), miniProgramProperties.getAppSecret(), dto.getCode());
-//
-//        // 使用RestTemplate发送请求换取OPENID
-//        ResponseEntity<String> responseEntity = restTemplate.getForEntity(urlOpenid, String.class);
-//        // 判断是否成功获取到OPENID
-//        AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.MINIPROGRAM_RESULT_OPENID_EMPTY);
-//        // 判断是否获取OPENID成功
-//        log.info("小程序-司机端 -Result -{}", responseEntity);
-//        /*{
-//            "openid":"xxxxxx",
-//            "session_key":"xxxxx",
-//            "unionid":"xxxxx",
-//            "errcode":0,
-//            "errmsg":"xxxxx"
-//        }*/
-//        MinappOpenIdResult openidResult = JSON.parseObject(responseEntity.getBody(), MinappOpenIdResult.class);
+    public void register(MiniProgramRegisterDTO dto) {
         // 使用自封装的微信工具
-        MinappOpenIdResult openidResult = weChatTemplate.getOpenid(dto.getCode());
+        MiniProgramOpenIdResult openidResult = weChatTemplate.getOpenid(dto.getLoginCode());
         // 如果想链式调用就必须在后面泛型加Driver
         LambdaQueryWrapper<Driver> query = new LambdaQueryWrapper<Driver>().eq(Driver::getOpenId, openidResult.getOpenid());
         Driver driverInDb = super.getOne(query);
-        //判断是否openid已注册
+        // 判断是否openid已注册
         AssertUtil.isNull(driverInDb, ErrorCode.PARAM_PHONE_EXIST);
-        // 保存司机及司机相关数据
-        Long driverId = addDriverAbout(openidResult.getOpenid());
-
+        // 获取司机手机号(应当在能注册后)
+        PhoneNumberResult phoneNumberResult = weChatTemplate.getPhoneNumber(dto.getPhoneCode());
+        String phoneNumber = phoneNumberResult.getPhone_info().getPurePhoneNumber();
+        // 6保存司机及司机相关数据
+        Long driverId = addDriverAbout(openidResult.getOpenid(), phoneNumber);
         //7.保存司机登录信息
         LoginDto loginDto = new LoginDto();
         loginDto.setId(driverId);
         loginDto.setType(Constants.Login.TYPE_DRIVER);
         loginDto.setOpenId(openidResult.getOpenid());
+        loginDto.setPhone(phoneNumber);
         JSONResult loginResult = loginFeignAPI.create(loginDto);
         AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.DRIVER_LOGIN_ERROR);
     }
@@ -110,9 +96,10 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
     /**
      * 保存司机相关数据
      *
-     * @param openId 司机唯一ID
+     * @param openId      司机唯一ID
+     * @param phoneNumber 手机号码
      */
-    private Long addDriverAbout(String openId) {
+    private Long addDriverAbout(String openId, String phoneNumber) {
         //获取唯一ID
         long driverId = IdUtil.createSnowflake(1, 1).nextId();
         Driver driver = new Driver();
@@ -120,6 +107,7 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         driver.setBitState(0L);
         driver.setCreateTime(new Date());
         driver.setOpenId(openId);
+        driver.setPhone(phoneNumber);
         save(driver);
         // 4.保存司机接单配置
         driverSettingService.addSetting(driverId);

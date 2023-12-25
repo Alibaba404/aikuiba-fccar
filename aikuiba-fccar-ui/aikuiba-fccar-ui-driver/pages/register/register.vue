@@ -76,8 +76,8 @@
 				</view>
 			</view>
 		</view>
-		<button class="btn" @tap="wxRegister">司机注册</button>
-		<!-- <button class="btn" open-type="getPhoneNumber" @getphonenumber="getPhone">微信注册</button> -->
+		<!-- <button class="btn" @tap="wxRegister">司机注册</button> -->
+		<button class="btn" open-type="getPhoneNumber" @getphonenumber="phoneRegister">微信注册</button>
 		<u-toast ref="uToast" />
 	</view>
 </template>
@@ -139,18 +139,26 @@
 
 			},
 			//获取手机号
-			getPhone(res) {
-				console.log('===>', res);
+			phoneRegister(res) {
+				let _this = this;
+				console.log('res', res);
+				if (res.detail.code) {
+					_this.wxRegister(res.detail.code)
+				}
+
+				// 测试
+				_this.wxRegister(res.detail.code)
 			},
 			//司机注册
-			wxRegister() {
+			wxRegister(phoneCode) {
 				let _this = this;
 				// 获取WX code
 				wx.login({
 					success: (res) => {
 						if (res.code) {
 							let param = {
-								code: res.code
+								code: res.code,
+								phoneCode: phoneCode
 							}
 							_this.post(_this.Consts.API.DRIVER_REGISTER, param, (res) => {
 								console.log('===>', res);

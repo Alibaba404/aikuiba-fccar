@@ -1,6 +1,6 @@
 package cn.aikuiba.controller.app;
 
-import cn.aikuiba.pojo.app.dto.MiniProgramCustomerRegisterDTO;
+import cn.aikuiba.pojo.app.dto.MiniProgramRegisterDTO;
 import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.service.ICustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,8 +32,7 @@ public class MiniProgramCustomerController {
     @Operation(summary = "乘客注册", description = "基础对象保存接口")
     @Parameter(name = "dto", description = "乘客注册请求对象", required = true)
     @PostMapping("/register")
-    public JSONResult<Boolean> register(@RequestBody @Valid MiniProgramCustomerRegisterDTO dto) {
-        log.info("CODE:" + dto.getCode());
+    public JSONResult<Boolean> register(@RequestBody @Valid MiniProgramRegisterDTO dto) {
         customerService.register(dto);
         return JSONResult.success();
     }
