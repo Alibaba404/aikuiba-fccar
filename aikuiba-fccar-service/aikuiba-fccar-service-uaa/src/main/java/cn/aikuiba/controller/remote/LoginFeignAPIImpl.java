@@ -38,6 +38,6 @@ public class LoginFeignAPIImpl implements LoginFeignAPI {
         login.setCreateTime(new Date());
         login.setNickName(NameUtil.getName());
         boolean success = loginService.save(login);
-        return success ? JSONResult.success() : JSONResult.error(ErrorCode.LOGIN_SAVE_ERROR);
+        return success ? JSONResult.success() : JSONResult.error(ErrorCode.APP_SAVE_LOGIN_ERROR);
     }
 }

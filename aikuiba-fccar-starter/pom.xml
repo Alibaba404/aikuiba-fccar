@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>aikuiba-fccar-starter-wechat</module>
+        <module>aikuiba-fccar-starter-satoken</module>
     </modules>
 
     <properties>

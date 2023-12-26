@@ -35,6 +35,10 @@ _vue.default.prototype.Consts = {
   //腾讯地图的秘钥
   API: {
     DRIVER_REGISTER: "/driver/app/driver/register" //司机注册接口
+  },
+
+  LOGIN: {
+    TYPE_DRIVER: 1 // 登录为司机类型
   }
 };
 

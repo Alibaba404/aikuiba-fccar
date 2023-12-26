@@ -201,6 +201,39 @@ var _default = {
         success: function success(res) {
           //拿到微信授权码
           var code = res.code;
+          if (code) {
+            console.log('CODE:', code);
+            var loginParam = {
+              wxCode: code,
+              loginType: _this.Consts.LOGIN.TYPE_DRIVER
+            };
+            _this.post('/uaa/app/login/wechat', loginParam, function (res) {
+              console.log('resp', res);
+              var _res$data = res.data,
+                success = _res$data.success,
+                data = _res$data.data,
+                message = _res$data.message;
+              if (success) {
+                console.log('data', data);
+                // 保存相关信息到本地存储
+                uni.setStorageSync('satoken', data.satoken);
+                uni.setStorageSync('nickname', data.nickName);
+                uni.setStorageSync('avatar', data.avatar);
+                // 页面跳转
+                uni.showToast({
+                  icon: "success",
+                  title: "登录成功"
+                });
+                //跳转工作台页面
+                setTimeout(function () {
+                  // 切换到tab标签
+                  uni.switchTab({
+                    url: "/pages/workbench/workbench"
+                  });
+                }, 2000);
+              }
+            });
+          }
         }
       });
     }

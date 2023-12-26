@@ -138,15 +138,13 @@
 				});
 
 			},
-			//获取手机号
+			//手机号注册
 			phoneRegister(res) {
 				let _this = this;
-				console.log('res', res);
+				// 个人开发者没办法获取手机号码的授权码
 				if (res.detail.code) {
 					_this.wxRegister(res.detail.code)
 				}
-
-				// 测试
 				_this.wxRegister(res.detail.code)
 			},
 			//司机注册
@@ -157,11 +155,10 @@
 					success: (res) => {
 						if (res.code) {
 							let param = {
-								code: res.code,
+								loginCode: res.code,
 								phoneCode: phoneCode
 							}
 							_this.post(_this.Consts.API.DRIVER_REGISTER, param, (res) => {
-								console.log('===>', res);
 								let {
 									data,
 									message,
@@ -171,7 +168,17 @@
 								if (success) {
 									uni.showToast({
 										icon: "success",
-										title: "注册成功"
+										title: "注册成功,去登录"
+									})
+									setTimeout(() => {
+										uni.navigateTo({
+											url: "/pages/login/login"
+										})
+									}, 1000)
+								} else {
+									uni.showToast({
+										icon: "error",
+										title: `注册失败,${message}`
 									})
 								}
 							})

@@ -163,6 +163,8 @@ var _gtpushMin = _interopRequireDefault(__webpack_require__(/*! ../../lib/gtpush
 //
 //
 //
+//
+//
 
 //地图点选插件
 var chooseLocation = requirePlugin('chooseLocation');
@@ -213,6 +215,7 @@ var _default = {
   onLoad: function onLoad() {
     var _this = this;
     _this.initStyle();
+    _this.get("/driver/manager/driver/1");
   },
   onUnload: function onUnload() {}
 };

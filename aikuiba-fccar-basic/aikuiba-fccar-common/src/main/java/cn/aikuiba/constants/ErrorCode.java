@@ -16,12 +16,14 @@ public enum ErrorCode {
     PARAM_STRING_EMPTY(1003, "字符串为空"),
     /*系统相关:2000~2999*/
     /*小程序相关:3000~3999*/
-    MINIPROGRAM_RESULT_OPENID_EMPTY(3000, "OPENID获取失败"),
-    DRIVER_LOGIN_ERROR(3001, "司机登录信息保存失败"),
-    LOGIN_SAVE_ERROR(3002, "登录信息保存失败"),
-    CUSTOMER_LOGIN_ERROR(3003, "乘客登录信息保存失败"),
-    APP_ACCESSTOKEN_ERROR(3004, "微信ACCESS—TOKEN获取失败"),
-    APP_GET_PHONE_ERROR(3005, "获取微信手机号失败");
+    APP_GET_OPENID_ERROR(3000, "微信OPENID获取失败"),
+    APP_GET_ACCESSTOKEN_ERROR(3001, "微信ACCESS_TOKEN获取失败"),
+    APP_GET_PHONE_ERROR(3002, "获取微信手机号失败"),
+    APP_SAVE_LOGIN_ERROR(3010, "登录信息保存失败"),
+    APP_DRIVER_LOGIN_ERROR(3011, "司机登录信息保存失败"),
+    APP_CUSTOMER_LOGIN_ERROR(3012, "乘客登录信息保存失败"),
+    APP_NOT_REGISTER(3020, "未注册,请先注册"),
+    APP_NOT_LOGIN(3021, "未登录,请先登录");
     //错误码
     private int code;
     //错误信息

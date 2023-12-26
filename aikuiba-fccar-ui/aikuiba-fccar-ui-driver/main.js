@@ -35,6 +35,9 @@ Vue.prototype.Consts = {
 	API: {
 		DRIVER_REGISTER: "/driver/app/driver/register", //司机注册接口
 	},
+	LOGIN: {
+		TYPE_DRIVER: 1 // 登录为司机类型
+	}
 }
 
 

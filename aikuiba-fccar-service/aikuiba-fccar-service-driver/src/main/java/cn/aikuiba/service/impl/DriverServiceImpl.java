@@ -90,7 +90,7 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         loginDto.setOpenId(openidResult.getOpenid());
         loginDto.setPhone(phoneNumber);
         JSONResult loginResult = loginFeignAPI.create(loginDto);
-        AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.DRIVER_LOGIN_ERROR);
+        AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.APP_DRIVER_LOGIN_ERROR);
     }
 
     /**

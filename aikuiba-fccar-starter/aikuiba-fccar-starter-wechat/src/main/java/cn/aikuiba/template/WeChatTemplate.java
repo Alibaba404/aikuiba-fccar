@@ -50,7 +50,7 @@ public class WeChatTemplate {
         // 使用RestTemplate发送请求换取OPENID
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(urlOpenid, String.class);
         // 判断是否成功获取到OPENID
-        AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.MINIPROGRAM_RESULT_OPENID_EMPTY);
+        AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.APP_GET_OPENID_ERROR);
         // 判断是否获取OPENID成功
         log.info("小程序-司机端 -Result -{}", responseEntity);
         /*{
@@ -73,7 +73,7 @@ public class WeChatTemplate {
     public AccessTokenResult getAccessToken() {
         String urlAccessToken = String.format(url.getAccessToken(), miniProgramProperties.getAppId(), miniProgramProperties.getAppSecret());
         ResponseEntity<AccessTokenResult> responseEntity = restTemplate.getForEntity(urlAccessToken, AccessTokenResult.class);
-        AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.APP_ACCESSTOKEN_ERROR);
+        AssertUtil.isEquals(responseEntity.getStatusCodeValue(), HttpStatus.OK.value(), ErrorCode.APP_GET_ACCESSTOKEN_ERROR);
         return responseEntity.getBody();
     }
 

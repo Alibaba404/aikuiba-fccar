@@ -1,5 +1,6 @@
 package cn.aikuiba.exception;
 
+import cn.aikuiba.constants.ErrorCode;
 import cn.aikuiba.result.JSONResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +24,10 @@ public class GlobalExceptionHandler {
     public JSONResult<Void> exceptionErrorMethod(Exception e, HttpServletRequest request) {
         e.printStackTrace();
         log.error("发生异常错误，请求地址：{}，异常信息{}", request.getRequestURI(), e.getMessage());
+        // 使用异常类名字比较可以业务解耦
+        if (e.getClass().getSimpleName().equals("NotLoginException")) {
+            return JSONResult.error(ErrorCode.APP_NOT_LOGIN);
+        }
         return JSONResult.error("服务器内部异常，请联系管理员");
     }
 
@@ -40,5 +45,6 @@ public class GlobalExceptionHandler {
         log.error("发生异常错误，请求地址：{}，异常信息：{}", request.getRequestURI(), e.getMessage());
         return JSONResult.error(e.getCode(), e.getMessage());
     }
+
 }
 

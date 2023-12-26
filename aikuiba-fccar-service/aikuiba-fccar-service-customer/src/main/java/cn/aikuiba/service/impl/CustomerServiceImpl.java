@@ -85,7 +85,7 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
         loginDto.setOpenId(openidResult.getOpenid());
         loginDto.setPhone(phoneNumber);
         JSONResult loginResult = loginFeignAPI.create(loginDto);
-        AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.CUSTOMER_LOGIN_ERROR);
+        AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.APP_CUSTOMER_LOGIN_ERROR);
     }
 
     /**

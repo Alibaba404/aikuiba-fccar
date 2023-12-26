@@ -25,4 +25,11 @@ public class Constants {
         public static final String SERVICE_UAA = "aikuiba-fccar-service-uaa";
         public static final String PREFIX_LOGIN_REMOTE = "/login/remote";
     }
+
+    /**
+     * Redis 相关常量
+     */
+    public class Redis {
+        public static final String KEY_PERMISSION = "LOGIN_PERMISSION_%s";
+    }
 }

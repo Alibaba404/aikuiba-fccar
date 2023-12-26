@@ -29,7 +29,7 @@ public class LoginAPIFeignFallbackFactory implements FallbackFactory<LoginFeignA
             public JSONResult create(LoginDto dto) {
                 cause.printStackTrace();
                 log.info("远程登录调用 --降级-- {}", dto);
-                return JSONResult.error(ErrorCode.LOGIN_SAVE_ERROR);
+                return JSONResult.error(ErrorCode.APP_SAVE_LOGIN_ERROR);
             }
         };
     }

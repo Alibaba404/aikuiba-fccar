@@ -292,22 +292,27 @@ var _default = {
         }
       });
     },
-    //获取手机号
-    getPhone: function getPhone(res) {
-      console.log('===>', res);
+    //手机号注册
+    phoneRegister: function phoneRegister(res) {
+      var _this = this;
+      // 个人开发者没办法获取手机号码的授权码
+      if (res.detail.code) {
+        _this.wxRegister(res.detail.code);
+      }
+      _this.wxRegister(res.detail.code);
     },
     //司机注册
-    wxRegister: function wxRegister() {
+    wxRegister: function wxRegister(phoneCode) {
       var _this = this;
       // 获取WX code
       wx.login({
         success: function success(res) {
           if (res.code) {
             var param = {
-              code: res.code
+              loginCode: res.code,
+              phoneCode: phoneCode
             };
             _this.post(_this.Consts.API.CUSTOMER_REGISTER, param, function (res) {
-              console.log('===>', res);
               var _res$data = res.data,
                 data = _res$data.data,
                 message = _res$data.message,
@@ -316,7 +321,17 @@ var _default = {
               if (success) {
                 uni.showToast({
                   icon: "success",
-                  title: "注册成功"
+                  title: "注册成功,去登录"
+                });
+                setTimeout(function () {
+                  uni.navigateTo({
+                    url: "/pages/login/login"
+                  });
+                }, 1000);
+              } else {
+                uni.showToast({
+                  icon: "error",
+                  title: "\u6CE8\u518C\u5931\u8D25,".concat(message)
                 });
               }
             });
