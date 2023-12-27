@@ -28,6 +28,6 @@ public interface LoginFeignAPI {
      * @return
      */
     @PostMapping("/login/create")
-    JSONResult create(@RequestBody @Valid LoginDto dto);
+    JSONResult<Void> create(@RequestBody @Valid LoginDto dto);
 
 }

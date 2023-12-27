@@ -2,7 +2,8 @@ package cn.aikuiba.service;
 
 import cn.aikuiba.pojo.domain.Login;
 import cn.aikuiba.pojo.dto.WechatLoginDTO;
-import cn.aikuiba.pojo.vo.LoginInfo;
+import cn.aikuiba.pojo.manager.dto.LoginDTO;
+import cn.aikuiba.pojo.vo.LoginInfoVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -14,5 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-12-21
  */
 public interface ILoginService extends IService<Login> {
-    LoginInfo wechatLogin(WechatLoginDTO dto);
+    LoginInfoVO wechatLogin(WechatLoginDTO dto);
+
+    LoginInfoVO login(LoginDTO dto);
 }

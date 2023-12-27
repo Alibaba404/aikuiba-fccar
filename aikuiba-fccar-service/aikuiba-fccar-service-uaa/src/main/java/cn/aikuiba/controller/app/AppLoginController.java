@@ -1,7 +1,7 @@
 package cn.aikuiba.controller.app;
 
 import cn.aikuiba.pojo.dto.WechatLoginDTO;
-import cn.aikuiba.pojo.vo.LoginInfo;
+import cn.aikuiba.pojo.vo.LoginInfoVO;
 import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.service.ILoginService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +26,7 @@ public class AppLoginController {
     @Operation(summary = "小程序登录", description = "小程序登录")
     @Parameter(name = "dto", description = "登录对象", required = true)
     @PostMapping("/wechat")
-    public JSONResult<LoginInfo> wechatLogin(@RequestBody @Valid WechatLoginDTO dto) {
+    public JSONResult<LoginInfoVO> wechatLogin(@RequestBody @Valid WechatLoginDTO dto) {
         return JSONResult.success(loginService.wechatLogin(dto));
     }
 

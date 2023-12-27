@@ -28,7 +28,9 @@ import 'element-plus/lib/theme-chalk/index.css';
 import locale from 'element-plus/lib/locale/lang/zh-CN'
 
 //导入ElementUI的消息通知组件，下面封装全局Ajax的时候处理异常的时候需要弹出通知
-import { ElMessage } from 'element-plus'
+import {
+	ElMessage
+} from 'element-plus'
 
 //挂载ElementUl-Plus插件
 app.use(ElementPlus, {
@@ -85,58 +87,61 @@ app.config.globalProperties.getPdf = function() {
 import request from './utils/request'
 
 
-function sendRequest(url,method,data,fun){
+function sendRequest(url, method, data, fun) {
 	request({
-		url:url,
+		url: url,
 		method: method,
-		data:data
-	}).then(res=>{
-		if(fun)(fun(res));
-	}).catch(error=>{
-		console.log(error);
-		ElMessage.error({ message: "服务器异常["+error.message+"]", type:"error",duration: 1200});
+		data: data
+	}).then(res => {
+		if (fun)(fun(res));
+	}).catch(error => {
+		ElMessage.error({
+			message: "服务器异常[" + error.message + "]",
+			type: "error",
+			duration: 1200
+		});
 	})
 }
 
 
-app.config.globalProperties.post = function(url,  data, fun) {
+app.config.globalProperties.post = function(url, data, fun) {
 
-	let sendData = typeof data == "function"?{}:data;
+	let sendData = typeof data == "function" ? {} : data;
 
-	let callBack = typeof data == "function"?data:fun;
+	let callBack = typeof data == "function" ? data : fun;
 
-	sendRequest(url,"post",sendData,callBack);
+	sendRequest(url, "post", sendData, callBack);
 }
 
-app.config.globalProperties.get = function(url,  data, fun) {
-	let sendData = typeof data == "function"?{}:data;
-	let callBack = typeof data == "function"?data:fun;
-	sendRequest(url,"get",sendData,callBack);
+app.config.globalProperties.get = function(url, data, fun) {
+	let sendData = typeof data == "function" ? {} : data;
+	let callBack = typeof data == "function" ? data : fun;
+	sendRequest(url, "get", sendData, callBack);
 }
-app.config.globalProperties.del = function(url,  data, fun) {
-	let sendData = typeof data == "function"?{}:data;
-	let callBack = typeof data == "function"?data:fun;
-	sendRequest(url,"delete",sendData,callBack);
+app.config.globalProperties.del = function(url, data, fun) {
+	let sendData = typeof data == "function" ? {} : data;
+	let callBack = typeof data == "function" ? data : fun;
+	sendRequest(url, "delete", sendData, callBack);
 }
-app.config.globalProperties.put = function(url,  data, fun) {
-	let sendData = typeof data == "function"?{}:data;
-	let callBack = typeof data == "function"?data:fun;
-	sendRequest(url,"put",sendData,callBack);
+app.config.globalProperties.put = function(url, data, fun) {
+	let sendData = typeof data == "function" ? {} : data;
+	let callBack = typeof data == "function" ? data : fun;
+	sendRequest(url, "put", sendData, callBack);
 }
 
 app.config.globalProperties.request = function(url, method, data, fun) {
-	let sendData = typeof data == "function"?{}:data;
-	let callBack = typeof data == "function"?data:fun;
-	sendRequest(url,method,sendData,callBack);
+	let sendData = typeof data == "function" ? {} : data;
+	let callBack = typeof data == "function" ? data : fun;
+	sendRequest(url, method, sendData, callBack);
 }
 
 //封装用于判断用户是否具有某些权限的公共函数
 app.config.globalProperties.isAuth = function(permission) {
-	console.log("权限校验：",permission);
+	console.log("权限校验：", permission);
 	//判断是否是管理员
 	let login = localStorage.getItem("login");
 	login = JSON.parse(login);
-	if(login.admin)return true;
+	if (login.admin) return true;
 
 	//判断权限
 	let permissions = localStorage.getItem("permissions");

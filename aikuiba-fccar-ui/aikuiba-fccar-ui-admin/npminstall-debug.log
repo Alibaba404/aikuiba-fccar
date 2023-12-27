@@ -1,21 +1,21 @@
 {
-  root: 'D:\\devlop\\code_space\\it-drive\\it-drive-ui\\itsource-drive-vue-admin',
-  registry: 'https://registry.npmmirror.com',
+  root: '/Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-admin',
+  registry: 'https://registry.npm.taobao.org',
   pkgs: [],
   production: false,
   cacheStrict: false,
-  cacheDir: 'C:\\Users\\86182\\.npminstall_tarball',
+  cacheDir: '/Users/xiaozhi/.npminstall_tarball',
   env: {
-    npm_config_registry: 'https://registry.npmmirror.com',
-    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\86182\\\\.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npmmirror.com"],"original":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\86182\\\\.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npmmirror.com"]}',
-    npm_config_user_agent: 'npminstall/7.9.0 npm/? node/v18.14.2 win32 x64',
-    npm_config_cache: 'C:\\Users\\86182\\.npminstall_tarball',
-    NODE: 'D:\\Program Files\\nodejs\\node.exe',
-    npm_node_execpath: 'D:\\Program Files\\nodejs\\node.exe',
-    npm_execpath: 'C:\\Users\\86182\\AppData\\Roaming\\npm\\node_modules\\cnpm\\node_modules\\npminstall\\bin\\install.js',
-    npm_config_userconfig: 'C:\\Users\\86182\\.cnpmrc',
+    npm_config_registry: 'https://registry.npm.taobao.org',
+    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=/Users/xiaozhi/.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npm.taobao.org"],"original":["--fix-bug-versions","--china","--userconfig=/Users/xiaozhi/.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npm.taobao.org"]}',
+    npm_config_user_agent: 'npminstall/7.12.0 npm/? node/v16.20.2 darwin x64',
+    npm_config_cache: '/Users/xiaozhi/.npminstall_tarball',
+    NODE: '/usr/local/bin/node',
+    npm_node_execpath: '/usr/local/bin/node',
+    npm_execpath: '/usr/local/lib/node_modules/cnpm/node_modules/npminstall/bin/install.js',
+    npm_config_userconfig: '/Users/xiaozhi/.cnpmrc',
     npm_config_disturl: 'https://cdn.npmmirror.com/binaries/node',
-    npm_config_r: 'https://registry.npmmirror.com',
+    npm_config_r: 'https://registry.npm.taobao.org',
     COREPACK_NPM_REGISTRY: 'https://registry.npmmirror.com',
     NODEJS_ORG_MIRROR: 'https://cdn.npmmirror.com/binaries/node',
     NVM_NODEJS_ORG_MIRROR: 'https://cdn.npmmirror.com/binaries/node',
@@ -41,8 +41,8 @@
     npm_config_sharp_binary_host: 'https://cdn.npmmirror.com/binaries/sharp',
     npm_config_sharp_libvips_binary_host: 'https://cdn.npmmirror.com/binaries/sharp-libvips',
     npm_config_robotjs_binary_host: 'https://cdn.npmmirror.com/binaries/robotjs',
-    npm_rootpath: 'D:\\devlop\\code_space\\it-drive\\it-drive-ui\\itsource-drive-vue-admin',
-    INIT_CWD: 'D:\\devlop\\code_space\\it-drive\\it-drive-ui\\itsource-drive-vue-admin'
+    npm_rootpath: '/Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-admin',
+    INIT_CWD: '/Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-admin'
   },
   binaryMirrors: {
     ENVS: {
@@ -167,7 +167,8 @@
     argon2: { host: 'https://cdn.npmmirror.com/binaries/argon2' },
     'ali-zeromq': { host: 'https://cdn.npmmirror.com/binaries/ali-zeromq' },
     'ali-usb_ctl': { host: 'https://cdn.npmmirror.com/binaries/ali-usb_ctl' },
-    'gdal-async': { host: 'https://cdn.npmmirror.com/binaries/node-gdal-async' }
+    'gdal-async': { host: 'https://cdn.npmmirror.com/binaries/node-gdal-async' },
+    'libpg-query': { host: 'https://cdn.npmmirror.com/binaries' }
   },
   forbiddenLicenses: null,
   flatten: false,
@@ -176,7 +177,7 @@
   disableFallbackStore: false,
   workspacesMap: Map(0) {},
   enableWorkspace: false,
-  workspaceRoot: 'D:\\devlop\\code_space\\it-drive\\it-drive-ui\\itsource-drive-vue-admin',
+  workspaceRoot: '/Users/xiaozhi/Documents/SourceCode/JAVA/aikuiba-faccar/aikuiba-fccar-ui/aikuiba-fccar-ui-admin',
   isWorkspaceRoot: true,
   isWorkspacePackage: false,
   offline: false,

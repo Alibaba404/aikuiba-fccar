@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @description
  */
 @Configuration
+// 导入配置
 @Import({RedisConfig.class, SaTokenConfigure.class})
 public class SaTokenAutoConfiguration {
 

@@ -2,7 +2,6 @@ package cn.aikuiba.config;
 
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.stp.StpUtil;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,10 +13,10 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/app/login/wechat",
-                        "/app/driver/register",
-                        "/app/customer/register",
-                        "/v3/api-docs/default"
+                        "/app/login/wechat",        //小程序登录
+                        "/app/driver/register",     //小程序司机注册
+                        "/app/customer/register",   //小程序乘客注册
+                        "/v3/api-docs/default"      //Knife4j文档
                 );
     }
 }

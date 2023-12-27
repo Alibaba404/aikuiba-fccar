@@ -79,8 +79,11 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         // 判断是否openid已注册
         AssertUtil.isNull(driverInDb, ErrorCode.PARAM_PHONE_EXIST);
         // 获取司机手机号(应当在能注册后)
-        PhoneNumberResult phoneNumberResult = weChatTemplate.getPhoneNumber(dto.getPhoneCode());
-        String phoneNumber = phoneNumberResult.getPhone_info().getPurePhoneNumber();
+        //        PhoneNumberResult phoneNumberResult = weChatTemplate.getPhoneNumber(dto.getPhoneCode());
+        //        AssertUtil.isNotNull(phoneNumberResult.getPhone_info(), ErrorCode.APP_GET_PHONE_ERROR);
+        //        String phoneNumber = phoneNumberResult.getPhone_info().getPurePhoneNumber();
+        // 个人开发者无法获取微信用户的手机号码,这里写死
+        String phoneNumber = "19981259717";
         // 6保存司机及司机相关数据
         Long driverId = addDriverAbout(openidResult.getOpenid(), phoneNumber);
         //7.保存司机登录信息
@@ -89,7 +92,7 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         loginDto.setType(Constants.Login.TYPE_DRIVER);
         loginDto.setOpenId(openidResult.getOpenid());
         loginDto.setPhone(phoneNumber);
-        JSONResult loginResult = loginFeignAPI.create(loginDto);
+        JSONResult<Void> loginResult = loginFeignAPI.create(loginDto);
         AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.APP_DRIVER_LOGIN_ERROR);
     }
 

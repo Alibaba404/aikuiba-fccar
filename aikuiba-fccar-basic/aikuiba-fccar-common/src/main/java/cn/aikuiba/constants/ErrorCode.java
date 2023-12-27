@@ -23,7 +23,11 @@ public enum ErrorCode {
     APP_DRIVER_LOGIN_ERROR(3011, "司机登录信息保存失败"),
     APP_CUSTOMER_LOGIN_ERROR(3012, "乘客登录信息保存失败"),
     APP_NOT_REGISTER(3020, "未注册,请先注册"),
-    APP_NOT_LOGIN(3021, "未登录,请先登录");
+    APP_NOT_LOGIN(3021, "未登录,请先登录"),
+
+    /*用户相关:4000~4999*/
+    USER_USERNAME_OR_PASSWORD_ERROR(4000, "账号或密码错误"),
+    USER_ACCOUNT_DISABLED(4001, "账号已被禁用");
     //错误码
     private int code;
     //错误信息

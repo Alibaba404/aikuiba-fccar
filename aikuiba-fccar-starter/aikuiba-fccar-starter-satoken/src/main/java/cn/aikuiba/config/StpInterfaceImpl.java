@@ -2,6 +2,7 @@ package cn.aikuiba.config;
 
 import cn.aikuiba.constants.Constants;
 import cn.dev33.satoken.stp.StpInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * 自定义权限加载接口实现类
  */
+@Slf4j
 public class StpInterfaceImpl implements StpInterface {
 
     private RedisTemplate<String, Object> redisTemplate;
@@ -27,6 +29,7 @@ public class StpInterfaceImpl implements StpInterface {
         String KEY_PERMISSION = String.format(Constants.Redis.KEY_PERMISSION, loginId);
         List<String> loginPermission = (List<String>) redisTemplate.opsForValue().get(KEY_PERMISSION);
         if (null == loginPermission) loginPermission = Collections.emptyList();
+        log.info("从Redis 加载用户权限 {}", loginPermission);
         return loginPermission;
     }
 
