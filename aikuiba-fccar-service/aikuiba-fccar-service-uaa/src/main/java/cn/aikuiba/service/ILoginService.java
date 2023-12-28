@@ -1,6 +1,7 @@
 package cn.aikuiba.service;
 
 import cn.aikuiba.pojo.domain.Login;
+import cn.aikuiba.pojo.dto.ChangePasswordDTO;
 import cn.aikuiba.pojo.dto.WechatLoginDTO;
 import cn.aikuiba.pojo.manager.dto.LoginDTO;
 import cn.aikuiba.pojo.vo.LoginInfoVO;
@@ -23,4 +24,8 @@ public interface ILoginService extends IService<Login> {
      * 管理员初始化
      */
     void initAdmin();
+
+    void logout();
+
+    void updatePassword(ChangePasswordDTO dto);
 }

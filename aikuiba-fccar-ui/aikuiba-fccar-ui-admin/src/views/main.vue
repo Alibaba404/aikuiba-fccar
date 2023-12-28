@@ -35,14 +35,14 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item @click="updatePasswordHandle()">修改密码</el-dropdown-item>
-                  <el-dropdown-item @click="logout">退出</el-dropdown-item>
+                  <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
           </el-menu-item>
         </el-menu>
       </div>
-      <update-password ref="updatePassword"></update-password>
+      <update-password ref="updatePassword" :execLogout="logout"></update-password>
     </nav>
     <aside class="site-sidebar site-sidebar--dark">
       <div class="site-sidebar__inner">
@@ -344,13 +344,19 @@ export default {
     },
     logout: function () {
       let that = this;
-      this.sendGet("uaa/login/out", function (resp) {
-        localStorage.removeItem("permissions");
-        localStorage.removeItem("login");
-        localStorage.removeItem("satoken");
-        that.$router.push({
-          name: "Login",
-        });
+      this.get("/uaa/manager/login/logout", function (resp) {
+        let { message, success } = resp;
+        if (success) {
+          localStorage.removeItem("permissions");
+          localStorage.removeItem("login");
+          localStorage.removeItem("satoken");
+          // 跳转登录页面
+          that.$router.push({
+            name: "Login",
+          });
+        } else {
+          this.$message.error(message);
+        }
       });
     },
     updatePasswordHandle: function () {

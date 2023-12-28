@@ -14,6 +14,7 @@ public enum ErrorCode {
     PARAM_PHONE_EXIST(1001, "账号已经存在"),
     PARAM_CODE_ERROR(1002, "授权码无效"),
     PARAM_STRING_EMPTY(1003, "字符串为空"),
+    PARAM_ORIGINAL_PASSWORD_ERROR(1004, "原密码错误"),
     /*系统相关:2000~2999*/
     /*小程序相关:3000~3999*/
     APP_GET_OPENID_ERROR(3000, "微信OPENID获取失败"),
@@ -30,7 +31,8 @@ public enum ErrorCode {
     /*三方API*/
     API_MINIO_UPLOAD_ERROR(5000, "Minio文件上传失败"),
     API_MINIO_DELETE_ERROR(5001, "Minio文件删除失败"),
-    LOGIN_GET_ERROR(6000, "获取登录信息失败");
+    LOGIN_GET_ERROR(6000, "获取登录信息失败"),
+    LOGIN_ALREADY_LOGOUT(6001, "已退出登录");
     //错误码
     private int code;
     //错误信息

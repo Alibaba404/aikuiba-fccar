@@ -1,5 +1,6 @@
 package cn.aikuiba.controller.manager;
 
+import cn.aikuiba.pojo.dto.ChangePasswordDTO;
 import cn.aikuiba.pojo.manager.dto.LoginDTO;
 import cn.aikuiba.pojo.vo.LoginInfoVO;
 import cn.aikuiba.service.ILoginService;
@@ -33,6 +34,23 @@ public class LoginController {
     @PostMapping("/admin")
     public JSONResult<LoginInfoVO> login(@RequestBody @Valid LoginDTO dto) {
         return JSONResult.success(loginService.login(dto));
+    }
+
+    @SaIgnore // SaToken放行当前接口
+    @Operation(summary = "管理端退出登录", description = "管理端退出登录")
+    @GetMapping("/logout")
+    public JSONResult<Void> logout() {
+        loginService.logout();
+        return JSONResult.success();
+    }
+
+
+    @Operation(summary = "修改密码", description = "修改密码")
+    @Parameter(name = "dto", description = "密码修改对象", required = true)
+    @PostMapping("/updatePassword")
+    public JSONResult<Void> updatePassword(@RequestBody @Valid ChangePasswordDTO dto) {
+        loginService.updatePassword(dto);
+        return JSONResult.success();
     }
 
     @Operation(summary = "保存Login", description = "基础对象保存接口")

@@ -5,6 +5,7 @@ import cn.aikuiba.constants.ErrorCode;
 import cn.aikuiba.mapper.LoginMapper;
 import cn.aikuiba.mapper.PermissionMapper;
 import cn.aikuiba.pojo.domain.Login;
+import cn.aikuiba.pojo.dto.ChangePasswordDTO;
 import cn.aikuiba.pojo.dto.WechatLoginDTO;
 import cn.aikuiba.pojo.manager.dto.LoginDTO;
 import cn.aikuiba.pojo.vo.LoginInfoVO;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -139,6 +141,7 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
      * 2.1 账户默认信息
      * 2.3 密码加密
      */
+    @Transactional
     @Override
     public void initAdmin() {
         LambdaQueryWrapper<Login> wrapper = new LambdaQueryWrapper<Login>()
@@ -158,5 +161,55 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
             save(login);
             log.info("Uaa--管理员数据初始化完成----「{}」", login);
         }
+    }
+
+    /**
+     * 0.获取loginId
+     * 1.清除Redis权限信息
+     * 2.执行SaToken退出登录
+     */
+    @Override
+    public void logout() {
+        // 检测是否已退出登录
+        AssertUtil.isTrue(StpUtil.isLogin(), ErrorCode.LOGIN_ALREADY_LOGOUT);
+        long loginId = StpUtil.getLoginIdAsLong();
+        String KEY_PERMISSION = String.format(Constants.Redis.KEY_PERMISSION, loginId);
+        redisTemplate.delete(KEY_PERMISSION);
+        //执行退出登录
+        StpUtil.logout(loginId);
+    }
+
+    /**
+     * 修改密码
+     * 1.获取当前登录用户的 loginId
+     * 2.通过loginId获取Login对象
+     * 3.比对原密码
+     * 4.加密新的明文密码
+     * 5.更新到数据库
+     * 6.执行退出登录流程
+     *
+     * @param dto
+     */
+    @Transactional
+    @Override
+    public void updatePassword(ChangePasswordDTO dto) {
+        // 原密码(明文)
+        String oldPassword = dto.getOldPassword();
+        // 新密码(明文)
+        String newPassword = dto.getNewPassword();
+        // 当前登录人的登录信息ID
+        long loginId = StpUtil.getLoginIdAsLong();
+        // 当前登录对象
+        Login login = this.getById(loginId);
+        AssertUtil.isNotNull(login, ErrorCode.APP_NOT_LOGIN);
+        // 原密码是否匹配
+        boolean isOk = bCryptPasswordEncoder.matches(oldPassword, login.getPassword());
+        AssertUtil.isTrue(isOk, ErrorCode.PARAM_ORIGINAL_PASSWORD_ERROR);
+
+        // 新密码(密文)
+        String encodePassword = bCryptPasswordEncoder.encode(newPassword);
+        login.setPassword(encodePassword);
+        // 更新密码
+        this.saveOrUpdate(login);
     }
 }
