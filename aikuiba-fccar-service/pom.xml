@@ -15,6 +15,7 @@
         <module>aikuiba-fccar-service-driver</module>
         <module>aikuiba-fccar-service-customer</module>
         <module>aikuiba-fccar-service-uaa</module>
+        <module>aikuiba-fccar-service-common</module>
     </modules>
 
     <properties>

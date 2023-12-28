@@ -11,7 +11,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *
  * @description
  */
-@MapperScan("cn.aikuiba.mapper")
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication

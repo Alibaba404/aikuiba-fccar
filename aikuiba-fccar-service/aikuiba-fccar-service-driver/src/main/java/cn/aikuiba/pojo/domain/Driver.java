@@ -82,5 +82,4 @@ public class Driver implements Serializable {
     @Schema(name = "bitState", description = "位状态")
     @TableField("bit_state")
     private Long bitState;
-
 }

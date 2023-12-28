@@ -2,12 +2,16 @@ package cn.aikuiba.pojo.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,11 +30,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_driver_aggrement")
-@Schema(name = "DriverAggrement对象", description = "司机的协议签署")
-public class DriverAggrement implements Serializable {
+@TableName("t_driver_agreement")
+@Schema(name = "DriverAgreement对象", description = "司机的协议签署")
+public class DriverAgreement implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @Schema(name = "id", description = "id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -61,9 +65,13 @@ public class DriverAggrement implements Serializable {
     @TableField("agreement_path_signed")
     private String agreementPathSigned;
 
-    @Schema(name = "status", description = "签署状态：0未生成，1已生成，2已寄出，3成功签署，4签署失败")
-    @TableField("status")
-    private Integer status;
+    @Schema(name = "agreementSignedStatus", description = "签署状态：0未生成，1已生成，2已寄出，3成功签署，4签署失败")
+    @TableField("agreement_signed_status")
+    private Integer agreementSignedStatus;
+
+    @Schema(name = "agreementStatus", description = "合同状态:0:有效、1:作废")
+    @TableField("agreement_status")
+    private Integer agreementStatus;
 
     @Schema(name = "createTime", description = "创建时间")
     @TableField("create_time")

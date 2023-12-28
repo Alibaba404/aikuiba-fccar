@@ -12,7 +12,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @description
  */
 @EnableFeignClients
-@MapperScan("cn.aikuiba.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class DriverStarter {

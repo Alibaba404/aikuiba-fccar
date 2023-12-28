@@ -1,6 +1,6 @@
 package cn.aikuiba.mapper;
 
-import cn.aikuiba.pojo.domain.DriverAggrement;
+import cn.aikuiba.pojo.domain.DriverAgreement;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 蛮小满Sama
  * @since 2023-12-19
  */
-public interface DriverAggrementMapper extends BaseMapper<DriverAggrement> {
+public interface DriverAgreementMapper extends BaseMapper<DriverAgreement> {
 
 }

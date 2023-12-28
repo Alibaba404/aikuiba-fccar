@@ -2,12 +2,14 @@ package cn.aikuiba.service.impl;
 
 import cn.aikuiba.api.remote.api.LoginFeignAPI;
 import cn.aikuiba.api.remote.pojo.dto.LoginDto;
+import cn.aikuiba.api.remote.pojo.vo.LoginVO;
 import cn.aikuiba.constants.Constants;
 import cn.aikuiba.constants.ErrorCode;
 import cn.aikuiba.mapper.DriverMapper;
 import cn.aikuiba.pojo.app.dto.MiniProgramRegisterDTO;
 import cn.aikuiba.pojo.domain.Driver;
 import cn.aikuiba.pojo.result.PhoneNumberResult;
+import cn.aikuiba.pojo.vo.DriverVO;
 import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.result.MiniProgramOpenIdResult;
 import cn.aikuiba.service.IDriverService;
@@ -16,14 +18,18 @@ import cn.aikuiba.service.IDriverSummaryService;
 import cn.aikuiba.service.IDriverWalletService;
 import cn.aikuiba.template.WeChatTemplate;
 import cn.aikuiba.utils.AssertUtil;
+import cn.aikuiba.utils.JSONUtil;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -42,12 +48,12 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
     private IDriverWalletService driverWalletService;
     @Autowired
     private IDriverSummaryService driverSummaryService;
-
     @Autowired
     private WeChatTemplate weChatTemplate;
-
     @Autowired
     private LoginFeignAPI loginFeignAPI;
+    @Autowired
+    private DriverMapper driverMapper;
 
 
     /**
@@ -67,12 +73,12 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
      *  7.保存司机登录信息
      * </pre>
      *
-     * @param dto 注册对象
+     * @param miniProgramRegisterDTO 注册对象
      */
     @Override
-    public void register(MiniProgramRegisterDTO dto) {
+    public void register(MiniProgramRegisterDTO miniProgramRegisterDTO) {
         // 使用自封装的微信工具
-        MiniProgramOpenIdResult openidResult = weChatTemplate.getOpenid(dto.getLoginCode());
+        MiniProgramOpenIdResult openidResult = weChatTemplate.getOpenid(miniProgramRegisterDTO.getLoginCode());
         // 如果想链式调用就必须在后面泛型加Driver
         LambdaQueryWrapper<Driver> query = new LambdaQueryWrapper<Driver>().eq(Driver::getOpenId, openidResult.getOpenid());
         Driver driverInDb = super.getOne(query);
@@ -94,6 +100,26 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         loginDto.setPhone(phoneNumber);
         JSONResult<Void> loginResult = loginFeignAPI.create(loginDto);
         AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.APP_DRIVER_LOGIN_ERROR);
+    }
+
+    @Override
+    public List<DriverVO> listAll() {
+        // 获取全部司机
+        List<Driver> drivers = super.list();
+        List<DriverVO> vos = new ArrayList<>(drivers.size());
+        drivers.forEach(d -> {
+            // 使用feign调用uaa获取司机登录信息
+            JSONResult loginResult = loginFeignAPI.getLoginByDriverId(d.getId());
+            AssertUtil.isTrue(loginResult.isSuccess(), ErrorCode.LOGIN_GET_ERROR);
+            LoginVO loginVO = JSONUtil.object2Class(loginResult.getData(), LoginVO.class);
+            // 封装vo
+            DriverVO driverVO = new DriverVO();
+            driverVO.setId(d.getId());
+            driverVO.setNickName(loginVO.getNickName());
+            vos.add(driverVO);
+        });
+        // 返回前端
+        return vos;
     }
 
     /**
@@ -120,4 +146,5 @@ public class DriverServiceImpl extends ServiceImpl<DriverMapper, Driver> impleme
         driverSummaryService.addSummary(driverId);
         return driverId;
     }
+
 }

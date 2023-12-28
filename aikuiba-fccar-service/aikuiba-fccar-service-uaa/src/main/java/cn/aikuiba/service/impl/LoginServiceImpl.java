@@ -20,8 +20,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +46,9 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
 
     @Autowired
     private PermissionMapper permissionMapper;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 用户统一登录方法
@@ -117,12 +122,41 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
         String username = dto.getUsername();
         String password = dto.getPassword();
         LambdaQueryWrapper<Login> wrapper = new LambdaQueryWrapper<Login>()
-                .eq(Login::getUsername, username)
-                .eq(Login::getPassword, password);
+                .eq(Login::getUsername, username);
         Login login = getOne(wrapper);
         AssertUtil.isNotNull(login, ErrorCode.USER_USERNAME_OR_PASSWORD_ERROR);
         // 1.参数校验(已使用注解)
-        // 2.TODO 校验密码 --  取出数据库登录对象密码,将前端明文密码按规定的加密方式加密后与数据库密码比较
+        // 2.校验密码
+        boolean matches = bCryptPasswordEncoder.matches(password, login.getPassword());
+        AssertUtil.isTrue(matches, ErrorCode.USER_USERNAME_OR_PASSWORD_ERROR);
         return getLoginInfo(login);
+    }
+
+    /**
+     * 初始化管理员用户
+     * 1.判断是否已存在超级管理员
+     * 2.不存在则新增
+     * 2.1 账户默认信息
+     * 2.3 密码加密
+     */
+    @Override
+    public void initAdmin() {
+        LambdaQueryWrapper<Login> wrapper = new LambdaQueryWrapper<Login>()
+                .eq(Login::getUsername, "admin")
+                .eq(Login::getAdmin, Boolean.TRUE);
+        Login login = this.getOne(wrapper);
+        if (login == null) {
+            login = new Login();
+            login.setUsername(Constants.Login.ADMIN_DEFAULT_USERNAME);
+            login.setPassword(bCryptPasswordEncoder.encode(Constants.Login.ADMIN_DEFAULT_PASSWORD));
+            login.setType(Constants.Login.TYPE_ADMIN);
+            login.setAvatar(Constants.Login.LOGIN_AVATAR);
+            login.setAdmin(Boolean.TRUE);
+            login.setNickName(Constants.Login.ADMIN_DEFAULT_USERNAME);
+            login.setName(Constants.Login.ADMIN_DEFAULT_USERNAME);
+            login.setCreateTime(new Date());
+            save(login);
+            log.info("Uaa--管理员数据初始化完成----「{}」", login);
+        }
     }
 }

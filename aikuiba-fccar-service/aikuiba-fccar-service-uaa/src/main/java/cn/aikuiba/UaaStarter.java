@@ -10,7 +10,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *
  * @description
  */
-@MapperScan("cn.aikuiba.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class UaaStarter {

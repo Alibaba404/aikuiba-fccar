@@ -18,4 +18,9 @@ public interface ILoginService extends IService<Login> {
     LoginInfoVO wechatLogin(WechatLoginDTO dto);
 
     LoginInfoVO login(LoginDTO dto);
+
+    /**
+     * 管理员初始化
+     */
+    void initAdmin();
 }

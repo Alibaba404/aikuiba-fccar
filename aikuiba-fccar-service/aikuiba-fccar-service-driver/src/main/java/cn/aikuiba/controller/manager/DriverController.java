@@ -2,10 +2,10 @@ package cn.aikuiba.controller.manager;
 
 import cn.aikuiba.pojo.domain.Driver;
 import cn.aikuiba.pojo.query.PageQueryWrapper;
+import cn.aikuiba.pojo.vo.DriverVO;
 import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.result.PageResult;
 import cn.aikuiba.service.IDriverService;
-import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Tag(name = "司机对象", description = "司机对象")
 @RestController
@@ -54,7 +55,6 @@ public class DriverController {
     }
 
     //获取对象
-    @SaCheckPermission("login:get")
     @Operation(summary = "获取Driver", description = "基础对象获取接口")
     @Parameter(name = "id", description = "查询的对象ID", required = true)
     @GetMapping(value = "/{id}")
@@ -77,16 +77,24 @@ public class DriverController {
     @Operation(summary = "查询Driver分页列表", description = "基础对象列表查询，带分页")
     @Parameter(name = "query", description = "查询条件，需要指定分页条件", required = true)
     @PostMapping(value = "/pagelist")
-    public JSONResult page(@RequestBody PageQueryWrapper<Driver> query) {
-        //分页查询
-        Page<Driver> page = new Page<Driver>(query.getPage(), query.getRows());
+    public JSONResult<PageResult<Driver>> page(@RequestBody PageQueryWrapper<Driver> query) {
         QueryWrapper<Driver> wrapper = new QueryWrapper<>();
         //实体类作为查询条件
         wrapper.setEntity(query.getQuery());
         //分页查询
+        Page<Driver> page = new Page<>(query.getPage(), query.getRows());
+        //分页查询
         page = driverService.page(page, wrapper);
         //返回结果
-        return JSONResult.success(new PageResult<Driver>(page.getTotal(), page.getRecords()));
+        return JSONResult.success(new PageResult<>(page.getTotal(), page.getRecords()));
+    }
+
+
+    @Operation(summary = "查询Driver列表", description = "基础对象列表查询，不带分页")
+    @Parameter(name = "query", description = "查询条件", required = true)
+    @PostMapping(value = "/listAll")
+    public JSONResult<List<DriverVO>> listAll() {
+        return JSONResult.success(driverService.listAll());
     }
 
 }

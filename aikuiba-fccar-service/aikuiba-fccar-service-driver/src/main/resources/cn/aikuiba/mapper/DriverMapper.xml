@@ -22,5 +22,4 @@
     <sql id="Base_Column_List">
         id, phone, home_address, home_address_longitude, home_address_latitude, archive, create_time, update_time, deleted, version, open_id, bit_state
     </sql>
-
 </mapper>

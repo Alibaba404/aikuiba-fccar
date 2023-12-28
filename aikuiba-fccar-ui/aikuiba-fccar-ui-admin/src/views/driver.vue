@@ -342,7 +342,24 @@
 			//加载列表数据
 			loadDataList() {
 				let _this = this;
-
+				let pageParam = {
+					page: _this.page,
+					rows: _this.rows
+				}
+				_this.post('/driver/manager/driver/pagelist', pageParam, (resp) => {
+					console.log(resp);
+					let {
+						success,
+						code,
+						data,
+						message
+					} = resp;
+					if (success) {
+						console.log('data', data);
+						_this.dataList = data.rows;
+						_this.totalCount = data.total;
+					}
+				})
 			}
 		},
 		created: function() {

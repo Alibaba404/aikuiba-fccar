@@ -16,6 +16,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                         "/app/login/wechat",        //小程序登录
                         "/app/driver/register",     //小程序司机注册
                         "/app/customer/register",   //小程序乘客注册
+                        "/doc.html",                //Swagger
                         "/v3/api-docs/default"      //Knife4j文档
                 );
     }

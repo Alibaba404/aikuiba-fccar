@@ -37,4 +37,6 @@ public class MiniappDriverController {
         driverService.register(minappDriverRegisterDTO);
         return JSONResult.success();
     }
+
+
 }

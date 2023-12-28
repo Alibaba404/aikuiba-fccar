@@ -28,7 +28,14 @@ public class LoginAPIFeignFallbackFactory implements FallbackFactory<LoginFeignA
             @Override
             public JSONResult create(LoginDto dto) {
                 cause.printStackTrace();
-                log.info("远程登录调用 --降级-- {}", dto);
+                log.info("LoginFeignAPI调用 --降级--方法:[create]--参数{}", dto);
+                return JSONResult.error(ErrorCode.APP_SAVE_LOGIN_ERROR);
+            }
+
+            @Override
+            public JSONResult getLoginByDriverId(Long driverId) {
+                cause.printStackTrace();
+                log.info("LoginFeignAPI调用 --降级--方法:[getLoginByDriverId]--参数{}", driverId);
                 return JSONResult.error(ErrorCode.APP_SAVE_LOGIN_ERROR);
             }
         };

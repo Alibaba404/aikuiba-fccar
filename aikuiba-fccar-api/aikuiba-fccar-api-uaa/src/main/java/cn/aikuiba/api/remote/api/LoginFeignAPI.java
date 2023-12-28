@@ -5,6 +5,8 @@ import cn.aikuiba.api.remote.pojo.dto.LoginDto;
 import cn.aikuiba.constants.Constants;
 import cn.aikuiba.result.JSONResult;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -29,5 +31,8 @@ public interface LoginFeignAPI {
      */
     @PostMapping("/login/create")
     JSONResult<Void> create(@RequestBody @Valid LoginDto dto);
+
+    @GetMapping("/login/{id}")
+    JSONResult getLoginByDriverId(@PathVariable("id") Long driverId);
 
 }

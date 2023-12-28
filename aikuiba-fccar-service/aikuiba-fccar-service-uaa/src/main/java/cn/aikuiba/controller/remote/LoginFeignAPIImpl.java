@@ -2,6 +2,7 @@ package cn.aikuiba.controller.remote;
 
 import cn.aikuiba.api.remote.api.LoginFeignAPI;
 import cn.aikuiba.api.remote.pojo.dto.LoginDto;
+import cn.aikuiba.api.remote.pojo.vo.LoginVO;
 import cn.aikuiba.constants.Constants;
 import cn.aikuiba.constants.ErrorCode;
 import cn.aikuiba.pojo.domain.Login;
@@ -9,6 +10,7 @@ import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.service.ILoginService;
 import cn.aikuiba.utils.NameUtil;
 import cn.dev33.satoken.annotation.SaIgnore;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,5 +44,16 @@ public class LoginFeignAPIImpl implements LoginFeignAPI {
         login.setNickName(NameUtil.getName());
         boolean success = loginService.save(login);
         return success ? JSONResult.success() : JSONResult.error(ErrorCode.APP_SAVE_LOGIN_ERROR);
+    }
+
+    @Override
+    public JSONResult getLoginByDriverId(Long driverId) {
+        LambdaQueryWrapper<Login> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Login::getId, driverId);
+        Login login = loginService.getOne(wrapper);
+        LoginVO loginVO = new LoginVO();
+        loginVO.setId(login.getId());
+        loginVO.setNickName(login.getNickName());
+        return JSONResult.success(loginVO);
     }
 }
