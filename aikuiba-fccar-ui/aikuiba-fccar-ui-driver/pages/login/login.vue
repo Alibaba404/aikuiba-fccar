@@ -53,8 +53,8 @@
 									console.log('data', data);
 									// 保存相关信息到本地存储
 									uni.setStorageSync('satoken', data.satoken);
-									uni.setStorageSync('nickname', data.nickName);
-									uni.setStorageSync('avatar', data.avatar);
+									uni.setStorageSync('nickname', data.login.nickName);
+									uni.setStorageSync('avatar', data.login.avatar);
 									// 页面跳转
 									uni.showToast({
 										icon: "success",

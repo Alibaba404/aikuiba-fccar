@@ -211,5 +211,7 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
         login.setPassword(encodePassword);
         // 更新密码
         this.saveOrUpdate(login);
+        // 执行登出流程
+        this.logout();
     }
 }

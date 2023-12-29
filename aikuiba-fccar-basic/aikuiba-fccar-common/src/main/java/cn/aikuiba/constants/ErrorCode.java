@@ -31,8 +31,12 @@ public enum ErrorCode {
     /*三方API*/
     API_MINIO_UPLOAD_ERROR(5000, "Minio文件上传失败"),
     API_MINIO_DELETE_ERROR(5001, "Minio文件删除失败"),
+    API_ALI_OSS_UPLOAD_ERROR(5002, "阿里云OSS文件上传失败"),
+    API_ALI_OSS_DELETE_ERROR(5003, "阿里云OSS文件删除失败"),
     LOGIN_GET_ERROR(6000, "获取登录信息失败"),
-    LOGIN_ALREADY_LOGOUT(6001, "已退出登录");
+    LOGIN_ALREADY_LOGOUT(6001, "已退出登录"),
+    DRIVER_AGREEMENT_SN_EXIST(7000, "合同编号已存在"),
+    ;
     //错误码
     private int code;
     //错误信息

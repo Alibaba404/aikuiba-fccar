@@ -1,6 +1,7 @@
 package cn.aikuiba.service;
 
 import cn.aikuiba.pojo.domain.DriverAgreement;
+import cn.aikuiba.pojo.dto.UploadAgreementDTO;
 import cn.aikuiba.pojo.query.PageQueryWrapper;
 import cn.aikuiba.result.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -16,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IDriverAgreementService extends IService<DriverAgreement> {
 
     PageResult<DriverAgreement> pageData(PageQueryWrapper<DriverAgreement> query);
+
+    void uploadSingedAgreement(UploadAgreementDTO dto);
 }

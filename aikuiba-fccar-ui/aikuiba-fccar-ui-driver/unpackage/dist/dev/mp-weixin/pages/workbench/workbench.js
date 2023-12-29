@@ -418,8 +418,6 @@ var _gtpushMin = _interopRequireDefault(__webpack_require__(/*! ../../lib/gtpush
 //
 //
 //
-//
-//
 
 //录音
 var wechatSIPlugin = requirePlugin('WechatSI');
@@ -540,6 +538,12 @@ var _default = {
       var windowHeight = uni.getSystemInfoSync().windowHeight;
       _this.windowHeight = windowHeight - 200;
       _this.contentStyle = "height:".concat(_this.windowHeight, "px;");
+    },
+    // 跳转认证页面
+    toRealAuth: function toRealAuth() {
+      uni.navigateTo({
+        url: "/identity/filling/filling"
+      });
     }
   },
   onLoad: function onLoad() {

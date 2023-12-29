@@ -1,11 +1,14 @@
-package cn.aikuiba.controller.minio;
+package cn.aikuiba.controller.oss;
 
-import cn.aikuiba.service.IMinioService;
+import cn.aikuiba.pojo.param.UploadParam;
 import cn.aikuiba.result.JSONResult;
+import cn.aikuiba.template.AliOSSTemplate;
+import cn.aikuiba.template.MinioOSSTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,21 +21,36 @@ import org.springframework.web.multipart.MultipartFile;
  * @description MinIO相关
  */
 @RestController
-@RequestMapping("/minio")
-public class MinioController {
+@RequestMapping("/oss")
+public class OSSController {
 
     @Autowired
-    private IMinioService minioService;
+    private MinioOSSTemplate minioOSSTemplate;
+
+    @Autowired
+    private AliOSSTemplate aliOSSTemplate;
 
     /**
-     * 文件上传
+     * 文件上传阿里云oss
      *
      * @param file
      * @return
      */
-    @PostMapping
-    public JSONResult<String> upload(@RequestPart("file") MultipartFile file) {
-        return JSONResult.success(minioService.upload(file));
+    @PostMapping("/ali")
+    public JSONResult<String> upload2Ali(@RequestPart("file") MultipartFile file, UploadParam uploadParam) {
+        return JSONResult.success(aliOSSTemplate.upload(file, uploadParam));
+    }
+
+    /**
+     * 文件上传到minio
+     *
+     * @param file
+     * @param uploadParam
+     * @return
+     */
+    @PostMapping("/minio")
+    public JSONResult<String> upload2Minio(@RequestPart("file") MultipartFile file, UploadParam uploadParam) {
+        return JSONResult.success(minioOSSTemplate.upload(file, uploadParam));
     }
 
     /**
@@ -44,7 +62,7 @@ public class MinioController {
      */
     @DeleteMapping("/{name}")
     public JSONResult<String> delete(@PathVariable("name") String name) {
-        minioService.delete(name);
+        minioOSSTemplate.delete(name);
         return JSONResult.success();
     }
 }

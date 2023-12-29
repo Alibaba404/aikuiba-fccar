@@ -39,9 +39,14 @@ _vue.default.prototype.Consts = {
 
   LOGIN: {
     TYPE_DRIVER: 1 // 登录为司机类型
+  },
+
+  URL: {
+    BAURL: 'http://127.0.0.1:10010/drive',
+    UPLOAD_ALI: 'http://127.0.0.1:10010/drive/common/oss/ali',
+    UPLOAD_MNINIO: 'http://127.0.0.1:10010/drive/common/oss/minio'
   }
 };
-
 _vue.default.prototype.msgTempIds = ['RDavpQwtw2CJcBGZikSu89m4GrFN6gqsiEiEicIuupA'];
 
 //后端基础访问地址	
@@ -62,9 +67,9 @@ function sendRequest(url, method, sendData, callBack) {
         });
       } else if (resp.statusCode == 200 && resp.data.code == 200) {
         var data = resp.data;
-        if (data.hasOwnProperty("token")) {
-          var token = data.token;
-          uni.setStorageSync("token", token);
+        if (data.hasOwnProperty("satoken")) {
+          var satoken = data.satoken;
+          uni.setStorageSync("satoken", satoken);
         }
         if (callBack) {
           callBack(resp);
@@ -123,7 +128,7 @@ _vue.default.prototype.refreshMessage = function (that) {
     "url": that.url.refreshMessage,
     "method": "POST",
     "header": {
-      token: uni.getStorageSync("token")
+      satoken: uni.getStorageSync("satoken")
     },
     "data": {
       identity: 'driver'
@@ -164,7 +169,7 @@ _vue.default.prototype.uploadCos = function (url, path, module, fun) {
     filePath: path,
     name: "file",
     header: {
-      token: uni.getStorageSync("token")
+      satoken: uni.getStorageSync("satoken")
     },
     formData: {
       "module": module
@@ -192,11 +197,10 @@ _vue.default.prototype.upload = function (url, path, data, fun) {
     filePath: path,
     name: "file",
     header: {
-      token: uni.getStorageSync("token")
+      satoken: uni.getStorageSync("satoken")
     },
     formData: data,
     success: function success(resp) {
-      console.log(resp);
       var data = JSON.parse(resp.data);
       console.log(data);
       if (resp.statusCode == 401) {

@@ -14,6 +14,7 @@
     <modules>
         <module>aikuiba-fccar-starter-wechat</module>
         <module>aikuiba-fccar-starter-satoken</module>
+        <module>aikuiba-fccar-starter-oss</module>
     </modules>
 
     <properties>

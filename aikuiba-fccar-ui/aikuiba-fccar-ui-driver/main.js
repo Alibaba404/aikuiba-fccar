@@ -37,6 +37,11 @@ Vue.prototype.Consts = {
 	},
 	LOGIN: {
 		TYPE_DRIVER: 1 // 登录为司机类型
+	},
+	URL: {
+		BAURL: 'http://127.0.0.1:10010/drive',
+		UPLOAD_ALI: 'http://127.0.0.1:10010/drive/common/oss/ali',
+		UPLOAD_MNINIO: 'http://127.0.0.1:10010/drive/common/oss/minio',
 	}
 }
 
@@ -63,9 +68,9 @@ function sendRequest(url, method, sendData, callBack) {
 			} else if (resp.statusCode == 200 && resp.data.code == 200) {
 
 				let data = resp.data
-				if (data.hasOwnProperty("token")) {
-					let token = data.token
-					uni.setStorageSync("token", token)
+				if (data.hasOwnProperty("satoken")) {
+					let satoken = data.satoken
+					uni.setStorageSync("satoken", satoken)
 				}
 
 				if (callBack) {
@@ -130,7 +135,7 @@ Vue.prototype.refreshMessage = function(that) {
 		"url": that.url.refreshMessage,
 		"method": "POST",
 		"header": {
-			token: uni.getStorageSync("token")
+			satoken: uni.getStorageSync("satoken")
 		},
 		"data": {
 			identity: 'driver'
@@ -172,7 +177,7 @@ Vue.prototype.uploadCos = function(url, path, module, fun) {
 		filePath: path,
 		name: "file",
 		header: {
-			token: uni.getStorageSync("token")
+			satoken: uni.getStorageSync("satoken")
 		},
 		formData: {
 			"module": module
@@ -200,13 +205,11 @@ Vue.prototype.upload = function(url, path, data, fun) {
 		url: url,
 		filePath: path,
 		name: "file",
-
 		header: {
-			token: uni.getStorageSync("token")
+			satoken: uni.getStorageSync("satoken")
 		},
 		formData: data,
 		success: function(resp) {
-			console.log(resp);
 			let data = JSON.parse(resp.data)
 			console.log(data);
 			if (resp.statusCode == 401) {

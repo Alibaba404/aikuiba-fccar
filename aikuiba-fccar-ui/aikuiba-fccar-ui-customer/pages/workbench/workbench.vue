@@ -72,7 +72,6 @@
 		onLoad: function() {
 			let _this = this;
 			_this.initStyle();
-			_this.get("/driver/manager/driver/1")
 		},
 		onUnload: function() {
 

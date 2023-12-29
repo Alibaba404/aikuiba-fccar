@@ -6,7 +6,7 @@
 			<view class="title">您的实名资料还未认证审核通过</view>
 			<view class="desc">这期间您将无法接单，请等待资料审核通过</view>
 			<view class="toRealAuth">
-				<button class="btn"  @click="toRealAuth" >我要认证</button>
+				<button class="btn" @click="toRealAuth">我要认证</button>
 			</view>
 		</view>
 		<!-- 二.实名成功，显示司机的统计数据 -->
@@ -57,9 +57,11 @@
 			</view>
 			<!-- 三.停止接单 -->
 			<view v-show="workStatus == '停止接单'">
-				<map id="map" :longitude="location.longitude" :latitude="location.latitude" scale="15" :style="contentStyle" :enable-traffic="true" 
-				:show-location="true" :enable-poi="true" style="width: 100%;">
-					<cover-image class="location" src="../../static/workbench/location.png" @tap="returnLocationHandle()"></cover-image>
+				<map id="map" :longitude="location.longitude" :latitude="location.latitude" scale="15"
+					:style="contentStyle" :enable-traffic="true" :show-location="true" :enable-poi="true"
+					style="width: 100%;">
+					<cover-image class="location" src="../../static/workbench/location.png"
+						@tap="returnLocationHandle()"></cover-image>
 				</map>
 			</view>
 			<!-- 四.显示开始接单 -->
@@ -69,7 +71,7 @@
 						<image src="../../static/workbench/no-order.png" mode="widthFix" class="no-order-img"></image>
 						<view class="no-order-title">目前暂无订单</view>
 					</view>
-					
+
 					<!-- 五.拉取到订单，执行抢单 -->
 					<view v-if="newOrder != null">
 						<view class="line-1">
@@ -104,9 +106,9 @@
 								<text>{{ newOrder.to }}</text>
 							</view>
 						</view>
-						<button class="accept-btn" 		@tap="killOrderHandle">立即抢单</button>
-						<button class="disabled-btn" 	@tap="ignoreHandle">拒绝接单</button>
-					
+						<button class="accept-btn" @tap="killOrderHandle">立即抢单</button>
+						<button class="disabled-btn" @tap="ignoreHandle">拒绝接单</button>
+
 					</view>
 				</view>
 				<view class="notice-container">
@@ -123,7 +125,7 @@
 			</scroll-view>
 			<!-- 六.抢到订单，显示订单详情 -->
 			<scroll-view scroll-y="true" :style="contentStyle" class="execute-order-container"
-			 v-show="['接客户', '到达代驾点', '开始代驾'].includes(workStatus)">
+				v-show="['接客户', '到达代驾点', '开始代驾'].includes(workStatus)">
 				<view class="call" @tap="callCustomerHandle"></view>
 				<view class="customer-container">
 					<u-avatar :src="executeOrder.customerPhoto" mode="square"></u-avatar>
@@ -153,20 +155,23 @@
 						<image src="../../static/workbench/alarm-icon2.png" mode="widthFix" class="alarm-icon"></image>
 						<text class="alarm-text">立即报警</text>
 					</view>
-				
+
 					<view class="vline"></view>
 					<view class="item" v-show="workStatus == '接客户'" @tap="arriveStartPlaceHandle">
-						<image src="../../static/workbench/arrive-start-icon.png" mode="widthFix" class="arrive-start-icon"></image>
+						<image src="../../static/workbench/arrive-start-icon.png" mode="widthFix"
+							class="arrive-start-icon"></image>
 						<text class="arrive-start-text">到达代驾点</text>
 					</view>
 					<view class="item" v-show="workStatus == '到达代驾点'" @tap="startDrivingHandle">
-						<image src="../../static/workbench/drive-start-icon.png" mode="widthFix" class="drive-start-icon"></image>
+						<image src="../../static/workbench/drive-start-icon.png" mode="widthFix"
+							class="drive-start-icon"></image>
 						<text class="drive-start-text">开始代驾</text>
 					</view>
 					<!-- <button class="item btn" v-show="workStatus == '开始代驾'"  open-type="getPhoneNumber" @getphonenumber="endDrivingHandle">-->
-					
+
 					<view class="item" v-show="workStatus == '开始代驾'" @tap="endDrivingHandle">
-						<image src="../../static/workbench/drive-stop-icon.png" mode="widthFix" class="drive-stop-icon"></image>
+						<image src="../../static/workbench/drive-stop-icon.png" mode="widthFix" class="drive-stop-icon">
+						</image>
 						<text class="drive-stop-text">结束代驾</text>
 					</view>
 					<view class="vline"></view>
@@ -177,11 +182,13 @@
 				</view>
 				<view class="other-container">
 					<view class="item" @tap="showNavigationHandle">
-						<image src="../../static/workbench/other-icon-a.png" mode="widthFix" class="location-icon"></image>
+						<image src="../../static/workbench/other-icon-a.png" mode="widthFix" class="location-icon">
+						</image>
 						<text class="location-text">定位导航</text>
 					</view>
 					<view class="item" @tap="showMoveHandle">
-						<image src="../../static/workbench/other-icon-b.png" mode="widthFix" class="display-icon"></image>
+						<image src="../../static/workbench/other-icon-b.png" mode="widthFix" class="display-icon">
+						</image>
 						<text class="display-text">司乘同显</text>
 					</view>
 					<view class="item" @tap="showOrderHandle">
@@ -189,12 +196,13 @@
 						<text class="order-text">订单详情</text>
 					</view>
 					<view class="item" @tap="callServiceHandle">
-						<image src="../../static/workbench/other-icon-d.png" mode="widthFix" class="service-icon"></image>
+						<image src="../../static/workbench/other-icon-d.png" mode="widthFix" class="service-icon">
+						</image>
 						<text class="service-text">客服热线</text>
 					</view>
 				</view>
 			</scroll-view>
-			
+
 			<!-- 七.开始接单和停止接单 -->
 			<view class="bottom-container" v-show="['开始接单', '停止接单'].includes(workStatus)">
 				<view class="btn" @tap="gohomeHandle()">
@@ -213,166 +221,163 @@
 		</view>
 		<u-top-tips ref="uTips"></u-top-tips>
 		<u-toast ref="uToast" />
-		<u-modal
-			v-model="model.cancelConfirm.show"
-			:title="model.cancelConfirm.title"
-			:content="model.cancelConfirm.content"
-			:show-confirm-button="true"
-			:show-cancel-button="true"
-			@confirm="confirmCancelOrder"
-		></u-modal>
-		<u-modal
-			v-model="model.cancelSuccess.show"
-			:title="model.cancelSuccess.title"
-			:content="model.cancelSuccess.content"
-			:show-confirm-button="true"
-			:show-cancel-button="false"
-		></u-modal>
+		<u-modal v-model="model.cancelConfirm.show" :title="model.cancelConfirm.title"
+			:content="model.cancelConfirm.content" :show-confirm-button="true" :show-cancel-button="true"
+			@confirm="confirmCancelOrder"></u-modal>
+		<u-modal v-model="model.cancelSuccess.show" :title="model.cancelSuccess.title"
+			:content="model.cancelSuccess.content" :show-confirm-button="true" :show-cancel-button="false"></u-modal>
 	</view>
 </template>
 
 <script>
-import {BitStateUtil} from "utils/bitstate.js"
-import GtPush from '../../lib/gtpush-min.js'
-//录音
-let wechatSIPlugin = requirePlugin('WechatSI');
-let dayjs = require('dayjs');
+	import {
+		BitStateUtil
+	} from "utils/bitstate.js"
+	import GtPush from '../../lib/gtpush-min.js'
+	//录音
+	let wechatSIPlugin = requirePlugin('WechatSI');
+	let dayjs = require('dayjs');
 
-//腾讯地图插件
-let QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
+	//腾讯地图插件
+	let QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
 
-let qqmapsdk;
-export default {
-	data() {
-		return {
-			getui:{
-				//个推初始化
-				appid: 'PpBUrcNGiL9fnExoJeCsQ5',
-				cid: '',
-				online: false,
-				messages: '',
-			},
-			//是否实名认证成功
-			realAuthSuccess: false,
-			//司机的今日结算数据
-			summary:{
-				//驾龄
-				driveDuration: 0,
-				//今日收入
-				todayIncome: 0,
-				//订单数量
-				tradeOrders: 0,
-			},
-			//司机当前定位，用户展示地图中心位子
-			location:{
-				latitude: 30.594217,
-				longitude: 104.06163,
-			},
-			//地图控件
-			map: null,
-			//屏幕窗口高度
-			windowHeight: 0,
-			contentStyle: '',
-			//服务图标和文本
-			service: {
-				locationIcon: '../../static/workbench/service-icon-1.png',
-				locationText: '定位正常',
-				locationStyle: '',
-				messageIcon: '../../static/workbench/service-icon-2.png',
-				messageText: '推送正常',
-				messageStyle: '',
-				listenIcon: '../../static/workbench/service-icon-3.png',
-				listenText: '收听订单',
-				listenStyle: '',
-				settingIcon: '../../static/workbench/service-icon-4.png',
-				settingText: '接单设置',
-				settingStyle: ''
-			},
-			//司机的设置
-			settings: {
-				listenService: true,
-				autoAccept: false
-			},
-			//司机当前的工作状态
-			workStatus: uni.getStorageSync('workStatus'),
-			//新订单，当前展示
-			newOrder: null,
-			//订单列表，所有订单
-			newOrderList: [],
-			//当前执行中的订单
-			accpeting:false,
-			executeOrder: {
-				orderNo: '',
-				customerPhoto: '',
-				customerName: '',
-				customerPhone: '',
-				customerId: '',
-				
-				startPlace: '',
-				startLongitude: '',
-				startLatitude: '',
-				
-				endPlace: '',
-				endLongitude: '',
-				endLatitude: '',
-				
-				favourFee: '',
-				carPlate: '',
-				carType: '',
-				createTime: ''
-			},
-			//是否播放语音
-			playFlag: false,
-			//语音播放器
-			voicePlayer: null,
-			//显示弹窗
-			showModel: false,
-			modelTitle: '',
-			modelContent: '',
-			model: {
-				cancelConfirm: {
-					show: false,
-					title: '提示消息',
-					content: '如果不满足订单免费取消规则，只能有偿取消订单，并且可能被禁止接单一段时间，您确认要取消当前订单？'
+	let qqmapsdk;
+	export default {
+		data() {
+			return {
+				getui: {
+					//个推初始化
+					appid: 'PpBUrcNGiL9fnExoJeCsQ5',
+					cid: '',
+					online: false,
+					messages: '',
 				},
-				cancelSuccess: {
-					show: false,
-					title: '提示消息',
-					content: ''
-				}
+				//是否实名认证成功
+				realAuthSuccess: false,
+				//司机的今日结算数据
+				summary: {
+					//驾龄
+					driveDuration: 0,
+					//今日收入
+					todayIncome: 0,
+					//订单数量
+					tradeOrders: 0,
+				},
+				//司机当前定位，用户展示地图中心位子
+				location: {
+					latitude: 30.594217,
+					longitude: 104.06163,
+				},
+				//地图控件
+				map: null,
+				//屏幕窗口高度
+				windowHeight: 0,
+				contentStyle: '',
+				//服务图标和文本
+				service: {
+					locationIcon: '../../static/workbench/service-icon-1.png',
+					locationText: '定位正常',
+					locationStyle: '',
+					messageIcon: '../../static/workbench/service-icon-2.png',
+					messageText: '推送正常',
+					messageStyle: '',
+					listenIcon: '../../static/workbench/service-icon-3.png',
+					listenText: '收听订单',
+					listenStyle: '',
+					settingIcon: '../../static/workbench/service-icon-4.png',
+					settingText: '接单设置',
+					settingStyle: ''
+				},
+				//司机的设置
+				settings: {
+					listenService: true,
+					autoAccept: false
+				},
+				//司机当前的工作状态
+				workStatus: uni.getStorageSync('workStatus'),
+				//新订单，当前展示
+				newOrder: null,
+				//订单列表，所有订单
+				newOrderList: [],
+				//当前执行中的订单
+				accpeting: false,
+				executeOrder: {
+					orderNo: '',
+					customerPhoto: '',
+					customerName: '',
+					customerPhone: '',
+					customerId: '',
+
+					startPlace: '',
+					startLongitude: '',
+					startLatitude: '',
+
+					endPlace: '',
+					endLongitude: '',
+					endLatitude: '',
+
+					favourFee: '',
+					carPlate: '',
+					carType: '',
+					createTime: ''
+				},
+				//是否播放语音
+				playFlag: false,
+				//语音播放器
+				voicePlayer: null,
+				//显示弹窗
+				showModel: false,
+				modelTitle: '',
+				modelContent: '',
+				model: {
+					cancelConfirm: {
+						show: false,
+						title: '提示消息',
+						content: '如果不满足订单免费取消规则，只能有偿取消订单，并且可能被禁止接单一段时间，您确认要取消当前订单？'
+					},
+					cancelSuccess: {
+						show: false,
+						title: '提示消息',
+						content: ''
+					}
+				},
+				//录音相关
+				recordNum: 0,
+				recordManager: null,
+				stopRecord: false,
+				//轮询获取订单的定时器
+				pullOrderTimer: null
+			};
+		},
+
+		methods: {
+			//初始化窗口样式
+			initStyle() {
+				let _this = this;
+				//处理窗口样式
+				let windowHeight = uni.getSystemInfoSync().windowHeight;
+				_this.windowHeight = windowHeight - 200;
+				_this.contentStyle = `height:${_this.windowHeight}px;`;
 			},
-			//录音相关
-			recordNum: 0,
-			recordManager: null,
-			stopRecord: false,
-			//轮询获取订单的定时器
-			pullOrderTimer:null
-		};
-	},
-		
-	methods: {
-		//初始化窗口样式
-		initStyle(){
+			// 跳转认证页面
+			toRealAuth() {
+				uni.navigateTo({
+					url: "/identity/filling/filling"
+				})
+			}
+		},
+		onLoad: function() {
+			//加载进行中的订单
 			let _this = this;
-			//处理窗口样式
-			let windowHeight = uni.getSystemInfoSync().windowHeight;
-			_this.windowHeight = windowHeight-200;
-			_this.contentStyle = `height:${_this.windowHeight}px;`;
-		}
-	},
-	onLoad: function() {
-		//加载进行中的订单
-		let _this = this;
-		_this.initStyle();
-	},
-	onShow: function() {
-		let _this = this;
-	},
-	onHide: function() {
-	}
-};
+			_this.initStyle();
+		},
+		onShow: function() {
+			let _this = this;
+		},
+		onHide: function() {}
+	};
 </script>
 
 <style lang="less">
-@import url('workbench.less');
+	@import url('workbench.less');
 </style>

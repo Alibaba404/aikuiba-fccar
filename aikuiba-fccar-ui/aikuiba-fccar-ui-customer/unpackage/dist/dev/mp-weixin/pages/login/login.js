@@ -158,7 +158,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
+/* WEBPACK VAR INJECTION */(function(uni, wx) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -196,15 +196,50 @@ var _default = {
     },
     wxLogin: function wxLogin() {
       var _this = this;
-      uni.showLoading({
-        title: "登录中..."
+      wx.login({
+        success: function success(res) {
+          //拿到微信授权码
+          var code = res.code;
+          if (code) {
+            var loginParam = {
+              wxCode: code,
+              loginType: _this.Consts.LOGIN.TYPE_CUSTOMER
+            };
+            _this.post('/uaa/app/login/wechat', loginParam, function (res) {
+              console.log('resp', res);
+              var _res$data = res.data,
+                success = _res$data.success,
+                data = _res$data.data,
+                message = _res$data.message;
+              if (success) {
+                console.log('data', data);
+                // 保存相关信息到本地存储
+                uni.setStorageSync('satoken', data.satoken);
+                uni.setStorageSync('nickname', data.login.nickName);
+                uni.setStorageSync('avatar', data.login.avatar);
+                // 页面跳转
+                uni.showToast({
+                  icon: "success",
+                  title: "登录成功"
+                });
+                //跳转工作台页面
+                setTimeout(function () {
+                  // 切换到tab标签
+                  uni.switchTab({
+                    url: "/pages/workbench/workbench"
+                  });
+                }, 2000);
+              }
+            });
+          }
+        }
       });
     }
   },
   onLoad: function onLoad() {}
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ }),
 

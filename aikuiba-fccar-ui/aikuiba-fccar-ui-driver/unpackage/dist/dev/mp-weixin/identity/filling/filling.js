@@ -294,16 +294,6 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var dayjs = __webpack_require__(/*! dayjs */ 94);
 var _default = {
@@ -329,11 +319,11 @@ var _default = {
         //过期时间
         idcardExpire: '',
         //身份证正面:云地址
-        idcardFront: '',
+        idcardFront: '../static/filling/credentials-bg.jpg',
         //身份证背面:云地址
-        idcardBack: '',
+        idcardBack: '../static/filling/credentials-bg.jpg',
         //手持身份证:云地址
-        idcardHolding: ''
+        idcardHolding: '../static/filling/credentials-bg.jpg'
       },
       //联系人
       contact: {
@@ -361,11 +351,11 @@ var _default = {
         //驾驶证过期时间
         drcardExpire: '',
         //驾驶证正面:云地址
-        drcardFront: '',
+        drcardFront: '../static/filling/credentials-bg.jpg',
         //驾驶证背面:云地址
-        drcardBack: '',
+        drcardBack: '../static/filling/credentials-bg.jpg',
         //手持驾驶证:云地址
-        drcardHolding: ''
+        drcardHolding: '../static/filling/credentials-bg.jpg'
       },
       //记录所有云文件地址，用作删除
       allCosImg: [],
@@ -378,6 +368,12 @@ var _default = {
     //提交认证材料
     save: function save() {
       var _this = this;
+      var obj = {
+        idcard: _this.idcard,
+        drcard: _this.drcard,
+        contact: _this.contact
+      };
+      console.log('保存信息...', obj);
     },
     //输入联系人信息
     enterContent: function enterContent(title, field) {
@@ -387,7 +383,7 @@ var _default = {
         editable: true,
         content: _this.contact[field],
         success: function success(res) {
-          _this.contact[field] = res.content;
+          if (res.content) _this.contact[field] = res.content || "";
         }
       });
     },
@@ -401,21 +397,116 @@ var _default = {
     //拍照页面图片回传
     uploadPhoto: function uploadPhoto(type, photoPath) {
       var _this = this;
+      if ("idcardHolding" == type) {
+        _this.idcard.idcardHolding = photoPath;
+      } else if ('drcardHolding' == type) {
+        _this.drcard.drcardHolding = photoPath;
+      }
+    },
+    //驾驶证背面
+    scanDrcardBack: function scanDrcardBack(res) {
+      var _this = this;
+      var result = res.detail;
+      console.log('驾驶证背面:', result);
+      if (result) {
+        // // 图片上云
+        _this.upload(_this.Consts.URL.UPLOAD_MNINIO, result.image_path, {
+          model: 'driver'
+        }, function (resp) {
+          console.log('Upload file success', resp.data);
+          var _JSON$parse = JSON.parse(resp.data),
+            success = _JSON$parse.success,
+            message = _JSON$parse.message,
+            data = _JSON$parse.data;
+          if (success) {
+            //驾驶证背面:云地址
+            _this.drcard.drcardBack = data;
+          }
+        });
+      }
     },
     //驾驶证正面
     scanDrcardFront: function scanDrcardFront(res) {
       var _this = this;
       var result = res.detail;
+      console.log('驾驶证正面:', result);
+      if (result) {
+        // // 图片上云
+        _this.upload(_this.Consts.URL.UPLOAD_MNINIO, result.image_path, {
+          model: 'driver'
+        }, function (resp) {
+          console.log('Upload file success', resp.data);
+          var _JSON$parse2 = JSON.parse(resp.data),
+            success = _JSON$parse2.success,
+            message = _JSON$parse2.message,
+            data = _JSON$parse2.data;
+          if (success) {
+            //颁发时间
+            _this.drcard.drcardIssueDate = result.issue_date.text;
+            //驾驶证类型
+            _this.drcard.carClass = result.car_class.text;
+            //驾驶证过期时间
+            _this.drcard.drcardExpire = result.valid_to.text;
+            //驾驶证正面:云地址
+            _this.drcard.drcardFront = data;
+          }
+        });
+      }
     },
     //身份证背面识别
     scanIdcardBack: function scanIdcardBack(res) {
       var _this = this;
       var result = res.detail;
+      console.log('身份证背面识别结果:', result);
+      if (result) {
+        //身份证ID
+        console.log('BASE URL:', _this.Consts);
+        // // 图片上云
+        _this.upload(_this.Consts.URL.UPLOAD_MNINIO, result.image_path, {
+          model: 'driver'
+        }, function (resp) {
+          console.log('Upload file success', resp.data);
+          var _JSON$parse3 = JSON.parse(resp.data),
+            success = _JSON$parse3.success,
+            message = _JSON$parse3.message,
+            data = _JSON$parse3.data;
+          if (success) {
+            //身份证背面
+            _this.idcard.idcardBack = data;
+            // 有效期
+            _this.idcard.idcardExpire = result.valid_date.text;
+          }
+        });
+      }
     },
     //身份证识别回调
     scanIdcardFront: function scanIdcardFront(res) {
       var _this = this;
       var result = res.detail;
+      console.log('身份证正面识别结果:', result);
+      if (result) {
+        //身份证ID
+        _this.idcard.idNumber = result.id.text;
+        _this.idcard.name = result.name.text;
+        _this.idcard.sex = result.gender.text;
+        _this.idcard.idcardAddress = result.address.text;
+        _this.idcard.birthday = result.birth.text;
+        console.log('BASE URL:', _this.Consts);
+        // 图片上云
+        _this.upload(_this.Consts.URL.UPLOAD_MNINIO, result.image_path, {
+          model: 'driver'
+        }, function (resp) {
+          console.log('Upload file success', resp.data);
+          var _JSON$parse4 = JSON.parse(resp.data),
+            success = _JSON$parse4.success,
+            message = _JSON$parse4.message,
+            data = _JSON$parse4.data;
+          if (success) {
+            //身份证正面
+            _this.idcard.idcardFront = data;
+          }
+        });
+      }
     },
     //文件上传
     uploadFile: function uploadFile(imagePath, num, callback) {

@@ -290,6 +290,7 @@ import $ from "jquery";
 import request from "../utils/request";
 import Update from "./driver-update.vue";
 import { ElMessage } from "element-plus";
+import { ref } from "vue";
 export default {
   components: {
     Update,
@@ -373,10 +374,9 @@ export default {
         agreementSn: "",
         agreementPathSigned: "",
       },
-      // 司机们
-      drivers: [],
+      drivers: [], // 司机们
       fileList: [], //文件上传
-      imgBaseUrl: "http://47.109.72.16:9090/aikuiba-fccar/", // 图片前置url
+      imgBaseUrl: "http://files.aikuiba.cn:9090/aikuiba-fccar/", // 图片前置url
       satoken: "",
     };
   },
@@ -385,12 +385,21 @@ export default {
      * 加载司机列表
      */
     loadDrivers() {
-      this.post("/driver/manager/driver/list", (resp) => {
-        console.log("===>", resp);
+      this.post("/driver/manager/driver/listAll", (resp) => {
+        let { success, data } = resp;
+        if (success) {
+          this.drivers = data;
+        }
       });
     },
+    /**
+     * 确认上传合同
+     */
     confirmUploadDriverArgreement() {
-      console.log("===>", this.driverContract);
+      console.log("this.driverContract", this.driverContract);
+      if (this.driverContract) {
+        // this.post("/driver/manager/driverAgreement")
+      }
     },
     /**
      * 删除Minio图片文件

@@ -68,14 +68,17 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
         // 使用自封装的微信工具
         MiniProgramOpenIdResult openidResult = weChatTemplate.getOpenid(dto.getLoginCode());
         // 如果想链式调用就必须在后面泛型加Customer
-        LambdaQueryWrapper<Customer> query = new LambdaQueryWrapper<Customer>().eq(Customer::getOpenId, openidResult.getOpenid());
+        LambdaQueryWrapper<Customer> query = new LambdaQueryWrapper<Customer>()
+                .eq(Customer::getOpenId, openidResult.getOpenid());
         Customer customerInDb = super.getOne(query);
         //判断是否openid已注册
         AssertUtil.isNull(customerInDb, ErrorCode.PARAM_PHONE_EXIST);
         // 获取微信用户手机号码
         PhoneNumberResult phoneNumberResult = weChatTemplate.getPhoneNumber(dto.getPhoneCode());
-        // 手机号码
-        String phoneNumber = phoneNumberResult.getPhone_info().getPurePhoneNumber();
+        // 手机号码,测试没有权限获取,这里写死
+        // String phoneNumber = phoneNumberResult.getPhone_info().getPurePhoneNumber();
+        String phoneNumber = "19981259717";
+
         // 保存司机及司机相关数据
         Long customerId = addCustomerAbout(openidResult.getOpenid(), phoneNumber);
         //7.保存司机登录信息

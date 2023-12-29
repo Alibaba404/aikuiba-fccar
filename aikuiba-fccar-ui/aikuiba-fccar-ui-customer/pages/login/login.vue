@@ -31,9 +31,45 @@
 			},
 			wxLogin() {
 				let _this = this;
-				uni.showLoading({
-					title: "登录中..."
-				});
+				wx.login({
+					success(res) {
+						//拿到微信授权码
+						let code = res.code;
+						if (code) {
+							let loginParam = {
+								wxCode: code,
+								loginType: _this.Consts.LOGIN.TYPE_CUSTOMER
+							}
+							_this.post('/uaa/app/login/wechat', loginParam, (res) => {
+								console.log('resp', res);
+								let {
+									success,
+									data,
+									message
+								} = res.data;
+								if (success) {
+									console.log('data', data);
+									// 保存相关信息到本地存储
+									uni.setStorageSync('satoken', data.satoken);
+									uni.setStorageSync('nickname', data.login.nickName);
+									uni.setStorageSync('avatar', data.login.avatar);
+									// 页面跳转
+									uni.showToast({
+										icon: "success",
+										title: "登录成功"
+									})
+									//跳转工作台页面
+									setTimeout(() => {
+										// 切换到tab标签
+										uni.switchTab({
+											url: "/pages/workbench/workbench"
+										})
+									}, 2000)
+								}
+							})
+						}
+					}
+				})
 			},
 		},
 		onLoad: function() {}

@@ -40,6 +40,9 @@ Vue.prototype.Consts = {
 	API: {
 		CUSTOMER_REGISTER: "/customer/app/customer/register", //乘客注册接口
 	},
+	LOGIN: {
+		TYPE_CUSTOMER: 2 // 登录为乘客
+	}
 }
 
 

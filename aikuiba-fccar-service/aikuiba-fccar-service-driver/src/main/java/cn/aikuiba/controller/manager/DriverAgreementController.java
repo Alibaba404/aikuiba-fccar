@@ -1,6 +1,7 @@
 package cn.aikuiba.controller.manager;
 
 import cn.aikuiba.pojo.domain.DriverAgreement;
+import cn.aikuiba.pojo.dto.UploadAgreementDTO;
 import cn.aikuiba.pojo.query.PageQueryWrapper;
 import cn.aikuiba.result.JSONResult;
 import cn.aikuiba.result.PageResult;
@@ -95,6 +96,14 @@ public class DriverAgreementController {
     public JSONResult<PageResult<DriverAgreement>> pageData(@RequestBody PageQueryWrapper<DriverAgreement> query) {
         //返回结果
         return JSONResult.success(driverAgreementService.pageData(query));
+    }
+
+    @Operation(summary = "司机合同上传", description = "司机合同上传")
+    @Parameter(name = "dto", description = "合同上传对象", required = true)
+    @PostMapping("/uploadSingedAgreement")
+    public JSONResult<Valid> uploadSingedAgreement(@RequestBody @Valid UploadAgreementDTO dto) {
+        driverAgreementService.uploadSingedAgreement(dto);
+        return JSONResult.success();
     }
 
 }

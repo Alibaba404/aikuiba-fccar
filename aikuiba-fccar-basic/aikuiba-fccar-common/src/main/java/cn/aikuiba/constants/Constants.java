@@ -36,9 +36,33 @@ public class Constants {
     }
 
     public class Minio {
-        public static final String KEY_ACCESS = "minioadmin";
-        public static final String KEY_SECRET = "minioadmin123?";
-        public static final String ADDRESS = "http://47.109.72.16:9090";
-        public static final String BUCKET = "aikuiba-fccar";
+        public static final String KEY_ACCESS = "aikuiba";
+        public static final String KEY_SECRET = "aikuiba2023.?";
+        public static final String ADDRESS = "http://files.aikuiba.cn:9090/";
+        public static final String BUCKET_NAME = "aikuiba-fccar";
+    }
+
+    /**
+     * 阿里云
+     */
+    public class Ali {
+        public static final String OSS_REGION = "oss-cn-chengdu.aliyuncs.com";
+        public static final String OSS_ACCESS_KEY_ID = "LTAI5tNKcqfuX4HeT9pCQDYQ";
+        public static final String OSS_ACCESS_KEY_SECRET = "CNgSe7lKl38iH7jaljLgJvpUT6nOvQ";
+        public static final String OSS_ENDPOINT_URL = "http://" + OSS_REGION;
+        public static final String OSS_BUCKET_NAME = "aikuiba-fccar";
+        public static final String OSS_BASE_URL = String.format("https://%s.%s/", OSS_BUCKET_NAME, OSS_REGION);
+    }
+
+    public class Driver {
+        //签署状态：0未生成，1已生成，2已寄出，3成功签署，4签署失败
+        public static final Integer AGREEMENT_SIGNED_STATUS_NO = 0;
+        public static final Integer AGREEMENT_SIGNED_STATUS_CREATED = 1;
+        public static final Integer AGREEMENT_SIGNED_STATUS_SEND = 2;
+        public static final Integer AGREEMENT_SIGNED_STATUS_SIGNED = 3;
+        public static final Integer AGREEMENT_SIGNED_STATUS_SIGNED_FAILED = 4;
+        // 合同状态:0-有效,1-作废
+        public static final Integer AGREEMENT_STATUS_SUCCESS = 0;
+        public static final Integer AGREEMENT_STATUS_DISABLED = 1;
     }
 }

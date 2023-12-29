@@ -160,6 +160,7 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
@@ -181,28 +182,44 @@ var _default = {
     },
     //拍照按钮
     clickBtn: function clickBtn() {
-      var _this = this;
+      var _this2 = this;
       var ctx = uni.createCameraContext();
       ctx.takePhoto({
         quality: 'high',
         success: function success(res) {
-          _this.photoPath = res.tempImagePath;
-          _this.showCamera = false;
-          _this.showImage = true;
+          _this2.photoPath = res.tempImagePath;
+          _this2.showCamera = false;
+          _this2.showImage = true;
         }
       });
     },
     //确认上传
     uploadBtn: function uploadBtn() {
-      //获取到所有页面
-      var pages = getCurrentPages();
-      //上一个页面
-      var prevPage = pages[pages.length - 2];
-      //调用上一页的 uploadPhoto 方法
-      prevPage.$vm.uploadPhoto(this.type, this.photoPath);
-      //退回上一个页面
-      uni.navigateBack({
-        delta: 1
+      var _this3 = this;
+      // 图片上云
+      var _this = this;
+      _this.upload(_this.Consts.URL.UPLOAD_MNINIO, _this.photoPath, {
+        model: 'driver'
+      }, function (resp) {
+        console.log('Upload file success', resp.data);
+        var _JSON$parse = JSON.parse(resp.data),
+          success = _JSON$parse.success,
+          message = _JSON$parse.message,
+          data = _JSON$parse.data;
+        if (success) {
+          // 手持身份证的地址
+          _this.photoPath = data;
+          //获取到所有页面
+          var pages = getCurrentPages();
+          //上一个页面
+          var prevPage = pages[pages.length - 2];
+          //调用上一页的 uploadPhoto 方法
+          prevPage.$vm.uploadPhoto(_this3.type, _this.photoPath);
+          //退回上一个页面
+          uni.navigateBack({
+            delta: 1
+          });
+        }
       });
     },
     error: function error(e) {}
